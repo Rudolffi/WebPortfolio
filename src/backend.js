@@ -1,16 +1,44 @@
 
-const express = require('express');
-const url = require('url');
-const mysql = require('mysql');
+const express = require('express')
+const url = require('url')
+const mysql = require('mysql')
 const path = require('path')
+const util = require('util')
 
 const conn = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "example_db"
-});
-const app = express();
+  database: "portfolio"
+})
+const app = express()
+const query = util.promisify(conn.query).bind(conn)
+
+app.get("/api/db", function (req, res){
+  const q = url.parse(req.url, true).query
+  const user = q.user
+  const pwd = q.pwd
+  const sql = 'select projects.title, projects.descr, projects.img, users.username' +
+      ' from projects, users';
+
+  (async () => { // IIFE (Immediately Invoked Function Expression)
+    try {
+      const rows = await query(sql);
+      res.send(rows)
+     // console.log(rows)
+    }
+    catch (err) {
+      console.log("Database error!"+ err);
+    }
+    finally {
+      //conn.end();
+    }
+  })()
+})
+
+app.use(express.json())
+app.listen(8080, () => console.log('Listening on port 8080'))
+
 /*
 app.get("/api/helsinki", function (req, res){
   const q = url.parse(req.url, true).query;
