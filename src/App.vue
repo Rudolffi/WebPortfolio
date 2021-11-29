@@ -6,8 +6,7 @@
 </template>
 
 <script>
-// Testi
-// Moi sanna
+
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
