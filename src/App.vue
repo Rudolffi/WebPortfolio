@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar/>
     <Information/>
+    <Tausta/>
   </div>
 </template>
 
@@ -10,13 +11,16 @@
 import Information from './components/Information.vue'
 import Navbar from './components/Navbar.vue'
 
+import Tausta from './components/Tausta.vue'
 
 export default {
   name: 'App',
   components: {
+    Information,
+
     Navbar,
-    Information
-  }
+    Tausta
+  },
 }
 </script>
 
