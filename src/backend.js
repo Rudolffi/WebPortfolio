@@ -7,8 +7,8 @@ const util = require('util');
 
 const conn = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "",
+  user: "olso",
+  password: "olso",
   database: "portfolio"
 })
 const app = express();
