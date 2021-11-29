@@ -1,20 +1,21 @@
+
 .big_box {
     width: 100%;
     text-align: center;
     margin-left: 5px;
+    margin-top: 160px;
+    position: absolute;
 }
 #boxone {
     width: 49.5%;
     float: left;
-    border: 1px solid #000;
+    border: 1px solid black;
 }
 
 #boxtwo {
     width: 49.5%;
     float: left;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    border-right: 1px solid #000;
+    border: 1px solid black;
 
 }
 .clear {
@@ -24,6 +25,8 @@
 h1 {
     text-align: left;
     margin-left: 5px;
+    margin-top: 110px;
+    position: absolute;
 }
 
 
