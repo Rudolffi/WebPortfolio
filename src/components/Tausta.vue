@@ -3,18 +3,14 @@
 </template>
 
 <script>
+import * as pallo from '../pallot/canvas.js';
 export default {
   name: "Tausta",
-
   mounted() {
-    /*
-    const s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.src = './pallot/canvas.js';
-    document.body.appendChild(s);
-     */
+    pallo.init();
   },
 }
+//import '../pallot/canvas.js'
 </script>
 
 <style scoped>
