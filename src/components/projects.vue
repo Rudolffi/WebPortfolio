@@ -1,7 +1,9 @@
 <template>
-  <h2 id="title"></h2>
-  <img id="pic" src="">
-  <p id="desc"></p>
+  <div>
+    <h2 id="title"></h2>
+    <img id="pic" src="">
+    <p id="desc"></p>
+  </div>
 </template>
 
 <script>
