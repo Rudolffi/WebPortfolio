@@ -1,0 +1,28 @@
+.big_box {
+    width: 100%;
+    text-align: center;
+    margin-left: 5px;
+}
+#boxone {
+    width: 49.5%;
+    float: left;
+    border: 1px solid #000;
+}
+
+#boxtwo {
+    width: 49.5%;
+    float: left;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+
+}
+.clear {
+    clear: both
+}
+
+h1 {
+    text-align: center;
+}
+
+
