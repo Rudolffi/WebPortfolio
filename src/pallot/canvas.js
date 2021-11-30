@@ -4,7 +4,6 @@ const particlesArray = [];
 let hue = 0;
 let light = 0;
 
-
 const mouse = {
     x: null,
     y: null,
@@ -39,7 +38,7 @@ class Particle {
         this.speedY = Math.random() * 3 - 1.5;
         this.color = 'hsl(' + hue + ',0.2%, 100%';
         this.color = 'rgba(0,0,0,0.2)';
-        this.color = 'rgba(255,255,255,0.2)';
+        //this.color = 'rgba(255,255,255,0.2)';
         console.log(this.color);
     }
     update(){
@@ -84,7 +83,7 @@ function handleParticles(){
                 if(!particlesArray[i].connections.includes(particlesArray[j])){
                     particlesArray[i].connections = [...particlesArray[i].connections, particlesArray[j]];
                     ctx.beginPath();
-                    ctx.strokeStyle = 'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                    ctx.strokeStyle = 'rgb(255,0,217)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     ctx.lineWidth = particlesArray[i].size/10;
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                     ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
@@ -106,6 +105,7 @@ function handleParticles(){
 function animate(){
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     handleParticles();
     hue++;

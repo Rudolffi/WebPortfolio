@@ -14,8 +14,5 @@ export default {
 </script>
 
 <style scoped>
-  #gamecanvas{
-    width: 100%;
-    height: 100%;
-  }
+@import './../css/tausta.css';
 </style>

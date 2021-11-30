@@ -1,26 +1,21 @@
 <template>
   <div id="app">
-    <Navbar/>
-    <Information/>
-    <Tausta/>
+    <HelloWorld/>
   </div>
 </template>
 
 <script>
 
-import Information from './components/Information.vue'
-import Navbar from './components/Navbar.vue'
-
-import Tausta from './components/Tausta.vue'
+import HelloWorld from '../../components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    Information,
-
-    Navbar,
-    Tausta
+    HelloWorld,
   },
+  mounted() {
+    console.log("APUA");
+  }
 }
 </script>
 
@@ -31,5 +26,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: black;
 }
 </style>
