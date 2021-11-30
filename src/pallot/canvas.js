@@ -37,7 +37,7 @@ class Particle {
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
         this.color = 'hsl(' + hue + ',0.2%, 100%';
-        this.color = 'rgba(0,0,0,0.2)';
+        this.color = 'rgba(30,30,30,0.2)';
         //this.color = 'rgba(255,255,255,0.2)';
         console.log(this.color);
     }
@@ -104,8 +104,8 @@ function handleParticles(){
 }
 function animate(){
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    //ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.fillStyle = 'rgba(30,30,30,0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     handleParticles();
     hue++;
