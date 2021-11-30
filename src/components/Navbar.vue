@@ -1,22 +1,22 @@
 <template>
 <div>
-  <nav class="navbar">
-    <div class="content">
-      <div class="logo">Portfolio</div>
-      <ul class="menu-links">
-        <div class="icon cancel-btn">
-          <i class="fas fa-times"></i>
-        </div>
-        <li id="storyLink"><a href="#story">About</a></li>
-        <li id="infoLink"><a href="#info">Skills</a></li>
-        <li id="rsvpLink"><a href="#rsvp">Projects</a></li>
-        <!--<li id="contactLink"><a href="#contactUs">Yhteystiedot</a></li>-->
-      </ul>
-      <div class="icon menu-btn">
-        <i class="fas fa-bars"></i>
-      </div>
+  <ul class="nav">
+    <h3>
+      Portfolio
+    </h3>
+    <div class="navbar">
+    <li class="navitem">
+      <a href="#" class="navlink">About</a>
+    </li>
+    <li class="navitem">
+      <a href="#" class="navlink">Skills</a>
+    </li>
+    <li class="navitem">
+      <a href="#" class="navlink">Projects</a>
+    </li>
     </div>
-  </nav>
+
+  </ul>
 </div>
 </template>
 
