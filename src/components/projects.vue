@@ -45,7 +45,7 @@ export default {
   }
   .pic{
     float: left;
-    width: 10%;
+    width: 30%;
   }
   .desc{
     text-align: left;
@@ -56,12 +56,12 @@ export default {
     flex-direction: row;
   }
   article{
+    width: 50%;
     border: 2px solid rgb(47, 47, 47);
     box-shadow: 0px 0px 25px rgb(47, 47, 47);
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
     padding: 2px;
-    margin: 1px;
     box-sizing: border-box;
     display: inline-block;
     overflow: hidden;

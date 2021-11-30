@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <a href="new.html">AFNafoufbjbjb</a>
     <Navbar/>
     <Information/>
     <Tausta/>
