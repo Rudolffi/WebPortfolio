@@ -3,16 +3,20 @@
     <h1>Ryhmä 8</h1>
     <div class="big_box">
       <div id="boxone">
+        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Ab blanditiis maiores quas voluptatibus. Alias consequatur
         esse et illum incidunt nam nisi pariatur quae rem unde? Beatae
         facilis incidunt voluptatem voluptatibus!
+        </p>
       </div>
       <div id="boxtwo">
+        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Ab aperiam consequuntur cum deleniti dignissimos,
         dolores eligendi fugiat ipsum iure iusto maiores minima
         non obcaecati odit provident sapiente similique suscipit ullam!
+        </p>
       </div>
     </div>
   </div>
