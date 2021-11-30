@@ -1,0 +1,50 @@
+#projectbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.pic{
+    float: left;
+    width: 40%;
+    height: 200px;
+}
+.desc{
+    text-align: left;
+}
+section{
+    border: 2px solid rgb(47, 47, 47);
+    display: flex; /* or inline-flex */
+    flex-direction: row;
+}
+article{
+    width: 50%;
+    background-color: rgba(45, 45, 48, 0.5);
+    border-radius: 5px;
+    padding: 2px;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.title {
+    color: #44c7b0
+}
+
+@media screen and (max-width: 750px) {
+    #projectbox{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    article{
+        width: 100%;
+        background-color: rgba(45, 45, 48, 0.5);
+        border-radius: 5px;
+        padding: 2px;
+        box-sizing: border-box;
+        display: inline-block;
+        overflow: hidden;
+    }
+}
+
+

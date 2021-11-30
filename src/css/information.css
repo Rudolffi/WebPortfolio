@@ -9,13 +9,17 @@
 #boxone {
     width: 49.5%;
     float: left;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    background-color: rgba(45, 45, 48, 0.5);
 }
 
 #boxtwo {
     width: 49.5%;
     float: left;
-    border: 1px solid black;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(45, 45, 48, 0.5);
 
 }
 .clear {
@@ -32,6 +36,7 @@ h1 {
 
 p {
     color: #c7c2c2;
+    padding: 2px;
 }
 
 
