@@ -13,6 +13,7 @@ import Information from '../../components/Information.vue'
 import Navbar from '../../components/Navbar.vue'
 import Tausta from '../../components/Tausta.vue'
 import projects from '../../components/projects.vue'
+import EditButton from '../../components/EditButton.vue'
 
 export default {
   name: 'App',
@@ -20,7 +21,7 @@ export default {
     Information,
     Navbar,
     projects,
-    Tausta
+    Tausta,
   },
 }
 </script>
