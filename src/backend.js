@@ -18,14 +18,13 @@ app.get("/api/db", function (req, res){
   const q = url.parse(req.url, true).query;
   const user = q.user;
   const pwd = q.pwd;
-  const sql = 'select projects.title, projects.descr, projects.img, users.username' +
-      ' from projects, users';
+  const sql = 'select projects.title, projects.descr, projects.img from projects';
 
   (async () => { // IIFE (Immediately Invoked Function Expression)
     try {
       const rows = await query(sql);
       res.send(rows);
-     // console.log(rows);
+      console.log(rows);
     }
     catch (err) {
       console.log("Database error!"+ err);
@@ -37,7 +36,7 @@ app.get("/api/db", function (req, res){
 });
 
 app.use(express.json());
-app.listen(8080, () => console.log('Listening on port 8080'));
+app.listen(8080, () => console.log('Listening at http://localhost:8080/api/db'));
 
 /*
 app.get("/api/helsinki", function (req, res){
