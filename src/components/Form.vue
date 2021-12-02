@@ -1,17 +1,17 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form method="POST" action="http://localhost:8080/api/db">
     <article>
       <section>
         <label>Title</label>
-        <input v-model="title" placeholder="Project Title" type="text"/>
+        <input v-model="title" placeholder="Project Title" type="text" name="title"/>
       </section>
       <section>
         <label>Link</label>
-        <input v-model="link" placeholder="Project Web-page" type="text"/>
+        <input v-model="link" placeholder="Project Web-page" type="text" name="repo"/>
       </section>
       <section>
         <label>Description</label>
-        <textarea v-model="description" placeholder="Project Description" type="text"/>
+        <textarea v-model="description" placeholder="Project Description" type="text" name="descr"/>
       </section>
       <section>
         <label>Image</label>

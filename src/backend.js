@@ -4,21 +4,26 @@ const url = require('url');
 const mysql = require('mysql');
 const path = require('path');
 const util = require('util');
+const bodyParser = require('body-parser');
 
+const app = express();
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+
+//yhteys
 const conn = mysql.createConnection({
   host: "localhost",
   user: "olso",
   password: "olso",
   database: "portfolio"
 })
-const app = express();
+
 const query = util.promisify(conn.query).bind(conn);
 
+// GET
 app.get("/api/db", function (req, res){
   const q = url.parse(req.url, true).query;
-  const user = q.user;
-  const pwd = q.pwd;
-  const sql = 'select projects.title, projects.descr, projects.img from projects';
+  const sql = 'select projects.title, projects.descr, projects.repo, projects.img from projects';
 
   (async () => { // IIFE (Immediately Invoked Function Expression)
     try {
@@ -29,75 +34,30 @@ app.get("/api/db", function (req, res){
     catch (err) {
       console.log("Database error!"+ err);
     }
-    finally {
-      //conn.end();
-    }
+    finally {}
   })()
 });
 
+// SET
+app.post('/api/db', urlencodedParser, function(req, res){
+  console.log(req.body);
+/*
+  const sqlPUT = 'insert into projects values(null, "'
+      + req.body.title + '", "'
+      + req.body.descr + ', "'
+      + req.body.motto + '")';
+
+  (async () => {  // IIFE (Immediately Invoked Function Expression)
+    try {
+      await query(sqlPUT);
+      res.send('POST succesful!!')
+    } catch (err) {
+      res.send("POST was not succesful... " + err);
+    } finally {}
+  })()
+*/
+})
+
+
 app.use(express.json());
 app.listen(8080, () => console.log('Listening at http://localhost:8080/api/db'));
-
-/*
-app.get("/api/helsinki", function (req, res){
-  const q = url.parse(req.url, true).query;
-  const startDate = q.start;
-  const endDate = q.end;
-  const sql = "SELECT event_date.Date, event.Name, event.Type, Location.Location_name"
-      + " FROM event_date, event, location"
-      + " WHERE event_date.Event_id = event.Event_id and event.Location_Location_id = Location.Location_id"
-      + " and event_date.Date >= ? and event_date.Date <= ?"
-      + " GROUP BY Name"
-      + " ORDER BY event_date.Date";
-
-  var util = require('util'); // for async calls
-  // node native promisify
-  const query = util.promisify(conn.query).bind(conn); // is bind needed?
-
-  (async () => { // IIFE (Immediately Invoked Function Expression)
-    try {
-      const rows = await query(sql,[startDate, endDate]);
-      res.send(rows)
-    }
-    catch (err) {
-      console.log("Database error!"+ err);
-    }
-    finally {
-      //conn.end();
-    }
-  })()
-})
-
-// nodetehtävä 8
-app.get("/api/helsinki/location", function (req, res){
-  const q = url.parse(req.url, true).query;
-  const locName = q.name;
-  const sql = "SELECT * FROM location WHERE Location_name = ?"
-
-  var util = require('util'); // for async calls
-  // node native promisify
-  const query = util.promisify(conn.query).bind(conn); // is bind needed?
-
-  (async () => { // IIFE (Immediately Invoked Function Expression)
-    try {
-      const rows = await query(sql,[locName]);
-      res.send(rows)
-    }
-    catch (err) {
-      console.log("Database error!"+ err);
-    }
-    finally {
-      //conn.end();
-    }
-  })()
-})
-
-// tämä tärkeä
-app.get("/helsinki", function (req, res){
-  res.sendFile(path.join(__dirname + "/listofevents.html"));
-})
-
-app.use(express.json())
-//app.use(cors())
-
-app.listen(8080, () => console.log('Listening on port 8080'));*/
