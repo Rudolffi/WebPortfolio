@@ -7,17 +7,20 @@
     </h3>
     <div class="navbar">
     <li class="navitem">
-      <a href="#" class="navlink">About</a>
+      <a href="#" id="one" class="navlink">About</a>
     </li>
     <li class="navitem">
-      <a href="#" class="navlink">Skills</a>
+      <a href="#" id="two" class="navlink">Skills</a>
     </li>
     <li class="navitem">
-      <a href="#" class="navlink">Projects</a>
+      <a href="#" id="three" class="navlink">Projects</a>
     </li>
     </div>
-
+  <div>
+    <img class="icon" id="menu-btn" src="../assets/menu.png" alt="Hampparimenu">
+  </div>
   </ul>
+
 </div>
 </template>
 
@@ -30,6 +33,8 @@ export default {
 
 // Get the navbar
     var navbar = document.getElementById("nav");
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.querySelector(".navbar");
 
 // Get the offset position of the navbar
     var sticky = navbar.offsetTop;
@@ -41,6 +46,10 @@ export default {
       } else {
         navbar.classList.remove("sticky");
       }
+    }
+    menuBtn.onclick = ()=> {
+      menu.classList.add("active");
+      menuBtn.classList.add("hide");
     }
   }
 }
