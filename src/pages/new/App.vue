@@ -31,6 +31,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #c7c2c2;
-  display: inline-block;
+}
+body{
+  margin: 0;
+  top: 0;
+  left: 0;
 }
 </style>

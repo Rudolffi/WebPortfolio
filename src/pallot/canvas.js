@@ -15,9 +15,9 @@ export function init(){
     ctx = canvas.getContext('2d');
 
     let body = document.getElementById('app');
-    canvas.width = body.offsetWidth;
+    canvas.width = body.getBoundingClientRect().width;
     canvas.height = body.offsetHeight +500;
-    console.log('Last update' + body.offsetHeight);
+    console.log('Last update' + body.getBoundingClientRect().width);
     body.addEventListener('click', function(event){
         mouse.x = event.x;
         mouse.y = event.y;
@@ -86,6 +86,7 @@ function handleParticles(){
                 if(!particlesArray[i].connections.includes(particlesArray[j])){
                     particlesArray[i].connections = [...particlesArray[i].connections, particlesArray[j]];
                     ctx.beginPath();
+                    //ctx.strokeStyle = 'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     ctx.strokeStyle = 'rgb(104,33,122)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     ctx.lineWidth = particlesArray[i].size/10;
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
