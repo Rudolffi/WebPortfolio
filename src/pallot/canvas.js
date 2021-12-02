@@ -8,23 +8,26 @@ const mouse = {
     x: null,
     y: null,
 }
+
 export function init(){
+
     canvas = document.getElementById('gamecanvas');
     ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    window.addEventListener('click', function(event){
+
+    let body = document.getElementById('app');
+    canvas.width = body.offsetWidth;
+    canvas.height = body.offsetHeight +500;
+    console.log('Last update' + body.offsetHeight);
+    body.addEventListener('click', function(event){
         mouse.x = event.x;
         mouse.y = event.y;
     });
-    window.addEventListener('mousemove', function(event){
-        mouse.x = event.x;
-        mouse.y = event.y;
+    body.addEventListener('mousemove', function(event){
+        mouse.x = event.pageX;
+        mouse.y = event.pageY;
         spawn();
     });
     window.addEventListener('resize', function(){
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
     });
     animate();
 }
@@ -83,7 +86,7 @@ function handleParticles(){
                 if(!particlesArray[i].connections.includes(particlesArray[j])){
                     particlesArray[i].connections = [...particlesArray[i].connections, particlesArray[j]];
                     ctx.beginPath();
-                    ctx.strokeStyle = 'rgb(255,0,217)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                    ctx.strokeStyle = 'rgb(104,33,122)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     ctx.lineWidth = particlesArray[i].size/10;
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                     ctx.lineTo(particlesArray[j].x, particlesArray[j].y);

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
+    <Tausta/>
     <Navbar/>
     <Information/>
-    <Tausta/>
     <projects/>
   </div>
 </template>
@@ -33,6 +33,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #1e1e1e;
+  background-color: rgba(30, 30, 30, 0);
 }
 </style>

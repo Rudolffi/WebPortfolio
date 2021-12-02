@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="information">
     <h1>Ryhmä 8</h1>
     <div class="big_box">
       <div id="boxone">
