@@ -1,17 +1,19 @@
 <template>
-  <div id="information">
-    <h1>Ryhmä 8</h1>
-    <div class="big_box">
-      <div id="boxone">
-        <p>
+  <div id="light-information">
+    <h1 class="light-header">Ryhmä 8</h1>
+    <div class="light-big_box">
+      <div id="light-boxone">
+        <h3 class="light-boxtitle">About</h3>
+        <p class="light-para">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Ab blanditiis maiores quas voluptatibus. Alias consequatur
         esse et illum incidunt nam nisi pariatur quae rem unde? Beatae
         facilis incidunt voluptatem voluptatibus!
         </p>
       </div>
-      <div id="boxtwo">
-        <p>
+      <div id="light-boxtwo">
+        <h3 class="light-boxtitle">Skills</h3>
+        <p class="light-para">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         Ab aperiam consequuntur cum deleniti dignissimos,
         dolores eligendi fugiat ipsum iure iusto maiores minima

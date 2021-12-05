@@ -13,7 +13,7 @@
     border-radius: 0 0 8px 8px;
     height: 50px;
     z-index: 1;
-    border-bottom: solid #68217a;
+    border-bottom: solid #9D16E0FF;
     overflow-x: hidden;
 }
 
@@ -46,7 +46,7 @@
     right: 100%;
     width: 50%;
     height: 2px;
-    background: #68217a;
+    background: #9D16E0FF;
     transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -57,12 +57,12 @@
     left: 100%;
     width: 50%;
     height: 2px;
-    background: #68217a;
+    background: #9D16E0FF;
     transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .navlink:hover {
-    color: #68217a;
+    color: #9D16E0FF
 }
 
 .navlink:hover:before {
@@ -72,7 +72,7 @@
 .navlink:hover:after {
     left: 0;
 }
-h3 {
+.header {
     display: flex;
     font-weight: 500;
     font-size: 20px;
@@ -116,8 +116,8 @@ h3 {
         text-align: left;
         transition: all 0.3s ease;
         z-index: 5;
-        border-right: solid  #68217a;
-        border-top: solid  #68217a;
+        border-right: solid  #9D16E0FF;
+        border-top: solid  #9D16E0FF;
         border-radius: 0 8px 0 8px;
     }
     .navbar.active {
@@ -140,20 +140,184 @@ h3 {
     }
 
     .navlink:hover {
-        color: #68217a;
+        color: #9D16E0FF;
     }
     .navlink:after {
-        background: #68217a;
+        background: #9D16E0FF;
 
     }
     .navlink:before {
-        background: #68217a;
+        background: #9D16E0FF;
     }
     .icon {
         position: absolute;
         top: 15px;
         right: 30px;
         color: #c7c2c2;
+        width: 20px;
+        cursor: pointer;
+        display: block;
+        z-index: 50;
+
+    }
+    .icon.hide {
+        display: none;
+    }
+
+}
+
+/* light-theme alkaa */
+
+#light-nav {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 0 0 8px 8px;
+    height: 50px;
+    z-index: 1;
+    border-bottom: solid #1674e0;
+    overflow-x: hidden;
+}
+
+.light-navbar {
+    margin-left: 50%;
+    display: flex;
+    overflow-x: hidden;
+}
+
+.ligt-navitem {
+    margin: 0 15px;
+}
+.light-navlink {
+    display: flex;
+    font-weight: 500;
+    font-size: 20px;
+    color: #66666CFF;
+    position: relative;
+    padding: 5px 0;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s;
+}
+
+.light-navlink:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 50%;
+    height: 2px;
+    background: #1674e0;
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.light-navlink:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    width: 50%;
+    height: 2px;
+    background: #1674e0;
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.light-navlink:hover {
+    color: #1674e0;
+}
+
+.light-navlink:hover:before {
+    right: 0;
+}
+
+.light-navlink:hover:after {
+    left: 0;
+}
+.light-head {
+    display: flex;
+    font-weight: 500;
+    font-size: 20px;
+    color: #66666CFF;
+    position: relative;
+    padding: 5px 0;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 100px;
+    z-index: 5;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.light-icon {
+    position: relative;
+    top: -30px;
+    right: -30px;
+    color: #c7c2c2;
+    width: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+
+@media (max-width: 1000px) {
+    .light-navbar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        width: 100%;
+        max-width: 250px;
+        background-color: #f0f0f0;
+        display: block;
+        padding: 40px 0;
+        text-align: left;
+        transition: all 0.3s ease;
+        z-index: 5;
+        border-right: solid #1674e0;
+        border-top: solid #1674e0;
+        border-radius: 0 8px 0 8px;
+    }
+    .light-navbar.active {
+        left: -35%;
+    }
+
+    .light-navlink {
+        position: fixed;
+    }
+
+    #one {
+        margin-top: 50px;
+    }
+
+    #two{
+        margin-top: 100px;
+    }
+    #three {
+        margin-top: 150px;
+    }
+
+    .light-navlink:hover {
+        color: #1674e0;
+    }
+    .light-navlink:after {
+        background: #1674e0;
+
+    }
+    .light-navlink:before {
+        background: #1674e0;
+    }
+    .light-icon {
+        position: absolute;
+        top: 15px;
+        right: 30px;
+        color: #000000;
         width: 20px;
         cursor: pointer;
         display: block;

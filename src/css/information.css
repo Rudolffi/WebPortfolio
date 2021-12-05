@@ -23,15 +23,62 @@
     background-color: rgba(45, 45, 48, 0.5);
 }
 
-h1 {
+.header {
     margin-top: 90px;
     text-align: left;
     color: #44c7b0;
 }
 
-p {
+.para {
     color: #c7c2c2;
     padding: 2px;
+}
+
+/*light theme alkaa*/
+
+#light-information{
+    display: flex;
+    flex-direction: column;
+}
+.light-big_box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+    margin-top: 160px;
+}
+#light-boxone {
+    width: 50%;
+    border: 2px solid rgb(22, 116, 224);
+    border-radius: 8px;
+    background-color: rgb(242, 242, 242);
+    margin: 60px;
+}
+
+#light-boxtwo {
+    width: 50%;
+    border-radius: 8px;
+    border: 2px solid rgb(22, 116, 224);
+    background-color: rgb(242, 242, 242);
+    margin-right: 60px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.light-header {
+    margin-top: 90px;
+    text-align: left;
+    color: #05a24b;
+}
+
+.light-para {
+    color: #c7c2c2;
+    padding: 2px;
+}
+.light-boxtitle {
+    color: #05a24b;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 

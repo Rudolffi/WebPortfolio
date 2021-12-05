@@ -1,31 +1,31 @@
 <template>
-  <div id="projectbox">
-    <article>
-      <section>
-        <h2 class="title">Testi 1</h2>
+  <div id="light-projectbox">
+    <article class="light-artic">
+      <section class="light-sec">
+        <h2 class="light-title">Testi 1</h2>
       </section>
-      <section>
-        <img class="pic" src="../assets/codememe.jpg">
-        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
+      <section class="light-sec">
+        <img class="light-pic" src="../assets/codememe.jpg">
+        <p class="light-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
 
       </section>
     </article>
-    <article>
-      <section>
-        <h2 class="title">Testi 1</h2>
+    <article class="light-artic">
+      <section class="light-sec">
+        <h2 class="light-title">Testi 1</h2>
       </section>
-      <section>
-        <img class="pic" src="../assets/meme.jpg">
-        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
+      <section class="light-sec">
+        <img class="light-pic" src="../assets/meme.jpg">
+        <p class="light-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
       </section>
     </article>
-    <article>
-      <section>
-        <h2 class="title">Testi 1</h2>
+    <article class="light-artic">
+      <section class="light-sec">
+        <h2 class="light-title">Testi 1</h2>
       </section>
-      <section>
-        <img class="pic" src="../assets/koodimeme.jpg">
-        <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
+      <section class="light-sec">
+        <img class="light-pic" src="../assets/koodimeme.jpg">
+        <p class="light-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi omnis, quisquam! A dignissimos distinctio enim eveniet molestiae necessitatibus obcaecati pariatur quia sequi? Aliquam ducimus expedita inventore, minima molestiae rerum voluptas?</p>
       </section>
     </article>
 

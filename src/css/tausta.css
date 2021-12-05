@@ -3,5 +3,14 @@
     left:0;
     top:0;
     z-index: -1;
-    background-color: #1e1e1e;
+    background-color: #c7c2c2;
 }
+
+#light-gamecanvas {
+    position:absolute;
+    left:0;
+    top:0;
+    z-index: -1;
+    background-color: #c7c2c2;
+}
+
