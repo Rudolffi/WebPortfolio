@@ -26,7 +26,7 @@
         <div class="input-output">
           <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
           <input multiple accept="image/*" type="file" id="files" name="file">
-          <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
+          <ul id="listOfImages">
           </ul>
         </div>
       </section>
@@ -59,11 +59,10 @@ export default {
         console.log(res) });
     },
     addImagesList : function (files){
+      // DOM ratkasu
       let list = document.getElementById('listOfImages');
       list.innerHTML = '';
       for (let i = 0; i < files.length; i++){
-        let button = document.createElement('button');
-
         let li = document.createElement('li');
         li.classList.add('tooltip');
         li.appendChild(document.createTextNode(files[i].name));
