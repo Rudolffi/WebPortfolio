@@ -18,8 +18,10 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "cors": "^2.8.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "multer": "^1.4.3",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -34,7 +36,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {"no-unused-vars": "off"}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",

@@ -3,6 +3,7 @@ let ctx;
 const particlesArray = [];
 let hue = 0;
 let light = 0;
+let theme = true; // false == dark; true == light
 
 const mouse = {
     x: null,
@@ -40,8 +41,11 @@ class Particle {
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
         this.color = 'hsl(' + hue + ',0.2%, 100%';
-        this.color = 'rgba(30,30,30,0.2)';
-        //this.color = 'rgba(255,255,255,0.2)';
+        if (theme){
+            this.color = 'rgba(255,255,255,0.2)';
+        } else {
+            this.color = 'rgba(30,30,30,0.2)';
+        }
         console.log(this.color);
     }
     update(){
@@ -85,9 +89,13 @@ function handleParticles(){
             if(distance < particlesArray[i].size + 50 && particlesArray[i].connections.length < 3){
                 if(!particlesArray[i].connections.includes(particlesArray[j])){
                     particlesArray[i].connections = [...particlesArray[i].connections, particlesArray[j]];
-                    ctx.beginPath();
-                    ctx.strokeStyle = 'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
-                    //ctx.strokeStyle = 'rgb(157,22,224)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                    ctx.beginPath()
+
+                    if (theme){
+                        ctx.strokeStyle = 'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                    } else {
+                        ctx.strokeStyle = 'rgb(104,33,122)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                    }
                     ctx.lineWidth = particlesArray[i].size/10;
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                     ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
@@ -109,8 +117,13 @@ function handleParticles(){
 function animate(){
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
     //ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    ctx.fillStyle = 'rgb(255,255,255)';
-    //ctx.fillStyle = 'rgba(30,30,30,0.2)';
+   // ctx.fillStyle = 'rgb(255,255,255)';
+
+    if (theme){
+        ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    } else {
+        ctx.fillStyle = 'rgba(30,30,30,0.2)';
+    }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     handleParticles();
     hue++;

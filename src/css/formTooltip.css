@@ -1,0 +1,33 @@
+
+.tooltip {
+    text-decoration:none;
+    position:relative;
+    width: fit-content;
+}
+.tooltip span {
+    display:none;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    background-color: rgba(45, 45, 48, 1);
+}
+
+.tooltip span img {
+    float:left;
+    max-width: 15em;
+}
+
+.tooltip:hover span {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1000;
+    width:auto;
+    max-width:20em;
+    border:1px solid #68217a;
+    margin-top:12px;
+    margin-left:32px;
+    overflow:hidden;
+    padding:8px;
+}

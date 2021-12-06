@@ -4,9 +4,10 @@ html, body {
     background-color: rgba(30, 30, 30, 0);
 }
 #pic{
-    float: left;
-    height: 200px;
-    width: fit-content;
+    max-height: 20em;
+    max-width: 100%;
+    margin: .5em auto;
+    display: none;
 }
 button{
     padding: 15px 25px;
@@ -35,11 +36,12 @@ article{
     padding: 2px;
     box-sizing: border-box;
     display: inline-block;
-    overflow: hidden;
+    overflow: visible;
 }
 
 label {
     color: #44c7b0;
+    display: block;
 }
 input, select, textarea{
     color: #c7c2c2;
@@ -51,7 +53,9 @@ input, select, textarea{
     height: 2em;
 }
 textarea{
-    height: 150px;
+    height: 10em;
+    width: 100%;
+    resize: vertical; min-height: 5em;
 }
 textarea:focus, input:focus {
     color: #c7c2c2;
@@ -59,4 +63,59 @@ textarea:focus, input:focus {
 form{
     background-color: rgba(0, 0, 0, 0);
     margin-top: 100px;
+}
+input:not(:placeholder-shown):invalid {
+    border: 2px dashed red;
+}
+input:not(:placeholder-shown):valid{
+    border: 2px solid #68217a;
+}
+input[type=file]{
+    display: none;
+}
+
+.selectFile{
+    font-weight: bold;
+    color: #44c7b0;
+}
+.selectFile:hover{
+    font-weight: bold;
+    color: #4298d6;
+}
+.fileUpload{
+    height: 5em;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(206, 131, 73, 0.15);
+    border: rgba(206, 131, 73, 0.5) dashed 0.1em;
+    border-radius: 1em;
+}
+.fileUpload-small{
+    display: inline-block;
+}
+.fileUpload-small .selectFile {
+    padding: 0.5em;
+    width: 10em;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    background-color: #4CAF50;
+    border-radius: 15px;
+}
+.fileUpload-small:hover .selectFile {background-color: #3e8e41}
+.fileUpload-small span:not(.selectFile){
+    display: none;
+}
+.fileUpload:hover{
+    background-color: rgba(206, 131, 73, 0.25);
+}
+.input-output{
+    border: 2px solid #424242;
+    border-radius: 4px;
+    padding: .5em;
+    text-align: center;
 }

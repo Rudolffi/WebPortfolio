@@ -1,22 +1,34 @@
 <template>
-  <form method="POST" action="http://localhost:8080/api/db">
+  <form id="project" @submit.prevent="submitForm" enctype="multipart/form-data" action="#" method="post">
     <article>
       <section>
         <label>Title</label>
-        <input v-model="title" placeholder="Project Title" type="text" name="title"/>
+        <input placeholder="Project Title" type="text" name="title"/>
       </section>
       <section>
         <label>Link</label>
-        <input v-model="link" placeholder="Project Web-page" type="text" name="repo"/>
+        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo"/>
       </section>
       <section>
         <label>Description</label>
-        <textarea v-model="description" placeholder="Project Description" type="text" name="descr"/>
+        <textarea placeholder="Project Description" type="text" name="descr"/>
       </section>
       <section>
-        <label>Image</label>
-        <input type="file"  id="file">
-        <img id="pic">
+        <label>Logo</label>
+        <div class="input-output">
+          <img src="" id="pic">
+          <label id="dropFile" class="fileUpload" for="file"><span class="selectFile">Choose a file</span><span> or drag it here.</span> </label>
+          <input accept="image/*" type="file" id="file" name="file">
+        </div>
+      </section>
+      <section>
+        <label>Images</label>
+        <div class="input-output">
+          <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
+          <input multiple accept="image/*" type="file" id="files" name="file">
+          <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
+          </ul>
+        </div>
       </section>
       <button type="submit">Add Project</button>
     </article>
@@ -25,34 +37,96 @@
 
 <script>
 export default {
-  name: "form",
-  data(){
-    return{
-      title: '',
-      link: '',
-      description: '',
+  name: "projectForm",
+  data: function () {
+    return {
+      projectImages: Array,
     }
   },
-  methods : {
+  methods: {
     async submitForm() {
-      const res = await fetch('/backend-api', {
+      let form = document.getElementById("project");
+      const res = await fetch('http://localhost:8081/api/db', {
         method: 'POST',
-        headers: {'Content-Type': 'form-data'},
-
         // pass in the information from our form
-        body: JSON.stringify({
-          title: this.title,
-          link: this.link,
-          description: this.description,
-        })
-      });
+        body: new FormData(form),
+      }).then(function(res){
+        console.log(res)
+        form.reset();
+        let list = document.getElementById('listOfImages');
+        list.innerHTML = '';
+      }).catch(function(res){
+        console.log(res) });
+    },
+    addImagesList : function (files){
+      let list = document.getElementById('listOfImages');
+      list.innerHTML = '';
+      for (let i = 0; i < files.length; i++){
+        let button = document.createElement('button');
+
+        let li = document.createElement('li');
+        li.classList.add('tooltip');
+        li.appendChild(document.createTextNode(files[i].name));
+        let image = document.createElement('img');
+        image.src = URL.createObjectURL(files[i]);
+        let span = document.createElement('span');
+        span.appendChild(image);
+        li.appendChild(span);
+        list.appendChild(li);
+      }
     }
   },
   mounted() {
-    let files = document.getElementById("file");
-    files.addEventListener("change", function (e){
-      let image = document.getElementById('pic');
-      image.src = URL.createObjectURL(event.target.files[0]);
+    let files = document.getElementById("files");
+    let file = document.getElementById("file");
+    let dragAndDropFile = document.getElementById("dropFile");
+    let dragAndDropFiles = document.getElementById("dropFiles");
+    let image = document.getElementById('pic');
+    image.addEventListener('load', function(e) {
+      dragAndDropFile.className = 'fileUpload-small';
+      console.log("Image change!!!!");
+    });
+    let vm = this;
+    let dT = new DataTransfer();
+    dragAndDropFiles.addEventListener('dragover', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    });
+    dragAndDropFiles.addEventListener('drop', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      const dt = e.dataTransfer;
+      for (let i = 0; i < dt.files.length; i++){
+        dT.items.add(dt.files[i]);
+      }
+      files.files = dT.files;
+      vm.addImagesList(files.files);
+    });
+    dragAndDropFile.addEventListener('dragover', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    });
+    dragAndDropFile.addEventListener('drop', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log(e.dataTransfer.files);
+      files.files = e.dataTransfer.files;
+      image.style.display = 'block';
+      image.src = URL.createObjectURL(e.dataTransfer.files[0]);
+    });
+    file.addEventListener('change', function(e) {
+      image.style.display = 'block';
+      image.src = URL.createObjectURL(e.target.files[0]);
+    });
+    files.addEventListener("change", function (e) {
+      const dt = e.target;
+      for (let i = 0; i < dt.files.length; i++){
+        dT.items.add(dt.files[i]);
+      }
+      files.files = dT.files;
+      vm.addImagesList(files.files);
     })
   }
 }
@@ -61,4 +135,5 @@ export default {
 <style scoped>
 
 @import './../css/form.css';
+@import './../css/formTooltip.css';
 </style>

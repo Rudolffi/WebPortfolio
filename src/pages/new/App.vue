@@ -2,13 +2,13 @@
   <div id="app">
     <Navbar/>
     <Tausta/>
-    <Form/>
+    <projectForm/>
   </div>
 </template>
 
 <script>
 
-import Form from '../../components/Form.vue'
+import projectForm from '../../components/Form.vue'
 import Navbar from '../../components/Navbar.vue'
 import Tausta from '../../components/Tausta.vue'
 
@@ -16,7 +16,7 @@ export default {
   name: 'App',
   components: {
     Tausta,
-    Form,
+    projectForm,
     Navbar
   },
   mounted() {
