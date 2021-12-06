@@ -3,7 +3,7 @@ let ctx;
 const particlesArray = [];
 let hue = 0;
 let light = 0;
-let theme = true; // false == dark; true == light
+let theme = false; // false == dark; true == light
 
 const mouse = {
     x: null,
@@ -17,7 +17,12 @@ export function init(){
 
     let body = document.getElementById('app');
     canvas.width = body.getBoundingClientRect().width;
-    canvas.height = body.offsetHeight +500;
+    body = document.body;
+        let html = document.documentElement;
+
+    let height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    canvas.height =height;
     console.log('Last update' + body.getBoundingClientRect().width);
     body.addEventListener('click', function(event){
         mouse.x = event.x;
@@ -28,7 +33,18 @@ export function init(){
         mouse.y = event.pageY;
         spawn();
     });
-    window.addEventListener('resize', function(){
+    body.addEventListener('change', function(event){
+        let height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        canvas.width = body.getBoundingClientRect().width;
+        canvas.height =height;
+    });
+
+    window.addEventListener('change', function(){
+        let height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        canvas.width = body.getBoundingClientRect().width;
+        canvas.height = height;
     });
     animate();
 }

@@ -21,7 +21,7 @@
     display:block;
     position:absolute;
     top:0;
-    left:0;
+    left: 100%;
     z-index:1000;
     width:auto;
     max-width:20em;

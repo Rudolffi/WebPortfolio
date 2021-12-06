@@ -16,8 +16,9 @@
       <section>
         <label>Logo</label>
         <div class="input-output">
-          <img src="" id="pic">
-          <label id="dropFile" class="fileUpload" for="file"><span class="selectFile">Choose a file</span><span> or drag it here.</span> </label>
+          <img v-if="logo.display" v-bind:src="logo.src" id="pic">
+          <button v-if="logo.display" type="button" class="removeButton" @click="removeImage()">Remove</button>
+          <label id="dropFile" v-bind:class="[logo.display ? 'fileUpload-small' : 'fileUpload']" for="file"><p><span class="selectFile">Choose a file </span><span> or drag it here.</span></p></label>
           <input accept="image/*" type="file" id="file" name="file">
         </div>
       </section>
@@ -26,7 +27,8 @@
         <div class="input-output">
           <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
           <input multiple accept="image/*" type="file" id="files" name="file">
-          <ul id="listOfImages">
+          <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
+            <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img v-bind:src="images.src"></span></li>
           </ul>
         </div>
       </section>
@@ -40,92 +42,128 @@ export default {
   name: "projectForm",
   data: function () {
     return {
-      projectImages: Array,
+      projectImages: [],
+      files : document.createElement('input'),
+      file : document.createElement('input'),
+      dT : new DataTransfer(),
+      logo : {
+        src : '',
+        display : false,
+      },
     }
   },
   methods: {
     async submitForm() {
       let form = document.getElementById("project");
+      let vm = this;
       const res = await fetch('http://localhost:8081/api/db', {
         method: 'POST',
         // pass in the information from our form
         body: new FormData(form),
       }).then(function(res){
-        console.log(res)
+        console.log(res);
+        vm.projectImages = [];
+        vm.logo.src = '';
+        vm.logo.display = false;
         form.reset();
-        let list = document.getElementById('listOfImages');
-        list.innerHTML = '';
+        console.log(vm.file.files);
+        console.log(vm.files.files);
       }).catch(function(res){
         console.log(res) });
     },
     addImagesList : function (files){
-      // DOM ratkasu
-      let list = document.getElementById('listOfImages');
-      list.innerHTML = '';
+      this.projectImages = [];
       for (let i = 0; i < files.length; i++){
-        let li = document.createElement('li');
-        li.classList.add('tooltip');
-        li.appendChild(document.createTextNode(files[i].name));
-        let image = document.createElement('img');
-        image.src = URL.createObjectURL(files[i]);
-        let span = document.createElement('span');
-        span.appendChild(image);
-        li.appendChild(span);
-        list.appendChild(li);
+        let image = {
+          id : i,
+          src : URL.createObjectURL(files[i]),
+          name : files[i].name,
+          file : files[i],
+        };
+        this.projectImages.push(image);
+        console.log(image);
+      }
+    },
+    removeImage : function (){
+      this.file.files = new DataTransfer().files;
+      this.logo.src = '';
+      this.logo.display = false;
+    },
+    removeFile : function (image){
+      this.projectImages = [];
+      this.dT = new DataTransfer();
+      for (let i = 0; i < this.files.files.length; i++){
+        if (this.files.files[i] != image.file){
+          this.dT.items.add(this.files.files[i]);
+        }
+      }
+      this.files.files = this.dT.files;
+      for (let i = 0; i < this.files.files.length; i++){
+        let image = {
+          id : i,
+          src : URL.createObjectURL(this.files.files[i]),
+          name : this.files.files[i].name,
+          file : this.files.files[i],
+        };
+        this.projectImages.push(image);
+        console.log(image);
       }
     }
   },
   mounted() {
-    let files = document.getElementById("files");
-    let file = document.getElementById("file");
     let dragAndDropFile = document.getElementById("dropFile");
     let dragAndDropFiles = document.getElementById("dropFiles");
-    let image = document.getElementById('pic');
-    image.addEventListener('load', function(e) {
-      dragAndDropFile.className = 'fileUpload-small';
-      console.log("Image change!!!!");
-    });
+
+    this.files = document.getElementById("files");
+    this.file = document.getElementById("file");
     let vm = this;
-    let dT = new DataTransfer();
     dragAndDropFiles.addEventListener('dragover', function(e) {
       e.stopPropagation();
       e.preventDefault();
       e.dataTransfer.dropEffect = 'copy';
+      dragAndDropFiles.classList.add('fileUpload-dragOver');
+    });
+    dragAndDropFiles.addEventListener('dragleave', function(e) {
+      dragAndDropFiles.classList.remove('fileUpload-dragOver');
     });
     dragAndDropFiles.addEventListener('drop', function(e) {
       e.stopPropagation();
       e.preventDefault();
       const dt = e.dataTransfer;
       for (let i = 0; i < dt.files.length; i++){
-        dT.items.add(dt.files[i]);
+        vm.dT.items.add(dt.files[i]);
       }
-      files.files = dT.files;
-      vm.addImagesList(files.files);
+      vm.files.files = vm.dT.files;
+      vm.addImagesList(vm.files.files);
     });
     dragAndDropFile.addEventListener('dragover', function(e) {
       e.stopPropagation();
       e.preventDefault();
       e.dataTransfer.dropEffect = 'copy';
+      dragAndDropFile.classList.add('fileUpload-dragOver');
+    });
+    dragAndDropFile.addEventListener('dragleave', function(e) {
+      dragAndDropFile.classList.remove('fileUpload-dragOver');
     });
     dragAndDropFile.addEventListener('drop', function(e) {
       e.stopPropagation();
       e.preventDefault();
       console.log(e.dataTransfer.files);
-      files.files = e.dataTransfer.files;
-      image.style.display = 'block';
-      image.src = URL.createObjectURL(e.dataTransfer.files[0]);
+      vm.files.files = e.dataTransfer.files;
+      vm.logo.src = URL.createObjectURL(e.dataTransfer.files[0]);
+      vm.logo.display = true;
     });
-    file.addEventListener('change', function(e) {
-      image.style.display = 'block';
-      image.src = URL.createObjectURL(e.target.files[0]);
+    vm.file.addEventListener('change', function(e) {
+      vm.logo.src = URL.createObjectURL(e.target.files[0]);
+      vm.logo.display = true;
     });
-    files.addEventListener("change", function (e) {
+    vm.files.addEventListener("change", function (e) {
       const dt = e.target;
       for (let i = 0; i < dt.files.length; i++){
-        dT.items.add(dt.files[i]);
+        vm.dT.items.add(dt.files[i]);
       }
-      files.files = dT.files;
-      vm.addImagesList(files.files);
+      vm.files.files = vm.dT.files;
+      vm.addImagesList(vm.files.files);
     })
   }
 }
