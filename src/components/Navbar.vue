@@ -1,24 +1,27 @@
 <template>
 <div>
-
-  <ul id="light-nav">
-    <h3 class="light-head">
+  <li>
+    <img class="icon cancel-btn" id="light" src="../assets/ruksi.png" alt="Hampparimenu">
+  </li>
+  <ul id="nav">
+    <h3 class="head">
       Portfolio
     </h3>
-    <div class="light-navbar">
-    <li class="ligt-navitem">
-      <a href="#" id="one" class="light-navlink">About</a>
+    <div class="navbar">
+
+    <li class="navitem">
+      <a href="#" id="one" class="navlink">About</a>
     </li>
-    <li class="ligt-navitem">
-      <a href="#" id="two" class="light-navlink">Skills</a>
+    <li class="navitem">
+      <a href="#" id="two" class="navlink">Skills</a>
     </li>
-    <li class="ligt-navitem">
-      <a href="#" id="three" class="light-navlink">Projects</a>
+    <li class="navitem">
+      <a href="#" id="three" class="navlink">Projects</a>
     </li>
     </div>
   <div>
     <!-- <img class="light-icon" id="menu-btn" src="../assets/hamppari.png" alt="Hampparimenu"> -->
-    <img class="light-icon" id="menu-btn" src="../assets/light-hamppari.png" alt="Hampparimenu">
+    <img class="icon" id="menu-btn" src="../assets/hamppari.png" alt="Hampparimenu">
   </div>
   </ul>
 
@@ -33,9 +36,10 @@ export default {
     window.onscroll = function() {myFunction()};
 
 // Get the navbar
-    var navbar = document.getElementById("light-nav");
+    var navbar = document.getElementById("nav");
     const menuBtn = document.getElementById("menu-btn");
-    const menu = document.querySelector(".light-navbar");
+    const menu = document.querySelector(".navbar");
+    const cancelBtn = document.querySelector(".cancel-btn");
 
 // Get the offset position of the navbar
     var sticky = navbar.offsetTop;
@@ -51,6 +55,13 @@ export default {
     menuBtn.onclick = ()=> {
       menu.classList.add("active");
       menuBtn.classList.add("hide");
+      cancelBtn.classList.add("active");
+    }
+
+    cancelBtn.onclick = ()=> {
+      menu.classList.remove("active");
+      menuBtn.classList.remove("hide");
+      cancelBtn.classList.remove("active");
     }
   }
 }

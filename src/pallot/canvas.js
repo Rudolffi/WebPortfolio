@@ -110,7 +110,7 @@ function handleParticles(){
                     if (theme){
                         ctx.strokeStyle = 'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     } else {
-                        ctx.strokeStyle = 'rgb(104,33,122)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
+                        ctx.strokeStyle = 'rgb(157,22,224)'; //'hsl(' + hue + ',100%, 0%'; //particlesArray[i].color;
                     }
                     ctx.lineWidth = particlesArray[i].size/10;
                     ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
