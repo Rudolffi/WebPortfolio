@@ -3,15 +3,15 @@
     <article>
       <section>
         <label>Title</label>
-        <input placeholder="Project Title" type="text" name="title"/>
+        <input placeholder="Project Title" type="text" name="title" v-model="title"/>
       </section>
       <section>
         <label>Link</label>
-        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo"/>
+        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo" v-model="link"/>
       </section>
       <section>
         <label>Description</label>
-        <textarea placeholder="Project Description" type="text" name="descr"/>
+        <textarea placeholder="Project Description" type="text" name="descr" v-model="descrip"/>
       </section>
       <section>
         <label>Logo</label>
@@ -26,7 +26,7 @@
         <label>Images</label>
         <div class="input-output">
           <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
-          <input multiple accept="image/*" type="file" id="files" name="file">
+          <input multiple accept="image/*" type="file" id="files" name="files">
           <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
             <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img v-bind:src="images.src"></span></li>
           </ul>
@@ -34,6 +34,7 @@
       </section>
       <button type="submit">Add Project</button>
     </article>
+    <input type="hidden" name="id" v-model="projectId"/>
   </form>
 </template>
 
@@ -42,7 +43,13 @@ export default {
   name: "projectForm",
   data: function () {
     return {
+      postAddress : 'http://localhost:8081/api/db',
+      getAddress : 'http://localhost:8081/api/db',
       projectImages: [],
+      projectId : -1,
+      title : '',
+      link : '',
+      descrip : '',
       files : document.createElement('input'),
       file : document.createElement('input'),
       dT : new DataTransfer(),
@@ -56,7 +63,7 @@ export default {
     async submitForm() {
       let form = document.getElementById("project");
       let vm = this;
-      const res = await fetch('http://localhost:8081/api/db', {
+      const res = await fetch(this.postAddress, {
         method: 'POST',
         // pass in the information from our form
         body: new FormData(form),
@@ -111,6 +118,20 @@ export default {
     }
   },
   mounted() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+
+    if(params.id.length > 0 && params.id >= 0){
+      console.log("Vanha projekti: " + params.id);
+      fetch(this.getAddress).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        console.log(json);
+      });
+    } else {
+      console.log("Uusi projekti");
+    }
+
     let dragAndDropFile = document.getElementById("dropFile");
     let dragAndDropFiles = document.getElementById("dropFiles");
 
@@ -127,6 +148,7 @@ export default {
       dragAndDropFiles.classList.remove('fileUpload-dragOver');
     });
     dragAndDropFiles.addEventListener('drop', function(e) {
+      dragAndDropFiles.classList.remove('fileUpload-dragOver');
       e.stopPropagation();
       e.preventDefault();
       const dt = e.dataTransfer;
