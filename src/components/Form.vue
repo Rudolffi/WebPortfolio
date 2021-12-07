@@ -121,7 +121,7 @@ export default {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
 
-    if(params.id.length > 0 && params.id >= 0){
+    if(params.id >= 0){
       console.log("Vanha projekti: " + params.id);
       fetch(this.getAddress).then(function(response) {
         return response.json();
