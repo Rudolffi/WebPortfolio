@@ -12,13 +12,33 @@
         </p>
       </div>
       <div id="boxtwo">
-        <h3 class="boxtitle">Skills</h3>
-        <p class="para">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Ab aperiam consequuntur cum deleniti dignissimos,
-        dolores eligendi fugiat ipsum iure iusto maiores minima
-        non obcaecati odit provident sapiente similique suscipit ullam!
-        </p>
+        <h3 class="skills-boxtitle">Skills</h3>
+        <div class="skills-bar">
+          <div class="bar">
+            <div class="info">
+              <span>HTML</span>
+            </div>
+            <div class="progress-line html"><span></span></div>
+          </div>
+        <div class="bar">
+          <div class="info">
+            <span>CSS</span>
+          </div>
+          <div class="progress-line css"><span></span></div>
+        </div>
+          <div class="bar">
+            <div class="info">
+              <span>JSON</span>
+            </div>
+            <div class="progress-line json"><span></span></div>
+          </div>
+          <div class="bar">
+            <div class="info">
+              <span>JS</span>
+            </div>
+            <div class="progress-line js"><span></span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

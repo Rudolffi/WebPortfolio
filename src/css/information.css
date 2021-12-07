@@ -6,12 +6,12 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    text-align: center;
     margin-top: 50px;
+    text-align: center;
 }
 #boxone {
     width: 50%;
-    border: 1px solid rgba(157, 22, 224);
+    border: 1px solid rgb(157, 22, 224);
     border-radius: 8px;
     background-color: rgba(45, 45, 48, 0.5);
     margin: 60px;
@@ -20,11 +20,12 @@
 #boxtwo {
     width: 50%;
     border-radius: 8px;
-    border: 1px solid rgba(157, 22, 224);
+    border: 1px solid rgb(157, 22, 224);
     background-color: rgba(45, 45, 48, 0.5);
     margin-top: 60px;
     margin-right: 60px;
     margin-bottom: 60px;
+    text-align: left;
 }
 
 .header {
@@ -44,6 +45,86 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.skills-boxtitle {
+    color: #44c7b0;
+    margin-top: 10px;
+    margin-left: 305px;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 660px;
+    top: 250px;
+}
+
+span {
+    color: #c7c2c2;
+}
+
+.skills-bar .bar {
+    margin: 20px;
+}
+
+.skills-bar .bar:first-child{
+    margin-top: 0px;
+}
+
+.skills-bar .bar .info {
+    margin-bottom: 5px;
+}
+
+.skills-bar .bar .info span {
+    font-size: 17px;
+    font-weight: 500;
+}
+.skills-bar .bar .progress-line{
+    position: relative;
+    height: 10px;
+    width: 100%;
+    background: #2d2d30;
+    transform: scaleX(0);
+    transform-origin: left;
+    border-radius: 10px;
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.05);
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+.bar .progress-line span {
+    height: 100%;
+    width: 80%;
+    background: #6665ee;
+    position: absolute;
+    border-radius: 10px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+@keyframes animate {
+    100% {
+        transform: scale(1);
+    }
+}
+
+.progress-line.html span {
+    width: 90%;
+    background: #44c7b0;
+}
+.progress-line.css span{
+    width: 75%;
+    background: rgb(157, 22, 224);
+}
+.progress-line.json span {
+    width: 60%;
+    background: #44c7b0;
+}
+.progress-line.js span{
+    width: 80%;
+    background: rgb(157, 22, 224);
+}
+
 
 /*light theme alkaa*/
 
