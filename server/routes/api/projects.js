@@ -9,10 +9,9 @@ router.get('/', async (req, res) => {
 
   const projects = await loadProjectCollection();
   res.send(await projects.find({}).toArray()); // find all
-
 });
 
-/*
+
 // add posts
 router.post('/', async (req, res) => {
   const projects = await loadProjectCollection();
@@ -20,7 +19,8 @@ router.post('/', async (req, res) => {
     title: req.body.title,
     descr: req.body.descr,
     repo: req.body.repo,
-    img: req.body.img
+    file: req.body.file,
+    files: req.body.files
   });
   // http-response : 201 = everything went ok and something was created
   res.status(201).send();
@@ -33,7 +33,7 @@ router.delete('/:id', async (req, res) => {
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
   res.status(200).send();
 });
-*/
+
 
 async function loadProjectCollection(){
   const client = await mongodb.MongoClient.connect
