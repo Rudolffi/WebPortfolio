@@ -16,25 +16,25 @@
         <div class="skills-bar">
           <div class="bar">
             <div class="info">
-              <span>HTML</span>
+              <div><img class="logo" src="../assets/htmllogo.png" alt="Html Logo"><span>HTML</span></div>
             </div>
             <div class="progress-line html"><span></span></div>
           </div>
         <div class="bar">
           <div class="info">
-            <span>CSS</span>
+            <div><img class="logo" src="../assets/csslogo.png" alt="Css Logo"><span>CSS</span></div>
           </div>
           <div class="progress-line css"><span></span></div>
         </div>
           <div class="bar">
             <div class="info">
-              <span>JSON</span>
+              <div><img class="logo" src="../assets/javalogo.png" alt="Java Logo"><span>JAVA</span></div>
             </div>
-            <div class="progress-line json"><span></span></div>
+            <div class="progress-line java"><span></span></div>
           </div>
           <div class="bar">
             <div class="info">
-              <span>JS</span>
+              <div><img class="logo" src="../assets/javascriptlogo.png" alt="JavaScript Logo"><span>JS</span></div>
             </div>
             <div class="progress-line js"><span></span></div>
           </div>
