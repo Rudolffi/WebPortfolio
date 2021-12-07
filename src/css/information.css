@@ -9,29 +9,38 @@
     margin-top: 50px;
     text-align: center;
 }
-#boxone {
-    width: 50%;
-    border: 1px solid rgb(157, 22, 224);
+#about-box {
+    width: 40%;
+    /*border: 1px solid rgba(157, 22, 224);*/
+    /*box-shadow: 0px 0px 13px 5px rgba(255,255,255, 0.2);*/
     border-radius: 8px;
     background-color: rgba(45, 45, 48, 0.5);
-    margin: 60px;
+    margin: 60px 60px 30px;
 }
 
-#boxtwo {
-    width: 50%;
+#skills-motherbox {
+    width: 40%;
     border-radius: 8px;
-    border: 1px solid rgb(157, 22, 224);
+    /*border: 1px solid rgba(157, 22, 224);*/
+    /*box-shadow: 0px 0px 13px 5px rgba(255,255,255, 0.2);*/
     background-color: rgba(45, 45, 48, 0.5);
-    margin-top: 60px;
-    margin-right: 60px;
-    margin-bottom: 60px;
+    margin: 30px 60px 60px;
     text-align: left;
+}
+
+.htmlcode-box {
+    margin-left: 70%;
+}
+
+.jscode {
+    margin-top: 30px;
 }
 
 .header {
     margin-top: 90px;
     text-align: left;
     color: #44c7b0;
+    margin-left: 60px;
 }
 
 .para {
@@ -46,11 +55,8 @@
     margin-bottom: 10px;
 }
 
-.skills-boxtitle {
-    color: #44c7b0;
-    margin-top: 10px;
-    margin-left: 305px;
-    margin-bottom: 10px;
+.skills-box {
+    text-align: center;
 }
 
 .logo {
@@ -80,13 +86,13 @@ span {
 }
 .skills-bar .bar .progress-line{
     position: relative;
-    height: 10px;
+    height: 8px;
     width: 100%;
     background: #2d2d30;
     transform: scaleX(0);
     transform-origin: left;
     border-radius: 10px;
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
     animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
 }
 .bar .progress-line span {
@@ -136,7 +142,7 @@ span {
     text-align: center;
     margin-top: 50px;
 }
-#light-boxone {
+#light-aboutbox {
     width: 50%;
     border: 2px solid rgb(22, 116, 224);
     border-radius: 8px;
@@ -144,7 +150,7 @@ span {
     margin: 60px;
 }
 
-#light-boxtwo {
+#light-skills-motherbox {
     width: 50%;
     border-radius: 8px;
     border: 2px solid rgb(22, 116, 224);
