@@ -27,6 +27,10 @@
         ipsa molestias neque numquam pariatur perspiciatis quasi repellat?
         </p>
       </div>
+      <div id="about-picturebox">
+        <img @mouseover="mouseOver"  class="about-arnoldpicture" src="../assets/arnold.png" alt="Arnold">
+        <img  @mouseleave="mouseLeave" class="about-terminatorpicture" src="../assets/terminator.png" alt="Terminaattori">
+      </div>
     </div>
 
     <div class="big_box">
@@ -62,9 +66,9 @@
       </div>
     </div>
       <div class="example-box">
-        <img class="jscode" src="../assets/example.png" alt="JavaScript koodia" style="opacity: 0.9">
-        <div class="htmlcode-box"><img  src="../assets/htmlkoodi.png" alt="Html koodia" style="opacity: 0.9"></div>
-        <img  src="../assets/csscode.png" alt="Css koodia" style="opacity: 0.9">
+        <img class="jscode" src="../assets/example.png" alt="JavaScript koodia" style="opacity: 0.7">
+        <div class="htmlcode-box"><img  src="../assets/htmlkoodi.png" alt="Html koodia" style="opacity: 0.7"></div>
+        <img  src="../assets/csscode.png" alt="Css koodia" style="opacity: 0.7">
 
       </div>
     </div>
@@ -73,8 +77,27 @@
 
 <script>
 export default {
-  name: "Information"
+  name: "Information",
+  methods: {
+      mouseOver: function () {
+        let arnoldPic = document.querySelector(".about-arnoldpicture");
+        let terminatorPic = document.querySelector(".about-terminatorpicture");
+
+        arnoldPic.classList.add("hide");
+        terminatorPic.classList.add("active");
+      },
+
+      mouseLeave: function () {
+        let arnoldPic = document.querySelector(".about-arnoldpicture");
+        let terminatorPic = document.querySelector(".about-terminatorpicture");
+
+        arnoldPic.classList.remove("hide");
+        terminatorPic.classList.remove("active");
+      }
+  }
 }
+
+
 </script>
 
 <style scoped>

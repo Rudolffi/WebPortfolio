@@ -1,14 +1,13 @@
 <template>
 <div>
-  <li>
-    <img class="icon cancel-btn" id="light" src="../assets/ruksi.png" alt="Hampparimenu">
-  </li>
   <ul id="nav">
     <h3 class="head">
       Portfolio
     </h3>
     <div class="navbar">
-
+     <li>
+        <img class="icon cancel-btn" id="light" src="../assets/ruksi.png" alt="Hampparimenu">
+     </li>
     <li class="navitem">
       <a href="#" id="one" class="navlink">About</a>
     </li>
@@ -40,6 +39,7 @@ export default {
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.querySelector(".navbar");
     const cancelBtn = document.querySelector(".cancel-btn");
+    const body = document.querySelector("body");
 
 // Get the offset position of the navbar
     var sticky = navbar.offsetTop;

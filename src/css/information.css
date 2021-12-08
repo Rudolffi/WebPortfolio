@@ -18,6 +18,12 @@
     margin: 60px 60px 30px;
 }
 
+#about-picturebox {
+    width: 40%;
+    margin: 60px 60px 30px;
+    max-height: 200px;
+}
+
 #skills-motherbox {
     width: 40%;
     border-radius: 8px;
@@ -27,6 +33,7 @@
     margin: 30px 60px 60px;
     text-align: left;
 }
+
 
 .htmlcode-box {
     margin-left: 70%;
@@ -57,6 +64,31 @@
 
 .skills-box {
     text-align: center;
+}
+
+.about-arnoldpicture {
+    width: 400px;
+    height: 630px;
+    border-radius: 8px;
+    right: 225px;
+}
+
+.about-terminatorpicture {
+    width: 400px;
+    height: 630px;
+    border-radius: 8px;
+    right: 225px;
+    top: 245px;
+    opacity: 0.8;
+    display: none;
+}
+
+.about-arnoldpicture.hide {
+    opacity: 0.2;
+}
+
+.about-terminatorpicture.active {
+    display: block;
 }
 
 .logo {
@@ -127,6 +159,43 @@ span {
     width: 80%;
     background: #dab92d;
 }
+
+
+@media (max-width: 1050px) {
+    .big_box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    #about-box {
+        width: 80%;
+        margin-left: 60px;
+    }
+
+    #about-picturebox {
+        width: 40%;
+        margin: 60px 60px 30px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .about-terminatorpicture {
+        top: 650px;
+    }
+
+    #skills-motherbox {
+        width: 80%;
+        margin: 340px 60px 60px 80px;
+
+    }
+    .example-box {
+        margin-left: -200px;
+    }
+}
+
 
 
 /*light theme alkaa*/

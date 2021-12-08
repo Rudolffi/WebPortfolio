@@ -109,7 +109,7 @@
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .navbar {
         position: fixed;
         top: 0;
@@ -284,14 +284,14 @@
     cursor: pointer;
     display: none;
 }
-light-cancel-btn {
+.light-cancel-btn {
     position: absolute;
     left: 200px;
     top: 25px;
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .light-navbar {
         position: fixed;
         top: 0;
@@ -309,6 +309,7 @@ light-cancel-btn {
         border-top: solid #1674e0;
         border-radius: 0 8px 0 8px;
     }
+
     .light-navbar.active {
         left: -50%;
     }
