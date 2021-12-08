@@ -1,6 +1,7 @@
 <template>
   <div >
     <div id="projectbox">
+      <h1 class="projectHeader">Projects</h1>
       <article class="artic" v-for="project in projects" :key="project.id">
         <section class="sec">
           <h2 class="title">{{project.title}}</h2>

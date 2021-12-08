@@ -32,7 +32,10 @@
     display: flex; /* or inline-flex */
     flex-direction: row;
 }
-.projectLink {
+.projectHeader {
+    color: #44c7b0;
+    margin: auto;
+    margin-left: 60px;
 }
 /* unvisited link */
 .projectLink a:link {
