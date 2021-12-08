@@ -1,7 +1,7 @@
 <template>
   <div >
-    <div id="projectbox" v-for="project in projects" :key="project.id">
-      <article class="artic">
+    <div id="projectbox">
+      <article class="artic" v-for="project in projects" :key="project.id">
         <section class="sec">
           <h2 class="title">{{project.title}}</h2>
         </section>
