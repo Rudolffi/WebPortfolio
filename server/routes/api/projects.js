@@ -12,58 +12,44 @@ const storage = multer.diskStorage({
   }
 });
 
-const fileFilter = (req, file, cb) => { // tekiskö try/catch?
-  if(file.mimetype === 'image/jpeg'
-      || file.mimetype === 'image/png'
-      || file.mimetype === 'image/gif'){
-    // accept file
-    cb(null, true);
-  } else {
-    // reject file
-    cb(new Error(Error.message), false);
-  }
-};
-
 const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5
   },
-  fileFilter: fileFilter
 });
 
 // get posts
 router.get('/', async (req, res) => {
-  console.log(req.file);
   const projects = await loadProjectCollection();
   res.send(await projects.find({}).toArray()); // find all
 });
 
-/*
-// leevi's add post
-router.post('/api/db', upload.fields([{
-  name: 'file',
-}, {
-  name: 'files',
-}]), function(req, res){
-  const formData = req.body;
-  console.log('form data', formData);
-  console.log('img', formData.title);
-  res.send(req.file);
-});*/
-
 // add posts
 router.post('/', upload.single('file'), async (req, res) => {
+  console.log(req.file);
   const projects = await loadProjectCollection();
-  await projects.insertOne({
-    title: req.body.title,
-    descr: req.body.descr,
-    repo: req.body.repo,
-    //file: req.body.file,
-    file: req.file.path
-    //files: req.body.files
-    //file: req.file.filename
-  });
+  let filePath = null;
+  let shouldSave = true;
+
+  if(req.file){
+    if(req.file.mimetype === 'image/jpg' || req.file.mimetype === 'image/png' || req.file.mimetype === 'image/gif'){
+      filePath = req.file.path;
+    } else {
+      shouldSave = false;
+      res.send('Try again')
+    }
+  }
+
+  if(shouldSave){
+    await projects.insertOne({
+      title: req.body.title,
+      descr: req.body.descr,
+      repo: req.body.repo,
+      file: filePath
+    });
+  }
+
   // http-response : 201 = everything went ok and something was created
   res.status(201).send();
 });
