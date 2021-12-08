@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongodb = require('mongodb');
 const router = express.Router();
@@ -34,7 +33,7 @@ const upload = multer({
 });
 
 // get posts
-router.get('/', upload.single('projectImage'), async (req, res) => {
+router.get('/', async (req, res) => {
   console.log(req.file);
   const projects = await loadProjectCollection();
   res.send(await projects.find({}).toArray()); // find all
@@ -54,21 +53,23 @@ router.post('/api/db', upload.fields([{
 });*/
 
 // add posts
-router.post('/', async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   const projects = await loadProjectCollection();
   await projects.insertOne({
     title: req.body.title,
     descr: req.body.descr,
     repo: req.body.repo,
-    file: req.body.file,
-    files: req.body.files
+    //file: req.body.file,
+    file: req.file.path
+    //files: req.body.files
+    //file: req.file.filename
   });
   // http-response : 201 = everything went ok and something was created
   res.status(201).send();
 });
 
 
-// delete posts
+// delete post
 router.delete('/:id', async (req, res) => {
   const projects = await loadProjectCollection();
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
