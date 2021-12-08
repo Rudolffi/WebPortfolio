@@ -11,7 +11,7 @@
       </section>
       <section>
         <label>Description</label>
-        <textarea placeholder="Project Description" type="text" name="descr" v-model="descrip"/>
+        <textarea placeholder="Project Description" type="text" name="descr" v-model="descr"/>
       </section>
       <section>
         <label>Logo</label>
@@ -49,7 +49,7 @@ export default {
       projectId : -1,
       title : '',
       link : '',
-      descrip : '',
+      descr : '',
       files : document.createElement('input'),
       file : document.createElement('input'),
       dT : new DataTransfer(),

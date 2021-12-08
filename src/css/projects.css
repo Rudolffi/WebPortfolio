@@ -1,7 +1,7 @@
 #projectbox{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+
     background-color: rgba(0, 0, 0, 0);
 }
 .pic{
@@ -11,22 +11,49 @@
     margin: 10px;
     border-radius: 8px;
 }
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 50%;
+    height: 1.2em;
+    white-space: nowrap;
+    margin-left: 10px;
+}
 .desc{
     text-align: left;
-    color: #c7c2c2;
     margin-top: 10px;
 }
 .sec{
     border-bottom: 2px solid rgb(157, 22, 224);
-    display: flex; /* or inline-flex */
-    flex-direction: row;
 }
-
+.innerTitle{
+    border-bottom: 2px solid rgba(153, 153, 153, 0.47);
+}
 .sectwo {
     display: flex; /* or inline-flex */
     flex-direction: row;
 }
+.projectLink {
+}
+/* unvisited link */
+.projectLink a:link {
+    color: #4298d6;
+}
 
+/* visited link */
+.projectLink a:visited {
+    color: rgb(104,33,122);
+}
+
+/* mouse over link */
+.projectLink a:hover {
+    color: #44c7b0;
+}
+
+/* selected link */
+.projectLink a:active {
+    color: blue;
+}
 .artic{
     background-color: rgba(45, 45, 48, 0.5);
     width: 42%;
@@ -37,15 +64,47 @@
     overflow: hidden;
     margin-top: 35px;
     margin-left: 80px;
+    color: #c7c2c2;
 }
 
 .title {
     color: #44c7b0;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
 }
-
+.screenShots{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align: left;
+    overflow: auto;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 95%;
+}
+.screenShot{
+    margin: .2em;
+    max-height: 5em;
+    display: inline-block;
+}
+.buttonBox{
+    display: flex;
+    flex-direction: row;
+    flex-basis: fit-content;
+}
+button{
+    z-index: 10;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    width: 2em;
+}
+button:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgba(114, 114, 114, 0.2);
+}
 @media screen and (max-width: 1050px) {
     #projectbox{
         display: flex;
@@ -110,7 +169,6 @@
     display: flex; /* or inline-flex */
     flex-direction: row;
 }
-
 @media screen and (max-width: 1050px) {
     #light-projectbox{
         display: flex;
