@@ -28,72 +28,80 @@
         </p>
       </div>
       <div id="about-picturebox">
-        <img @mouseover="mouseOver"  class="about-arnoldpicture" src="../assets/arnold.png" alt="Arnold">
-        <img  @mouseleave="mouseLeave" class="about-terminatorpicture" src="../assets/terminator.png" alt="Terminaattori">
+        <canvas id="about-arnoldpicture"></canvas>
       </div>
     </div>
 
     <div class="big_box">
-    <div id="skills-motherbox">
-      <div class="skills-box">
-        <h3 class="boxtitle">Skills</h3>
+      <div id="skills-motherbox">
+        <div class="skills-box">
+          <h3 class="boxtitle">Skills</h3>
+        </div>
+        <div class="skills-bar">
+          <div class="bar">
+            <div class="info">
+              <div><img class="logo" src="../assets/htmllogo.png" alt="Html Logo"><span>HTML</span></div>
+            </div>
+            <div class="progress-line html"><span></span></div>
+          </div>
+          <div class="bar">
+            <div class="info">
+              <div><img class="logo" src="../assets/csslogo.png" alt="Css Logo"><span>CSS</span></div>
+            </div>
+            <div class="progress-line css"><span></span></div>
+          </div>
+          <div class="bar">
+            <div class="info">
+              <div><img class="logo" src="../assets/javalogo.png" alt="Java Logo"><span>JAVA</span></div>
+            </div>
+            <div class="progress-line java"><span></span></div>
+          </div>
+          <div class="bar">
+            <div class="info">
+              <div><img class="logo" src="../assets/javascriptlogo.png" alt="JavaScript Logo"><span>JS</span></div>
+            </div>
+            <div class="progress-line js"><span></span></div>
+          </div>
+        </div>
       </div>
-      <div class="skills-bar">
-        <div class="bar">
-          <div class="info">
-            <div><img class="logo" src="../assets/htmllogo.png" alt="Html Logo"><span>HTML</span></div>
-          </div>
-          <div class="progress-line html"><span></span></div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <div><img class="logo" src="../assets/csslogo.png" alt="Css Logo"><span>CSS</span></div>
-          </div>
-          <div class="progress-line css"><span></span></div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <div><img class="logo" src="../assets/javalogo.png" alt="Java Logo"><span>JAVA</span></div>
-          </div>
-          <div class="progress-line java"><span></span></div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <div><img class="logo" src="../assets/javascriptlogo.png" alt="JavaScript Logo"><span>JS</span></div>
-          </div>
-          <div class="progress-line js"><span></span></div>
-        </div>
-      </div>
-    </div>
-      <div class="example-box">
-        <img class="jscode" src="../assets/example.png" alt="JavaScript koodia" style="opacity: 0.7">
-        <div class="htmlcode-box"><img  src="../assets/htmlkoodi.png" alt="Html koodia" style="opacity: 0.7"></div>
-        <img  src="../assets/csscode.png" alt="Css koodia" style="opacity: 0.7">
-
+        <div class="example-box">
+          <img class="jscode" src="../assets/example.png" alt="JavaScript koodia" style="opacity: 0.7">
+          <div class="htmlcode-box"><img  src="../assets/htmlkoodi.png" alt="Html koodia" style="opacity: 0.7"></div>
+          <img  src="../assets/csscode.png" alt="Css koodia" style="opacity: 0.7">
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import * as arnold from '../pallot/arnold.js';
 export default {
   name: "Information",
   methods: {
       mouseOver: function () {
+        /*
         let arnoldPic = document.querySelector(".about-arnoldpicture");
         let terminatorPic = document.querySelector(".about-terminatorpicture");
 
         arnoldPic.classList.add("hide");
         terminatorPic.classList.add("active");
+
+         */
       },
 
       mouseLeave: function () {
+        /*
         let arnoldPic = document.querySelector(".about-arnoldpicture");
         let terminatorPic = document.querySelector(".about-terminatorpicture");
 
         arnoldPic.classList.remove("hide");
         terminatorPic.classList.remove("active");
+
+         */
       }
+  },
+  mounted() {
+    arnold.init();
   }
 }
 

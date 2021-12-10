@@ -40,7 +40,7 @@ export function init(){
         canvas.height =height;
     });
 
-    window.addEventListener('change', function(){
+    window.addEventListener('resize', function(){
         let height = Math.max( body.scrollHeight, body.offsetHeight,
             html.clientHeight, html.scrollHeight, html.offsetHeight );
         canvas.width = body.getBoundingClientRect().width;
