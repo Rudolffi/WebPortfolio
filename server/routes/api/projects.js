@@ -19,12 +19,12 @@ const storage = new GridFsStorage({
         || file.contentType === 'image/jpg'
         || file.contentType === 'image/png'
         || file.contentType === 'image/gif'){
-      return `${req.body.title}-${file.originalname}`;  // tallenneteaan omalla nimellä, jos if-ehdot täyttyvät
+      return `${file.originalname}`;  // tallenneteaan omalla nimellä, jos if-ehdot täyttyvät
     }
     // 'palautetaan' tallennussijainti jne // bucketName = The GridFs collection to store the file (default: fs)
     return {
       bucketName: projectsDB.collection,
-      filename: `${req.body.title}-${file.originalname}`
+      filename: `${file.originalname}`
     }
   }
 });
@@ -41,20 +41,27 @@ router.get('/', async (req, res) => {
 
 // add projects
 router.post('/', upload.single('file'), async (req, res) => {
-  console.log(req.file);
-  const projects = await loadProjectCollection(projectsDB.collection);
+  try{
+      console.log(req.file);
+      const projects = await loadProjectCollection(projectsDB.collection);
 
-  let fileInput = null;
-  if(req.file){
-    fileInput = req.file.id;
-  }
-    await projects.insertOne({
-      title: req.body.title,
-      descr: req.body.descr,
-      repo: req.body.repo,
-      file_id: fileInput
+      let fileInput = null;
+      if(req.file){
+        fileInput = req.file.id;
+      }
+        await projects.insertOne({
+          title: req.body.title,
+          descr: req.body.descr,
+          repo: req.body.repo,
+          file_id: fileInput
+        });
+      res.status(201).send();
+  }catch(e){
+    return res.status(500).send({
+      message: 'Virhe',
+      error: e.message
     });
-  res.status(201).send();
+  }
 });
 
 
@@ -81,20 +88,20 @@ router.get('/files', async (req, res) => {
       picInfos.push({
         _id: pic._id,
         name: pic.filename,
-        url: 'http://localhost:5000/api/projects/files/' + pic.filename // HUOM KOVAKOODAUS
+        url: 'http://localhost:5000/api/projects/files/' + pic._id // HUOM KOVAKOODAUS
       });
     });
   return res.status(200).send(picInfos);
   }catch(e){
     return res.status(500).send({
-      message: 'Kuvien haussa on käynyt virhe!',
+      message: 'Virhe',
       error: e.message
     });
   }
 });
 
 // watch project pictures (download & zoom in)
-router.get('/files/:name', async (req, res) => {
+router.get('/files/:id', async (req, res) => {
   try{  // ei kutsuta loadProjectsCollectionin avulla perinteisesti, sillä halutaan spesifimmän määrityksen
     const mongoClient = new mongodb.MongoClient(projectsDB.url);
     await mongoClient.connect();
@@ -103,7 +110,9 @@ router.get('/files/:name', async (req, res) => {
         bucketName: projectsDB.collection
     });
 
-    const dwnldStream = bucket.openDownloadStreamByName(req.params.name);
+    const picID = new mongodb.ObjectID(req.params.id);
+
+    const dwnldStream = bucket.openDownloadStream(picID);
 
     dwnldStream.on('data', (data) => {
       return res.status(200).write(data);
