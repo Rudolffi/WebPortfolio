@@ -43,8 +43,8 @@ export default {
   name: "projectForm",
   data: function () {
     return {
-      postAddress : 'http://localhost:8081/api/db',
-      getAddress : 'http://localhost:8081/api/db',
+      postAddress : 'http://localhost:5000/api/projects',
+      getAddress : 'http://localhost:5000/api/projects',
       projectImages: [],
       projectId : -1,
       title : '',
@@ -75,6 +75,7 @@ export default {
         form.reset();
         console.log(vm.file.files);
         console.log(vm.files.files);
+
       }).catch(function(res){
         console.log(res) });
     },
