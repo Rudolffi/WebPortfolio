@@ -2,74 +2,71 @@ const express = require('express');
 const mongodb = require('mongodb');
 const router = express.Router();
 const multer = require('multer');
+const { GridFsStorage } = require('multer-gridfs-storage');
+const projectsDB = require('../../configuration/dbConfig'); // db-config
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploadedImg/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
+// defining gridfsstorage, which will store files DIRECTLY to mongodb
+const storage = new GridFsStorage({
+  url: projectsDB.url + projectsDB.database,
+  options: { useNewUrlParser: true, useUnifiedTopology: true},
+  file: (req, file) => {
+    if(file.contentType === 'image/jpeg'
+        || file.contentType === 'image/jpg'
+        || file.contentType === 'image/png'){
+      return file.originalname;  // tallenneteaan omalla nimellä, jos if-ehdot täyttyvät
+    }
+    // 'palautetaan' tallennussijainti jne // bucketName = The GridFs collection to store the file (default: fs)
+    return {
+      bucketName: projectsDB.collection
+    }
   }
 });
 
 const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
+  storage: storage
 });
 
-// get posts
+// get projects
 router.get('/', async (req, res) => {
   const projects = await loadProjectCollection();
   res.send(await projects.find({}).toArray()); // find all
 });
 
-// add posts
+// add projects
 router.post('/', upload.single('file'), async (req, res) => {
   console.log(req.file);
   const projects = await loadProjectCollection();
-  let filePath = null;
-  let shouldSave = true;
 
-  if(req.file){
-    if(req.file.mimetype === 'image/jpg' || req.file.mimetype === 'image/png' || req.file.mimetype === 'image/gif'){
-      filePath = req.file.path;
-    } else {
-      shouldSave = false;
-      res.send('Try again')
-    }
-  }
-
-  if(shouldSave){
     await projects.insertOne({
       title: req.body.title,
       descr: req.body.descr,
       repo: req.body.repo,
-      file: filePath
+      file_id: req.file.id
     });
-  }
 
   // http-response : 201 = everything went ok and something was created
   res.status(201).send();
 });
 
 
-// delete post
+// delete projects
 router.delete('/:id', async (req, res) => {
   const projects = await loadProjectCollection();
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
   res.status(200).send();
 });
 
+// get project pictures
+
+// watch project pictures (download)
+
 
 async function loadProjectCollection(){
   const client = await mongodb.MongoClient.connect
-  ('mongodb+srv://juustokumine:juustokumina@cluster0.5rodh.mongodb.net', {
+  (projectsDB.url, {
     useNewUrlParser: true
   });
-
-  return client.db('portfolio').collection('projects');
+  return client.db(projectsDB.database).collection(projectsDB.collection);
 }
 
 module.exports = router;
