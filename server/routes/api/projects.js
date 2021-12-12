@@ -5,18 +5,26 @@ const router = express.Router();
 const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const projectsDB = require('../../configuration/dbConfig'); // db-config
+const path = require('path');
+
+
+function imageFilter(req, file, callback) {
+  if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|png|gif)$/))
+    callback(null, true)
+  else
+    callback(null, false)
+}
 
 // defining gridfsstorage, which will store files DIRECTLY to mongodb
 const storage = new GridFsStorage({
   url: projectsDB.url + projectsDB.database,
   options: { useNewUrlParser: true, useUnifiedTopology: true},
   file: (req, file) => {
-    if(file.contentType === 'image/jpeg'
-        || file.contentType === 'image/jpg'
+   /* if(file.contentType === 'image/jpeg'  näit ei kai tarviikaa ku näist ei oo enivei mtn hyötyy
         || file.contentType === 'image/png'
         || file.contentType === 'image/gif'){
       return `${file.originalname}`;  // tallenneteaan omalla nimellä, jos if-ehdot täyttyvät
-    }
+    }*/
     // 'palautetaan' tallennussijainti jne // bucketName = The GridFs collection to store the file (default: fs)
     return {
       bucketName: projectsDB.collection,
@@ -24,7 +32,35 @@ const storage = new GridFsStorage({
     }
   }
 });
+/*
+const fileFilter = (req, files, cb) => {
+  let appropriateFile = 0;
 
+  if(req.files['file'][0]){
+    if(req.files['file'][0].contentType === 'image/jpeg'
+        || req.files['file'][0].contentType === 'image/png'
+        || req.files['file'][0].contentType === 'image/gif'){
+      appropriateFile++;
+    }
+  }
+
+  if(req.files.length > 0){
+      for(let i = 0; i < req.files['files'].length; i++){
+        if(req.files['files'][i].contentType === 'image/jpeg'
+            || req.files['files'][i].contentType === 'image/png'
+            || req.files['files'][i].contentType === 'image/gif') {
+          appropriateFile++;
+        }
+      }
+
+      if(appropriateFile == (req.files['file'].length + req.files['files'].length)) {
+        cb(null, true)  // all pictures are appropriate
+      } else {
+        cb(new Error('Only images are allowed as thumbnail & project pics'), false);
+      }
+  }
+}
+*/
 // get projects
 router.get('/', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
@@ -32,7 +68,7 @@ router.get('/', async (req, res) => {
 });
 
 // add projects
-router.post('/', multer({ storage: storage }).fields([
+router.post('/', multer({ fileFilter: imageFilter, storage: storage }).fields([
     {name:"file", maxCount: 1}, {name:"files", maxCount: 8}]),
     async (req, res) => {
   try{
