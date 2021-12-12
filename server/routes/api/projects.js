@@ -1,8 +1,4 @@
 
-// hei sinä joka luet tätä: mä tiiän et tää ois ehk parempi jos nää ois ripoteltu omiin kansioihin
-// ja siellä sitten omiin tiedostoihin (esim middleware yms) mut näin alkuun mulle itelleni on helpompaa
-// kun kaikki on samassa roskassa. ehkei oo sinänsä käytännöllisin ratkaisu mut mennään jooko tällä
-
 const express = require('express');
 const mongodb = require('mongodb');
 const router = express.Router();
@@ -29,10 +25,6 @@ const storage = new GridFsStorage({
   }
 });
 
-const upload = multer({
-  storage: storage
-});
-
 // get projects
 router.get('/', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
@@ -40,21 +32,28 @@ router.get('/', async (req, res) => {
 });
 
 // add projects
-router.post('/', upload.single('file'), async (req, res) => {
+router.post('/', multer({ storage: storage }).fields([
+    {name:"file", maxCount: 1}, {name:"files", maxCount: 8}]),
+    async (req, res) => {
   try{
-      console.log(req.file);
       const projects = await loadProjectCollection(projectsDB.collection);
 
-      let fileInput = null;
-      if(req.file){
-        fileInput = req.file.id;
-      }
+      let thumbnailID = null;
+      let picturesID = [];
+      if(req.files['file'][0])   // if there is a thumbnail picture
+        thumbnailID = req.files['file'][0].id;
+
+      if(req.files['files'].length) // if not empty
+        req.files['files'].forEach(p => picturesID.push(p.id));
+
         await projects.insertOne({
           title: req.body.title,
           descr: req.body.descr,
           repo: req.body.repo,
-          file_id: fileInput
+          thumb_id: thumbnailID,
+          pics_id: picturesID
         });
+
       res.status(201).send();
   }catch(e){
     return res.status(500).send({
@@ -63,7 +62,6 @@ router.post('/', upload.single('file'), async (req, res) => {
     });
   }
 });
-
 
 // delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
 router.delete('/:id', async (req, res) => {
@@ -94,7 +92,7 @@ router.get('/files', async (req, res) => {
   return res.status(200).send(picInfos);
   }catch(e){
     return res.status(500).send({
-      message: 'Virhe',
+      message: 'Virhe 123',
       error: e.message
     });
   }
@@ -134,7 +132,6 @@ router.get('/files/:id', async (req, res) => {
       });
   }
 });
-
 
 async function loadProjectCollection(coll){
   const client = await mongodb.MongoClient.connect
