@@ -3,7 +3,7 @@
     <article>
       <section>
         <label>Title</label>
-        <input placeholder="Project Title" type="text" name="title" v-model="title" required/>
+        <input maxlength="50" placeholder="Project Title" type="text" name="title" v-model="title" required/>
       </section>
       <section>
         <label>Link</label>
@@ -173,13 +173,15 @@ export default {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
 
-    if(params.id >= 0){
+    if(params.id != null || params.id != undefined){
       console.log("Vanha projekti: " + params.id);
       this.editmode = true;
-      fetch(this.getAddress).then(function(response) {
+      let vm = this;
+      let JSON = fetch(this.getAddress).then(function(response) {
+        vm.projects = [];
         return response.json();
       }).then(function(json) {
-        console.log(json);
+
       });
     } else {
       this.editmode = false;

@@ -5,6 +5,7 @@
       <article class="artic" v-for="project in projects" :key="project._id">
         <section class="sec">
           <h2 class="title">{{project.title}}</h2>
+          <a class="editButton" v-if="editmode" v-bind:href="'/new?id=' + project._id" >Edit</a>
         </section>
         <section class="sectwo">
           <img @load="handleLoad" class="pic" v-bind:src="project.logo">
@@ -40,6 +41,7 @@ export default {
       screenShots : null,
       getAddress : "http://localhost:5000/api/projects",
       imgAddress : "http://localhost:5000/api/projects/files/",
+      editmode : false,
       projects: [
       ],
     }
@@ -60,6 +62,14 @@ export default {
     }
   },
   mounted() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    console.log(params)
+    if(params.edit == 'true' || params.edit == true ){
+      this.editmode = true;
+    } else {
+      this.editmode = false;
+    }
     this.screenShots = document.getElementById('images');
     let vm = this;
     let JSON = fetch(this.getAddress).then(function(response) {
