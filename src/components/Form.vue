@@ -32,7 +32,9 @@
           </ul>
         </div>
       </section>
-      <button type="submit">Add Project</button>
+      <button v-if="!editmode" type="submit">Add Project</button>
+      <button class="updateButton" v-if="editmode" type="button" @click="updateProject">Update Project</button>
+      <button class="removeButton" v-if="editmode" type="button" @click="deleteProject">Delete Project</button>
     </article>
     <input type="hidden" name="id" v-model="projectId"/>
   </form>
@@ -48,6 +50,7 @@ export default {
       projectImages: [],
       validFileExtensions : [".jpg", ".jpeg", ".bmp", ".gif", ".png"],
       projectId : -1,
+      editmode : false,
       title : '',
       link : '',
       descr : '',
@@ -62,6 +65,38 @@ export default {
     }
   },
   methods: {
+    async deleteProject() {
+      let form = document.getElementById("project");
+      let vm = this;
+      const res = await fetch(this.postAddress, {
+        method: 'DELETE',
+        // pass in the information from our form
+        body: {
+          id : vm.projectId
+        },
+      }).then(function(res){
+        vm.projectImages = [];
+        vm.logo.src = '';
+        vm.logo.display = false;
+        form.reset();
+      }).catch(function(res){
+      });
+    },
+    async updateProject() {
+      let form = document.getElementById("project");
+      let vm = this;
+      const res = await fetch(this.postAddress, {
+        method: 'PUT',
+        // pass in the information from our form
+        body: new FormData(form),
+      }).then(function(res){
+        vm.projectImages = [];
+        vm.logo.src = '';
+        vm.logo.display = false;
+        form.reset();
+      }).catch(function(res){
+      });
+    },
     async submitForm() {
       let form = document.getElementById("project");
       let vm = this;
@@ -70,13 +105,13 @@ export default {
         // pass in the information from our form
         body: new FormData(form),
       }).then(function(res){
-        console.log(res);
         vm.projectImages = [];
         vm.logo.src = '';
         vm.logo.display = false;
         form.reset();
       }).catch(function(res){
-        console.log(res) });
+
+      });
     },
     addImagesList : function (files){
       this.projectImages = [];
@@ -140,12 +175,14 @@ export default {
 
     if(params.id >= 0){
       console.log("Vanha projekti: " + params.id);
+      this.editmode = true;
       fetch(this.getAddress).then(function(response) {
         return response.json();
       }).then(function(json) {
         console.log(json);
       });
     } else {
+      this.editmode = false;
       console.log("Uusi projekti");
     }
 
