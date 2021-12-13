@@ -132,12 +132,9 @@ span {
     position: relative;
     height: 8px;
     width: 100%;
-    background: #2d2d30;
-    transform: scaleX(0);
-    transform-origin: left;
     border-radius: 10px;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+
 }
 .bar .progress-line span {
     height: 100%;
@@ -145,9 +142,6 @@ span {
     background: #6665ee;
     position: absolute;
     border-radius: 10px;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
 }
 @keyframes animate {
     100% {
@@ -172,6 +166,57 @@ span {
     background: #dab92d;
 }
 
+.skills-bar .bar .progress-line.css.start {
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+    background: #2d2d30;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.skills-bar .bar .progress-line.html.start {
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+    background: #2d2d30;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.skills-bar .bar .progress-line.java.start {
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+    background: #2d2d30;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.skills-bar .bar .progress-line.js.start {
+    animation: animate 1s cubic-bezier(1,0,0.5,1) forwards;
+    background: #2d2d30;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.bar .progress-line.css span.start {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+
+.bar .progress-line.html span.start {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+
+.bar .progress-line.java span.start {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
+}
+
+.bar .progress-line.js span.start {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 1s 1s cubic-bezier(1,0,0.5,1) forwards;
+}
 
 @media (max-width: 1050px) {
     .big_box {
