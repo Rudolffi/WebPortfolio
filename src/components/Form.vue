@@ -227,15 +227,21 @@ export default {
       e.stopPropagation();
       e.preventDefault();
       if(vm.validateFile(e.dataTransfer.files[0].name)){
-        vm.fD.files = e.dataTransfer.files;
-        vm.logo.src = URL.createObjectURL(e.dataTransfer.file[0]);
+        vm.fD = new DataTransfer();
+        for (let i = 0; i < e.dataTransfer.files.length; i++){
+          vm.fD.items.add(e.dataTransfer.files[i]);
+        }
+        vm.logo.src = URL.createObjectURL(e.dataTransfer.files[0]);
         vm.logo.display = true;
       }
       vm.file.files = vm.fD.files;
     });
     vm.file.addEventListener('change', function(e) {
       if(vm.validateFile(e.target.files[0].name)){
-        vm.fD.files = e.target.files;
+        vm.fD = new DataTransfer();
+        for (let i = 0; i < e.target.files.length; i++){
+          vm.fD.items.add(e.target.files[i]);
+        }
         vm.logo.src = URL.createObjectURL(e.target.files[0]);
         vm.logo.display = true;
       }
