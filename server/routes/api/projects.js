@@ -7,6 +7,8 @@ const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const projectsDB = require('../../configuration/dbConfig'); // db-config
 const path = require('path');
+const {param} = require('express/lib/router');
+
 
 function imageFilter(req, file, callback) {
   if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|jpg|bmp|png|gif)$/))
@@ -28,7 +30,7 @@ const storage = new GridFsStorage({
   }
 });
 
-// get projects
+// get all projects
 router.get('/', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
   res.send(await projects.find({}).toArray()); // find all
@@ -48,13 +50,28 @@ router.post('/', multer({
     console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length);
 
     if(Object.keys(req.files).length > 0) {
-      console.log('tallennetaan kuvallinen projekti')
-      if (req.files['file'][0]) {   // if there is a thumbnail picture
-        thumbnailID = req.files['file'][0].id;
+      console.log('tallennetaan kuvallinen projekti');
+      console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length)
+
+      if(Object.keys(req.files).length === 1){
+        console.log('Object.keys(req.files[file]).length ' + Object.keys(req.files['file']).length)
+        //console.log('Object.keys(req.files[files]).length ' + Object.keys(req.files['files']).length)
+        console.log('req.files[files]' + req.files['files']) // tästä tulee undefined!!! jatka tästä
+
+
       }
-      req.files['files'].forEach(p => {
-        picturesID.push(p.id);
-      });
+
+      if(req.files['file'].length > 0){
+        if (req.files['file'][0]) {   // if there is a thumbnail picture
+          thumbnailID = req.files['file'][0].id;
+        }
+      }
+
+      if(req.file['files'].length > 0){
+        req.files['files'].forEach(p => {
+          picturesID.push(p.id);
+        });
+      }
 
       await sendBodyToMongo(req.body, thumbnailID, picturesID);
 
@@ -66,7 +83,6 @@ router.post('/', multer({
       res.status(201).send();
     }
 
-
   }catch(e){
     console.log('e');
     return res.status(500).send({
@@ -76,12 +92,25 @@ router.post('/', multer({
   }
 });
 
-
 // delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
 router.delete('/:id', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
   res.status(200).send();
+});
+
+// get a project by id
+router.get('/:id', async(req, res) => {
+  try{
+    const projectCollection = await loadProjectCollection(projectsDB.collection);
+    const project = await projectCollection.findOne({_id: new mongodb.ObjectID(req.params.id)});
+    return res.status(200).send(project);
+  }catch(e){
+    return res.status(500).send({
+      message: 'Virhe 123',
+      error: e.message
+    });
+  }
 });
 
 
@@ -117,6 +146,7 @@ router.get('/files', async (req, res) => {
 // watch project pictures (download & zoom in)
 router.get('/files/:id', async (req, res) => {
   try{  // ei kutsuta loadProjectsCollectionin avulla perinteisesti, sillä halutaan spesifimmän määrityksen
+
     const mongoClient = new mongodb.MongoClient(projectsDB.url);
     await mongoClient.connect();
     const db = mongoClient.db(projectsDB.database);
