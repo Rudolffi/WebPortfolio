@@ -198,10 +198,14 @@ export default {
         fetch(vm.imgAddress + json.thumb_id)
             .then(response => response.blob())
             .then(imageBlob => {
-              vm.fD.items.add(new File([imageBlob], "jeesus.jpg"));
-              vm.file.files = vm.fD.files;
-              vm.logo.src = URL.createObjectURL(vm.file.files[0]);
-              vm.logo.display = true;
+              fetch(vm.imgAddress + json.thumb_id + "/details").then(function(response) {
+                return response.json();
+              }).then(function(jsonn) {
+                vm.fD.items.add(new File([imageBlob], jsonn.filename));
+                vm.file.files = vm.fD.files;
+                vm.logo.src = URL.createObjectURL(vm.file.files[0]);
+                vm.logo.display = true;
+              });
             });
         vm.projectId = json._id;
         vm.title = json.title;
