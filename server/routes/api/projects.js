@@ -1,3 +1,4 @@
+// imagefilter: https://snippets.cacher.io/snippet/c3df237136848a2cbc45
 
 const express = require('express');
 const mongodb = require('mongodb');
@@ -7,9 +8,8 @@ const { GridFsStorage } = require('multer-gridfs-storage');
 const projectsDB = require('../../configuration/dbConfig'); // db-config
 const path = require('path');
 
-
 function imageFilter(req, file, callback) {
-  if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|png|gif)$/))
+  if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|jpg|bmp|png|gif)$/))
     callback(null, true)
   else
     callback(null, false)
@@ -20,11 +20,6 @@ const storage = new GridFsStorage({
   url: projectsDB.url + projectsDB.database,
   options: { useNewUrlParser: true, useUnifiedTopology: true},
   file: (req, file) => {
-   /* if(file.contentType === 'image/jpeg'  näit ei kai tarviikaa ku näist ei oo enivei mtn hyötyy
-        || file.contentType === 'image/png'
-        || file.contentType === 'image/gif'){
-      return `${file.originalname}`;  // tallenneteaan omalla nimellä, jos if-ehdot täyttyvät
-    }*/
     // 'palautetaan' tallennussijainti jne // bucketName = The GridFs collection to store the file (default: fs)
     return {
       bucketName: projectsDB.collection,
@@ -32,35 +27,7 @@ const storage = new GridFsStorage({
     }
   }
 });
-/*
-const fileFilter = (req, files, cb) => {
-  let appropriateFile = 0;
 
-  if(req.files['file'][0]){
-    if(req.files['file'][0].contentType === 'image/jpeg'
-        || req.files['file'][0].contentType === 'image/png'
-        || req.files['file'][0].contentType === 'image/gif'){
-      appropriateFile++;
-    }
-  }
-
-  if(req.files.length > 0){
-      for(let i = 0; i < req.files['files'].length; i++){
-        if(req.files['files'][i].contentType === 'image/jpeg'
-            || req.files['files'][i].contentType === 'image/png'
-            || req.files['files'][i].contentType === 'image/gif') {
-          appropriateFile++;
-        }
-      }
-
-      if(appropriateFile == (req.files['file'].length + req.files['files'].length)) {
-        cb(null, true)  // all pictures are appropriate
-      } else {
-        cb(new Error('Only images are allowed as thumbnail & project pics'), false);
-      }
-  }
-}
-*/
 // get projects
 router.get('/', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
@@ -68,30 +35,40 @@ router.get('/', async (req, res) => {
 });
 
 // add projects
-router.post('/', multer({ fileFilter: imageFilter, storage: storage }).fields([
-    {name:"file", maxCount: 1}, {name:"files", maxCount: 8}]),
+router.post('/', multer({
+      fileFilter: imageFilter, storage: storage})
+    .fields([
+  {name: "file", maxCount: 1},
+  {name: "files", maxCount: 8}]),
     async (req, res) => {
   try{
-      const projects = await loadProjectCollection(projectsDB.collection);
+    const picturesID = [];
+    let thumbnailID = null;
 
-      let thumbnailID = null;
-      let picturesID = [];
-      if(req.files['file'][0])   // if there is a thumbnail picture
+    console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length);
+
+    if(Object.keys(req.files).length > 0) {
+      console.log('tallennetaan kuvallinen projekti')
+      if (req.files['file'][0]) {   // if there is a thumbnail picture
         thumbnailID = req.files['file'][0].id;
+      }
+      req.files['files'].forEach(p => {
+        picturesID.push(p.id);
+      });
 
-      if(req.files['files'].length) // if not empty
-        req.files['files'].forEach(p => picturesID.push(p.id));
-
-        await projects.insertOne({
-          title: req.body.title,
-          descr: req.body.descr,
-          repo: req.body.repo,
-          thumb_id: thumbnailID,
-          pics_id: picturesID
-        });
+      await sendBodyToMongo(req.body, thumbnailID, picturesID);
 
       res.status(201).send();
+    } else {
+      console.log('tallennetaan kuvaton projekti');
+
+      await sendBodyToMongo(req.body, thumbnailID, picturesID);
+      res.status(201).send();
+    }
+
+
   }catch(e){
+    console.log('e');
     return res.status(500).send({
       message: 'Virhe',
       error: e.message
@@ -99,12 +76,14 @@ router.post('/', multer({ fileFilter: imageFilter, storage: storage }).fields([
   }
 });
 
+
 // delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
 router.delete('/:id', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
   res.status(200).send();
 });
+
 
 // get project pictures
 router.get('/files', async (req, res) => {
@@ -133,6 +112,7 @@ router.get('/files', async (req, res) => {
     });
   }
 });
+
 
 // watch project pictures (download & zoom in)
 router.get('/files/:id', async (req, res) => {
@@ -168,6 +148,18 @@ router.get('/files/:id', async (req, res) => {
       });
   }
 });
+
+async function sendBodyToMongo(body, thumbnailID, picturesID){
+  const projects = await loadProjectCollection(projectsDB.collection);
+  await projects.insertOne({
+    title: body.title,
+    descr: body.descr,
+    repo: body.repo,
+    thumb_id: thumbnailID,
+    pics_id: picturesID
+  });
+
+}
 
 async function loadProjectCollection(coll){
   const client = await mongodb.MongoClient.connect
