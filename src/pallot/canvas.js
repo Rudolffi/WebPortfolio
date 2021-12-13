@@ -10,6 +10,17 @@ const mouse = {
     y: null,
 }
 
+export function update(){
+
+    let body = document.getElementById('app');
+    canvas.width = body.getBoundingClientRect().width;
+    body = document.body;
+    let html = document.documentElement;
+
+    let height = Math.max( body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight );
+    canvas.height = height;
+}
 export function init(){
 
     canvas = document.getElementById('gamecanvas');
@@ -67,7 +78,6 @@ class Particle {
         } else {
             this.color = 'rgba(30,30,30,0.2)';
         }
-        console.log(this.color);
     }
     update(){
         if(this.size > 0.2){

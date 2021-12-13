@@ -8,6 +8,10 @@ export default {
   name: "Tausta",
   mounted() {
     pallo.init();
+    this.$root.$on('myEvent', (text) => { // here you need to use the arrow function
+      this.message = text;
+      pallo.update();
+    })
   },
 }
 //import '../pallot/canvas.js'

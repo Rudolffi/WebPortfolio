@@ -24,7 +24,6 @@ for(let i = 0; i < particlesArray.length; i++){
 `;
 function setupTypewriter(t) {
     var HTML = koodiTeksti_1;
-    console.log(yellowKeyWords);
     t.innerHTML = "";
 
     var cursorPosition = 0,
@@ -101,11 +100,8 @@ export function init(){
     codeBox = document.getElementById('example-box');
     let typewriter = document.createElement('pre');
     const myArray = koodiTeksti_1.split(/(?=[,().;\s])|(?<=[,().;\s])/g);
-    console.log(koodiTeksti_1);
-    console.log("gg");
     let text = {html : koodiTeksti_1}
     koodiTeksti_1 = text.html;
-    console.log(koodiTeksti_1);
 
     koodiTeksti_1 = '<p class="codes anim-typewriter">';
     let row_code = '';
@@ -114,7 +110,6 @@ export function init(){
             myArray[i] = myArray[i].replace('<', "&lt;");
             myArray[i] = myArray[i].replace('>', "&gt;");
         }
-        console.log(myArray[i]);
         if (orangeKeyWords.includes(myArray[i])){
             myArray[i] = `<span class="orangeKeyWords">${myArray[i]}</span>`;
         }
@@ -141,7 +136,6 @@ export function init(){
     //typewriter.style = "--n:" + koodiTeksti_1.length;
     //typewriter.className = 'anim-typewriter';
     typewriter.innerHTML = koodiTeksti_1;
-    console.log(koodiTeksti_1);
     //let t = setupTypewriter(typewriter);
     //t.type();
     codeBox.appendChild(typewriter);

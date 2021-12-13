@@ -3,7 +3,7 @@
     <article>
       <section>
         <label>Title</label>
-        <input placeholder="Project Title" type="text" name="title" v-model="title"/>
+        <input placeholder="Project Title" type="text" name="title" v-model="title" required/>
       </section>
       <section>
         <label>Link</label>

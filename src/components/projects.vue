@@ -2,12 +2,12 @@
   <div >
     <div id="projectbox">
       <h1 class="projectHeader">Projects</h1>
-      <article class="artic" v-for="project in projects" :key="project.id">
+      <article class="artic" v-for="project in projects" :key="project._id">
         <section class="sec">
           <h2 class="title">{{project.title}}</h2>
         </section>
         <section class="sectwo">
-          <img class="pic" v-bind:src="project.logo">
+          <img @load="handleLoad" class="pic" v-bind:src="project.logo">
           <p class="desc">{{project.descr}}</p>
         </section>
         <section v-if="project.images.length > 0">
@@ -16,7 +16,7 @@
             <button @click="scrollHorizontal(-1)"  class="fa fa-angle-left"></button>
             <div id="images" class="screenShots">
               <a v-for="(image , index) in project.images" :key="index" class="box" v-bind:href="image" v-bind:data-lightbox="project.title" data-title="">
-                <img  class="screenShot" v-bind:src="image">
+                <img @load="handleLoad" class="screenShot" v-bind:src="image">
               </a>
             </div>
             <button @click="scrollHorizontal(1)" class="fa fa-angle-right"></button>
@@ -24,7 +24,7 @@
         </section>
         <section class="projectLink">
           <h4 class="title innerTitle">Link to Project</h4>
-          <p  class="cut-text">Link:  <a v-bind:href="project.link" >{{project.link}}</a></p>
+          <p  class="cut-text">Link:  <a v-bind:href="project.repo" >{{project.repo}}</a></p>
         </section>
       </article>
     </div>
@@ -38,31 +38,9 @@ export default {
   data: function () {
     return {
       screenShots : null,
+      getAddress : "http://localhost:5000/api/projects",
+      imgAddress : "http://localhost:5000/api/projects/files/",
       projects: [
-        {
-          "id" : 0,
-          "title" : "Testi Projekti 0",
-          "link" : "https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll",
-          "descr" : "Commodi deleniti ea in. Aperiam aspernatur dolorum eos eum fugit iste laudantium maiores maxime nemo nobis non\n      odit omnis pariatur provident quae, quia quibusdam repudiandae sed sequi temporibus ut veritatis!",
-          "logo" : "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/Planet.png",
-          "images" : ["https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg","https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/revontulet_1.jpg", "https://users.metropolia.fi/~leevikos/digimedia/Viikko_3/img/taustakuva.jpg"]
-        },
-        {
-          "id" : 1,
-          "link" : "https://www.google.com/search?q=google&client=opera&hs=fYd&sxsrf=AOaemvIvnzqzfnQ17N0KVUbX5mel7aHHlw:1638960193027&source=lnms&tbm=isch&sa=X&ved=2ahUKEwirquzAgtT0AhVCSvEDHW29AKcQ_AUoAXoECAIQAw&biw=1536&bih=723&dpr=1.25",
-          "title" : "Tasdasdasdf wafaw f",
-          "descr" : "Commodi deleniti ea in. Aperiam aspernatur dolorum eos eum fugit iste laudantium maiores maxime nemo nobis non\n      odit omnis pariatur provident quae, quia quibusdam repudiandae sed sequi temporibus ut veritatis!",
-          "logo" : "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
-          "images" : []
-        },
-        {
-          "id" : 2,
-          "links" : "https://users.metropolia.fi/~leevikos/snake/",
-          "title" : "Tasdasdasdf wafaw f",
-          "descr" : "Commodi deleniti ea in. Aperiam aspernatur dolorum eos eum fugit iste laudantium maiores maxime nemo nobis non\n      odit omnis pariatur provident quae, quia quibusdam repudiandae sed sequi temporibus ut veritatis!",
-          "logo" : "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
-          "images" : []
-        }
       ],
     }
   },
@@ -76,10 +54,53 @@ export default {
         left: this.screenShots.scrollLeft + (this.screenShots.offsetWidth * direction),
         behavior: 'smooth'
       });
+    },
+    handleLoad : function () {
+      this.$root.$emit('myEvent', 'update');
     }
   },
   mounted() {
     this.screenShots = document.getElementById('images');
+    let vm = this;
+    let JSON = fetch(this.getAddress).then(function(response) {
+      vm.projects = [];
+      return response.json();
+    }).then(function(json) {
+      for(let i = 0; i < json.length; i++){
+        if(json[i]._id == null || json[i]._id == undefined){
+          console.log("_id: " + json[i]._id);
+          continue;
+        }
+        if(json[i].title == null || json[i].title == undefined){
+          console.log("title: " + json[i].title);
+          continue;
+        }
+        if(json[i].descr == null || json[i].descr == undefined){
+          console.log("descr: " + json[i].descr);
+          continue;
+        }
+        let thumbnail = '';
+        if(json[i].thumb_id == null || json[i].thumb_id == undefined){
+          thumbnail = require('../assets/notfound.png');
+          console.log("thumbnail: " + thumbnail);
+        } else {
+          thumbnail = vm.imgAddress + json[i].thumb_id;
+        }
+        let imageLinks = [];
+        for(let j = 0; j < json[i].pics_id.length; j++){
+          imageLinks = [...imageLinks, vm.imgAddress + json[i].pics_id[j]];
+        }
+        vm.projects = [...vm.projects, {
+          _id : json[i]._id,
+          title : json[i].title,
+          descr : json[i].descr,
+          repo : json[i].repo,
+          logo : thumbnail,
+          images : imageLinks,
+        }]
+      }
+      this.$root.$emit('myEvent', 'update');
+    });
   }
 }
 </script>
