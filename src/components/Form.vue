@@ -14,19 +14,19 @@
         <textarea placeholder="Project Description" type="text" name="descr" v-model="descr"/>
       </section>
       <section>
-        <label>Logo</label>
+        <label>Thumbnail</label>
         <div class="input-output">
           <img v-if="logo.display" v-bind:src="logo.src" id="pic">
           <button v-if="logo.display" type="button" class="removeButton" @click="removeImage()">Remove</button>
           <label id="dropFile" v-bind:class="[logo.display ? 'fileUpload-small' : 'fileUpload']" for="file"><p><span class="selectFile">Choose a file </span><span> or drag it here.</span></p></label>
-          <input accept="image/*" type="file" id="file" name="file">
+          <input v-bind:accept="this.validFileExtensions" type="file" id="file" name="file">
         </div>
       </section>
       <section>
         <label>Images</label>
         <div class="input-output">
           <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
-          <input multiple accept="image/*" type="file" id="files" name="files">
+          <input multiple v-bind:accept="this.validFileExtensions" type="file" id="files" name="files">
           <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
             <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img v-bind:src="images.src"></span></li>
           </ul>
@@ -46,6 +46,7 @@ export default {
       postAddress : 'http://localhost:5000/api/projects',
       getAddress : 'http://localhost:5000/api/projects',
       projectImages: [],
+      validFileExtensions : [".jpg", ".jpeg", ".bmp", ".gif", ".png"],
       projectId : -1,
       title : '',
       link : '',
@@ -53,6 +54,7 @@ export default {
       files : document.createElement('input'),
       file : document.createElement('input'),
       dT : new DataTransfer(),
+      fD : new DataTransfer(),
       logo : {
         src : '',
         display : false,
@@ -73,9 +75,6 @@ export default {
         vm.logo.src = '';
         vm.logo.display = false;
         form.reset();
-        console.log(vm.file.files);
-        console.log(vm.files.files);
-
       }).catch(function(res){
         console.log(res) });
     },
@@ -116,6 +115,23 @@ export default {
         this.projectImages.push(image);
         console.log(image);
       }
+    },
+    validateFile : function (fileName){
+      let blnValid = false;
+      if (fileName.length > 0) {
+        for (let j = 0; j < this.validFileExtensions.length; j++) {
+          let sCurExtension = this.validFileExtensions[j];
+          if (fileName.substr(fileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+            blnValid = true;
+            break;
+          }
+        }
+      }
+      if (!blnValid) {
+        alert("Sorry, " + fileName + " is invalid, allowed extensions are: " + this.validFileExtensions.join(", "));
+        return false;
+      }
+      return true;
     }
   },
   mounted() {
@@ -154,7 +170,9 @@ export default {
       e.preventDefault();
       const dt = e.dataTransfer;
       for (let i = 0; i < dt.files.length; i++){
-        vm.dT.items.add(dt.files[i]);
+        if(vm.validateFile(dt.files[i].name)){
+          vm.dT.items.add(dt.files[i]);
+        }
       }
       vm.files.files = vm.dT.files;
       vm.addImagesList(vm.files.files);
@@ -171,19 +189,27 @@ export default {
     dragAndDropFile.addEventListener('drop', function(e) {
       e.stopPropagation();
       e.preventDefault();
-      console.log(e.dataTransfer.files);
-      vm.files.files = e.dataTransfer.files;
-      vm.logo.src = URL.createObjectURL(e.dataTransfer.files[0]);
-      vm.logo.display = true;
+      if(vm.validateFile(e.dataTransfer.files[0].name)){
+        vm.fD.files = e.dataTransfer.files;
+        vm.logo.src = URL.createObjectURL(e.dataTransfer.file[0]);
+        vm.logo.display = true;
+      }
+      vm.file.files = vm.fD.files;
     });
     vm.file.addEventListener('change', function(e) {
-      vm.logo.src = URL.createObjectURL(e.target.files[0]);
-      vm.logo.display = true;
+      if(vm.validateFile(e.target.files[0].name)){
+        vm.fD.files = e.target.files;
+        vm.logo.src = URL.createObjectURL(e.target.files[0]);
+        vm.logo.display = true;
+      }
+      vm.file.files = vm.fD.files;
     });
     vm.files.addEventListener("change", function (e) {
       const dt = e.target;
       for (let i = 0; i < dt.files.length; i++){
-        vm.dT.items.add(dt.files[i]);
+        if(vm.validateFile(dt.files[i].name)){
+          vm.dT.items.add(dt.files[i]);
+        }
       }
       vm.files.files = vm.dT.files;
       vm.addImagesList(vm.files.files);
