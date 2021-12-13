@@ -40,7 +40,7 @@ export default {
     return {
       screenShots : null,
       getAddress : "http://localhost:5000/api/projects",
-      imgAddress : "http://localhost:5000/api/projects/files/",
+      imgAddress : "http://localhost:5000/api/files/",
       editmode : false,
       projects: [
       ],

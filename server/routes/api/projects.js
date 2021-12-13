@@ -31,57 +31,54 @@ const storage = new GridFsStorage({
 });
 
 // get all projects
-router.get('/', async (req, res) => {
+router.get('/projects', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
   res.send(await projects.find({}).toArray()); // find all
 });
 
 // add projects
-router.post('/', multer({
+router.post('/projects', multer({
       fileFilter: imageFilter, storage: storage})
     .fields([
   {name: "file", maxCount: 1},
-  {name: "files", maxCount: 8}]),
+  {name: "files", maxCount: 10}]),
     async (req, res) => {
   try{
     const picturesID = [];
     let thumbnailID = null;
+    /*
+        console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length);
 
-    console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length);
+        if(Object.keys(req.files).length > 0) {
+          console.log('tallennetaan kuvallinen projekti');
+          console.log('Object.keys(req.files).length = ' + Object.keyseq.files).length)
 
-    if(Object.keys(req.files).length > 0) {
-      console.log('tallennetaan kuvallinen projekti');
-      console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length)
+          if(Object.keys(req.files).length === 1){
+            console.log('Object.keys(req.files[file]).length ' + Object.keys(req.files['file']).length)
+            console.log('req.files[files]' + req.files['files']) // tästä tulee undefined!!! jatka tästä
+          }
 
-      if(Object.keys(req.files).length === 1){
-        console.log('Object.keys(req.files[file]).length ' + Object.keys(req.files['file']).length)
-        //console.log('Object.keys(req.files[files]).length ' + Object.keys(req.files['files']).length)
-        console.log('req.files[files]' + req.files['files']) // tästä tulee undefined!!! jatka tästä
+          if(req.files['file'].length > 0){
+            if (req.files['file'][0]) {   // if there is a thumbnail picture
+              thumbnailID = req.files['file'][0].id;
+            }
+          } */
 
+    thumbnailID = req.files['file'][0].id;
 
-      }
-
-      if(req.files['file'].length > 0){
-        if (req.files['file'][0]) {   // if there is a thumbnail picture
-          thumbnailID = req.files['file'][0].id;
-        }
-      }
-
-      if(req.file['files'].length > 0){
         req.files['files'].forEach(p => {
           picturesID.push(p.id);
         });
-      }
 
       await sendBodyToMongo(req.body, thumbnailID, picturesID);
 
       res.status(201).send();
-    } else {
+   /* } else {
       console.log('tallennetaan kuvaton projekti');
 
       await sendBodyToMongo(req.body, thumbnailID, picturesID);
       res.status(201).send();
-    }
+    } */
 
   }catch(e){
     console.log('e');
@@ -93,14 +90,14 @@ router.post('/', multer({
 });
 
 // delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
-router.delete('/:id', async (req, res) => {
+router.delete('/projects/:id', async (req, res) => {
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
   res.status(200).send();
 });
 
 // get a project by id
-router.get('/:id', async(req, res) => {
+router.get('/projects/:id', async(req, res) => {
   try{
     const projectCollection = await loadProjectCollection(projectsDB.collection);
     const project = await projectCollection.findOne({_id: new mongodb.ObjectID(req.params.id)});
@@ -113,10 +110,10 @@ router.get('/:id', async(req, res) => {
   }
 });
 
-
 // get project pictures
 router.get('/files', async (req, res) => {
   try{
+
     const pictureCollection = await loadProjectCollection(projectsDB.collection + '.files');
     const pictures = pictureCollection.find({});
 
@@ -130,10 +127,11 @@ router.get('/files', async (req, res) => {
       picInfos.push({
         _id: pic._id,
         name: pic.filename,
-        url: 'http://localhost:5000/api/projects/files/' + pic._id // HUOM KOVAKOODAUS
+        url: 'http://localhost:5000/api/files/' + pic._id // HUOM KOVAKOODAUS
       });
     });
-  return res.status(200).send(picInfos);
+    return res.status(200).send(picInfos);
+
   }catch(e){
     return res.status(500).send({
       message: 'Virhe 123',
@@ -141,6 +139,7 @@ router.get('/files', async (req, res) => {
     });
   }
 });
+
 
 
 // watch project pictures (download & zoom in)

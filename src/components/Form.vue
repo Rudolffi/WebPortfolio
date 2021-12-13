@@ -45,9 +45,9 @@ export default {
   name: "projectForm",
   data: function () {
     return {
-      postAddress : 'http://localhost:5000/api/projects',
+      postAddress : 'http://localhost:5000/api/projects/',
       getAddress : 'http://localhost:5000/api/projects/',
-      imgAddress : "http://localhost:5000/api/projects/files/",
+      imgAddress : "http://localhost:5000/api/files/",
       projectImages: [],
       validFileExtensions : [".jpg", ".jpeg", ".bmp", ".gif", ".png"],
       projectId : -1,
