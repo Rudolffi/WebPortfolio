@@ -178,7 +178,7 @@ export default {
       console.log("Vanha projekti: " + params.id);
       this.editmode = true;
       let vm = this;
-      let JSON = fetch(this.getAddress + "/" + params.id).then(function(response) {
+      let JSON = fetch(this.getAddress + params.id).then(function(response) {
         return response.json();
       }).then(function(json) {
         vm.dT = new DataTransfer();
@@ -186,9 +186,13 @@ export default {
           fetch(vm.imgAddress + json.pics_id[i])
               .then(response => response.blob())
               .then(imageBlob => {
-                vm.dT.items.add(new File([imageBlob], "jeesus.jpg"));
-                vm.files.files = vm.dT.files;
-                vm.addImagesList(vm.files.files);
+                fetch(vm.imgAddress + json.pics_id[i] + "/details").then(function(response) {
+                  return response.json();
+                }).then(function(jsonn) {
+                  vm.dT.items.add(new File([imageBlob], jsonn.filename));
+                  vm.files.files = vm.dT.files;
+                  vm.addImagesList(vm.files.files);
+                });
               });
         }
         fetch(vm.imgAddress + json.thumb_id)
