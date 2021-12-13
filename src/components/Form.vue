@@ -46,7 +46,8 @@ export default {
   data: function () {
     return {
       postAddress : 'http://localhost:5000/api/projects',
-      getAddress : 'http://localhost:5000/api/projects',
+      getAddress : 'http://localhost:5000/api/projects/',
+      imgAddress : "http://localhost:5000/api/projects/files/",
       projectImages: [],
       validFileExtensions : [".jpg", ".jpeg", ".bmp", ".gif", ".png"],
       projectId : -1,
@@ -169,7 +170,7 @@ export default {
       return true;
     }
   },
-  mounted() {
+  created() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
 
@@ -177,16 +178,38 @@ export default {
       console.log("Vanha projekti: " + params.id);
       this.editmode = true;
       let vm = this;
-      let JSON = fetch(this.getAddress).then(function(response) {
-        vm.projects = [];
+      let JSON = fetch(this.getAddress + "/" + params.id).then(function(response) {
         return response.json();
       }).then(function(json) {
-
+        vm.dT = new DataTransfer();
+        for (let i = 0; i < json.pics_id.length; i++){
+          fetch(vm.imgAddress + json.pics_id[i])
+              .then(response => response.blob())
+              .then(imageBlob => {
+                vm.dT.items.add(new File([imageBlob], "jeesus.jpg"));
+                vm.files.files = vm.dT.files;
+                vm.addImagesList(vm.files.files);
+              });
+        }
+        fetch(vm.imgAddress + json.thumb_id)
+            .then(response => response.blob())
+            .then(imageBlob => {
+              vm.fD.items.add(new File([imageBlob], "jeesus.jpg"));
+              vm.file.files = vm.fD.files;
+              vm.logo.src = URL.createObjectURL(vm.file.files[0]);
+              vm.logo.display = true;
+            });
+        vm.projectId = json._id;
+        vm.title = json.title;
+        vm.link = json.repo;
+        vm.descr = json.descr;
       });
     } else {
       this.editmode = false;
       console.log("Uusi projekti");
     }
+  },
+  mounted() {
 
     let dragAndDropFile = document.getElementById("dropFile");
     let dragAndDropFiles = document.getElementById("dropFiles");
