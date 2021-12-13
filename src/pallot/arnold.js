@@ -1,8 +1,5 @@
 let canvas;
 let ctx;
-const particlesArray = [];
-let hue = 0;
-let light = 0;
 let theme = false; // false == dark; true == light
 let terminator;
 let arnold;

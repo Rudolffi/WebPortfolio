@@ -23,7 +23,6 @@ export function init(){
     let height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
     canvas.height =height;
-    console.log('Last update' + body.getBoundingClientRect().width);
     body.addEventListener('click', function(event){
         mouse.x = event.x;
         mouse.y = event.y;
@@ -46,6 +45,12 @@ export function init(){
         canvas.width = body.getBoundingClientRect().width;
         canvas.height = height;
     });
+    window.onload = function() {
+        let height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        canvas.width = body.getBoundingClientRect().width;
+        canvas.height = height;
+    };
     animate();
 }
 class Particle {

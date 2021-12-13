@@ -9,6 +9,7 @@
     margin-top: 50px;
     text-align: center;
 }
+
 #about-box {
     width: 40%;
     /*border: 1px solid rgba(157, 22, 224);*/
@@ -24,6 +25,36 @@
     margin: 60px 60px 30px;
 }
 
+/* Animation */
+.codes {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.anim-typewriter{
+    animation: typewriter 5s steps(var(--n)) 0s 1 normal both,
+    blinkTextCursor 500ms steps(44) infinite normal;
+    border-right: 2px solid rgba(255,255,255,.75);
+}
+@keyframes typewriter{
+    from{width: 0;}
+    to{width: 100%;}
+}
+@keyframes blinkTextCursor{
+    from{border-right-color: rgba(255,255,255,.75);}
+    to{border-right-color: transparent;}
+}
+
+pre{
+    overflow: hidden;
+    width: fit-content;
+}
+#example-box {
+    width: 40%;
+    height: 100%;
+    margin: 30px 60px 60px;
+    text-align: left;
+    color: #c7c2c2;
+}
 #skills-motherbox {
     width: 40%;
     border-radius: 8px;
@@ -61,7 +92,6 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .skills-box {
     text-align: center;
 }
@@ -71,26 +101,7 @@
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    right: 225px;
 }
-.about-terminatorpicture {
-    width: 400px;
-    height: 630px;
-    border-radius: 8px;
-    right: 225px;
-    top: 245px;
-    opacity: 0.8;
-    display: none;
-}
-
-.about-arnoldpicture.hide {
-    opacity: 0.2;
-}
-
-.about-terminatorpicture.active {
-    display: block;
-}
-
 .logo {
     width: 50px;
     height: 50px;
@@ -191,8 +202,10 @@ span {
         margin: 340px 60px 60px 80px;
 
     }
-    .example-box {
-        margin-left: -200px;
+    #example-box {
+        margin-left: 20%;
+        margin-top: 50px;
+        width: 100%;
     }
 }
 

@@ -64,10 +64,7 @@
           </div>
         </div>
       </div>
-        <div class="example-box">
-          <img class="jscode" src="../assets/example.png" alt="JavaScript koodia" style="opacity: 0.7">
-          <div class="htmlcode-box"><img  src="../assets/htmlkoodi.png" alt="Html koodia" style="opacity: 0.7"></div>
-          <img  src="../assets/csscode.png" alt="Css koodia" style="opacity: 0.7">
+      <div id="example-box">
       </div>
     </div>
   </div>
@@ -75,33 +72,14 @@
 
 <script>
 import * as arnold from '../pallot/arnold.js';
+import * as koodit from '../pallot/koodit.js';
 export default {
   name: "Information",
   methods: {
-      mouseOver: function () {
-        /*
-        let arnoldPic = document.querySelector(".about-arnoldpicture");
-        let terminatorPic = document.querySelector(".about-terminatorpicture");
-
-        arnoldPic.classList.add("hide");
-        terminatorPic.classList.add("active");
-
-         */
-      },
-
-      mouseLeave: function () {
-        /*
-        let arnoldPic = document.querySelector(".about-arnoldpicture");
-        let terminatorPic = document.querySelector(".about-terminatorpicture");
-
-        arnoldPic.classList.remove("hide");
-        terminatorPic.classList.remove("active");
-
-         */
-      }
   },
   mounted() {
     arnold.init();
+    koodit.init();
   }
 }
 
@@ -110,4 +88,5 @@ export default {
 
 <style scoped>
 @import './../css/information.css';
+@import './../css/keyWords.css';
 </style>
