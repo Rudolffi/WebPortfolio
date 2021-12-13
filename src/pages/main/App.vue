@@ -15,7 +15,6 @@ import Navbar from '../../components/Navbar.vue'
 import Tausta from '../../components/Tausta.vue'
 import projects from '../../components/projects.vue'
 import Socials from '../../components/Socials.vue'
-import EditButton from '../../components/EditButton.vue'
 
 export default {
   name: 'App',

@@ -1,16 +1,21 @@
+@font-face {
+    font-family: logoFont;
+    src: url(../fonts/VeraMono.ttf);
+}
+
 .orangeKeyWords{
     color: #cc7832;
-    font-weight: bold;
+    font-family: logoFont;
 }
 .purpleKeyWords{
     color: #966f96;
-    font-weight: bold;
+    font-family: logoFont;
 }
 .yellowKeyWords{
     color: #e7be6a;
-    font-weight: bold;
+    font-family: logoFont;
 }
 .greenKeyWords{
     color: #a3ba4d;
-    font-weight: bold;
+    font-family: logoFont;
 }

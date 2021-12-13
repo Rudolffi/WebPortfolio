@@ -1,3 +1,5 @@
+
+
 #information{
     display: flex;
     flex-direction: column;
@@ -85,7 +87,9 @@ pre{
 .para {
     color: #c7c2c2;
     padding: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .boxtitle {
@@ -233,8 +237,7 @@ span {
     }
 
     #about-picturebox {
-        margin: 0;
-        margin-top: 50px;
+        margin: 50px 0 0;
         text-align: center;
         width: 100%;
     }
