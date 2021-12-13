@@ -1,7 +1,17 @@
+@font-face {
+    font-family: logoFont;
+    src: url(../fonts/VeraMono.ttf);
+}
+@font-face {
+    font-family: normalText;
+    src: url(../fonts/Poppins-Light.ttf);
+}
+
 * {
     margin: 0;
     padding: 0;
     list-style-type: none;
+    font-family: logoFont;
 }
 
 #nav {
@@ -18,7 +28,7 @@
 }
 
 .navbar {
-    margin-left: 50%;
+    margin-left: 45%;
     display: flex;
     overflow-x: hidden;
 }
@@ -29,7 +39,7 @@
 .navlink {
     display: flex;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 17px;
     color: #c7c2c2;
     position: relative;
     padding: 5px 0;
@@ -37,6 +47,7 @@
     text-decoration: none;
     text-transform: uppercase;
     transition: .3s;
+    font-family: normalText;
 }
 
 .navlink:before {
@@ -84,6 +95,7 @@
     text-transform: uppercase;
     margin-left: 100px;
     z-index: 5;
+    letter-spacing: 2px;
 }
 
 .sticky {
@@ -128,7 +140,7 @@
         border-radius: 0 8px 0 8px;
     }
     .navbar.active {
-        left: -50%;
+        left: -45%;
     }
 
     .navlink {

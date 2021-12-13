@@ -1,30 +1,22 @@
 <template>
   <div id="information">
-    <h1 class="header">Ryhmä 8</h1>
+    <h1 class="header">Arnold Schwarzenegger</h1>
     <div class="big_box">
       <div id="about-box">
         <h3 class="boxtitle">About</h3>
         <p class="para">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Ab blanditiis maiores quas voluptatibus. Alias consequatur
-        esse et illum incidunt nam nisi pariatur quae rem unde? Beatae
-        facilis incidunt voluptatem voluptatibus!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Aliquam assumenda, culpa deserunt distinctio doloremque
-        enim in inventore libero minus nemo numquam, officiis
-        pariatur quaerat, quasi ratione tenetur vel! Recusandae,
-        repellat! Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit. Ab aperiam asperiores autem dolor ducimus eius facilis
-        fuga illo illum labore libero, non nulla omnis pariatur,
-        quaerat reiciendis repellat sit voluptates? Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Accusamus
-        ad commodi earum, eos exercitationem maiores nam neque
-        optio quam sequi? Adipisci architecto delectus eveniet
-        fugiat laboriosam sunt tempora tempore, veniam. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit. Ad alias
-        animi, assumenda consectetur culpa cumque, delectus,
-        distinctio dolor dolorem doloremque eveniet excepturi
-        ipsa molestias neque numquam pariatur perspiciatis quasi repellat?
+          I dreamed to be a movie star as a teenager.
+          My first lead role was in the film Hercules in New York (1970).
+          I performed a role appropriate to my being as a Greek demigod,
+          which was also repeatedly performed in films by my role model Reg Park. For the movie
+          I used the artist name Arnold Strong. My
+          voice was dubbed as I could not speak English clearly. However the 1990
+          DVD release includes my own voice. The film was not a success,
+          and it has always been considered miserable. <br> <br> <br>
+          That’s why I quit the acting and turned to coding. I am at the moment
+          Studying at Metropolia University of Applied Sciences as an ICT engineer
+          for second year and I can't wait for the christmas holidays :). <br> <br>
+          I will be back.
         </p>
       </div>
       <div id="about-picturebox">
