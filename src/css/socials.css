@@ -1,0 +1,79 @@
+.socials-box {
+    display: grid;
+    width: 100%;
+    place-items: center;
+}
+
+.wrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.wrapper .social-button {
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    float: left;
+    margin: 0 5px;
+    overflow: hidden;
+    background: rgb(45, 45, 48);
+    border-radius: 50px;
+    cursor: pointer;
+    transition:  all .3s ease-out;
+}
+.wrapper .social-button:hover {
+    width: 200px;
+}
+
+.wrapper .social-button .social-icon {
+    display: inline-block;
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    line-height: 60px;
+    transition: all 0.3s ease-out;
+}
+.wrapper .social-button:nth-child(1):hover .social-icon{
+    background: #44c7b0;
+    color: white;
+}
+.wrapper .social-button:nth-child(2):hover .social-icon{
+    background: #44c7b0;
+    color: white;
+}
+.wrapper .social-button:nth-child(3):hover .social-icon{
+    background: #44c7b0;
+    color: white;
+}
+.wrapper .social-button:nth-child(4):hover .social-icon{
+    background: #44c7b0;
+    color: white;
+}
+
+.wrapper .social-button .social-icon i {
+    font-size: 25px;
+    line-height: 60px;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper .social-button span {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 60px;
+    margin-left: 10px;
+}
+
+.wrapper .social-button:nth-child(1) span {
+    color: #c7c2c2;
+}
+.wrapper .social-button:nth-child(2) span {
+    color: #c7c2c2;
+}
+.wrapper .social-button:nth-child(3) span {
+    color: #c7c2c2;
+}
+.wrapper .social-button:nth-child(4) span {
+    color: #c7c2c2;
+}

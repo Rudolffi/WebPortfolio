@@ -70,15 +70,16 @@ pre{
     margin-left: 70%;
 }
 
-.jscode {
-    margin-top: 30px;
-}
 
 .header {
     margin-top: 90px;
     text-align: left;
     color: #44c7b0;
     margin-left: 60px;
+}
+
+.example-box {
+    margin: 60px 155px 60px 60px;
 }
 
 .para {
@@ -199,7 +200,7 @@ span {
 
     #skills-motherbox {
         width: 80%;
-        margin: 340px 60px 60px 80px;
+        margin: 85px 60px 60px 80px;
 
     }
     #example-box {

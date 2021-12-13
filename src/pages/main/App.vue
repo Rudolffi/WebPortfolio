@@ -4,6 +4,7 @@
     <Navbar/>
     <Information/>
     <projects/>
+    <Socials/>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Information from '../../components/Information.vue'
 import Navbar from '../../components/Navbar.vue'
 import Tausta from '../../components/Tausta.vue'
 import projects from '../../components/projects.vue'
+import Socials from '../../components/Socials.vue'
 import EditButton from '../../components/EditButton.vue'
 
 export default {
@@ -22,6 +24,7 @@ export default {
     Navbar,
     projects,
     Tausta,
+    Socials,
   },
 }
 </script>
@@ -31,7 +34,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #44c7b0;
   background-color: rgba(30, 30, 30, 0);
 }
 </style>
