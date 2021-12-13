@@ -113,7 +113,6 @@ router.get('/projects/:id', async(req, res) => {
 // get project pictures
 router.get('/files', async (req, res) => {
   try{
-
     const pictureCollection = await loadProjectCollection(projectsDB.collection + '.files');
     const pictures = pictureCollection.find({});
 
@@ -140,6 +139,21 @@ router.get('/files', async (req, res) => {
   }
 });
 
+// get picture details by id
+router.get('/files/:id/details', async (req, res) => {
+  try{
+    const picturesCollection = await loadProjectCollection(projectsDB.collection + '.files');
+    const pictureWithDetails = await picturesCollection.findOne({_id: new mongodb.ObjectID(req.params.id)});
+    pictureWithDetails.url = 'http://localhost:5000/api/files/' + pictureWithDetails._id; // HUOM KOVAKOODAUS
+
+    return res.status(200).send(pictureWithDetails);
+  }catch(e){
+    return res.status(500).send({
+      message: 'Virhe 123',
+      error: e.message
+    });
+  }
+});
 
 
 // watch project pictures (download & zoom in)
