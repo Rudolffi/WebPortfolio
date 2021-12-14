@@ -38,6 +38,7 @@ export function init(){
     let height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
     canvas.height =height;
+    canvas.width = body.getBoundingClientRect().width;
     parent.appendChild(canvas);
     body.addEventListener('click', function(event){
         mouse.x = event.x;
@@ -53,6 +54,7 @@ export function init(){
         let height = Math.max( body.scrollHeight, body.offsetHeight,
             html.clientHeight, html.scrollHeight, html.offsetHeight );
         canvas.height =height;
+        canvas.width = body.getBoundingClientRect().width;
         parent.appendChild(canvas);
     });
 
@@ -61,6 +63,7 @@ export function init(){
         let height = Math.max( body.scrollHeight, body.offsetHeight,
             html.clientHeight, html.scrollHeight, html.offsetHeight );
         canvas.height =height;
+        canvas.width = body.getBoundingClientRect().width;
         parent.appendChild(canvas);
     });
     window.onload = function() {
