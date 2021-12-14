@@ -34,7 +34,7 @@ const storage = new GridFsStorage({
 // get all projects
 router.get('/projects', async (req, res) => {
   //const projects = await loadProjectCollection(projectsDB.collection);
-  await await mongoClient.connect();
+  await mongoClient.connect();
   const projects = mongoClient.db(projectsDB.database).collection(projectsDB.collection);
   res.send(await projects.find({}).toArray()); // find all
 });
