@@ -91,7 +91,7 @@ export default {
     async updateProject() {
       let form = document.getElementById("project");
       let vm = this;
-      const res = await fetch(this.postAddress, {
+      const res = await fetch(this.postAddress + this.projectId, {
         method: 'PUT',
         // pass in the information from our form
         body: new FormData(form),
