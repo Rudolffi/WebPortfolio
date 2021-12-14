@@ -36,5 +36,6 @@ body{
   margin: 0;
   top: 0;
   left: 0;
+  background-color: rgb(28,28,28);
 }
 </style>

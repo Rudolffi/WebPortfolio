@@ -30,4 +30,7 @@ export default {
 html {
   scroll-behavior: smooth;
 }
+body{
+  background-color: rgb(28,28,28);
+}
 </style>
