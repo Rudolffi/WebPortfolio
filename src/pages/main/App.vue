@@ -36,4 +36,7 @@ export default {
   color: #44c7b0;
   background-color: rgba(30, 30, 30, 0);
 }
+html {
+  scroll-behavior: smooth;
+}
 </style>

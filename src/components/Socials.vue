@@ -1,5 +1,5 @@
 <template>
-  <div class="socials-box">
+  <footer class="socials-box">
   <div class="wrapper">
     <div class="social-button facebook">
       <div class="social-icon">
@@ -26,7 +26,8 @@
       <span>GitHub</span>
     </div>
   </div>
-  </div>
+    <p class="email">Hölöhölö@hölöhölö.fi</p>
+  </footer>
 </template>
 
 <script>

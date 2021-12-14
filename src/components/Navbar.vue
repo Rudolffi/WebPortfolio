@@ -1,5 +1,6 @@
 <template>
 <div>
+  <nav>
   <ul id="nav">
     <h3 class="head">
       Portfolio
@@ -9,13 +10,13 @@
         <img class="icon cancel-btn" id="light" src="../assets/ruksi.png" alt="Hampparimenu">
      </li>
     <li class="navitem">
-      <a href="#" id="one" class="navlink">About</a>
+      <a href="#main-box" id="one" class="navlink">About</a>
     </li>
     <li class="navitem">
-      <a href="#" id="two" class="navlink">Skills</a>
+      <a href="#main-skills" id="two" class="navlink">Skills</a>
     </li>
     <li class="navitem">
-      <a href="#" id="three" class="navlink">Projects</a>
+      <a href="#projectbox" id="three" class="navlink">Projects</a>
     </li>
     </div>
   <div>
@@ -23,7 +24,7 @@
     <img class="icon" id="menu-btn" src="../assets/hamppari.png" alt="Hampparimenu">
   </div>
   </ul>
-
+  </nav>
 </div>
 </template>
 

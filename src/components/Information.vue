@@ -1,9 +1,9 @@
 <template>
   <div id="information">
     <h1 class="header">Arnold Schwarzenegger</h1>
-    <div class="big_box">
+    <div id="main-box"  class="big_box">
       <div id="about-box">
-        <h3 class="boxtitle">About</h3>
+        <h3 id="about-title" class="boxtitle">About</h3>
         <p class="para">
           I dreamed to be a movie star as a teenager.
           My first lead role was in the film Hercules in New York (1970).
@@ -24,6 +24,7 @@
       </div>
     </div>
 
+    <div id="main-skills"></div>
     <div class="big_box">
       <div id="skills-motherbox">
         <div class="skills-box">

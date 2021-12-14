@@ -1,12 +1,18 @@
 .socials-box {
     display: grid;
     width: 100%;
+    margin-top: 80px;
+    padding: 0px;
     place-items: center;
+    background-color: #2d2d30;
+}
+.email {
+    margin-bottom: 20px;
 }
 
 .wrapper {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .wrapper .social-button {
@@ -16,8 +22,9 @@
     float: left;
     margin: 0 5px;
     overflow: hidden;
-    background: rgb(45, 45, 48);
+    background: rgba(30, 30, 30, 0.6);
     border-radius: 50px;
+    box-shadow: 0 10px 10px rgba(30, 30, 30, 0.3);
     cursor: pointer;
     transition:  all .3s ease-out;
 }
