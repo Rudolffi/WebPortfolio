@@ -90,3 +90,9 @@
 .wrapper .social-button:nth-child(4) span {
     color: #c7c2c2;
 }
+
+@media (max-width: 1050px) {
+    .socials-box {
+
+    }
+}

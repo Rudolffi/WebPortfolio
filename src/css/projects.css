@@ -218,3 +218,22 @@ button:hover {
     display: block;
     font-size: .9em;
 }
+
+@media (max-width: 630px) {
+    .artic {
+        margin-left: 55px;
+    }
+}
+
+@media (max-width: 380px) {
+    .projectHeader {
+        margin-left: 40px;
+        font-size: 20px;
+    }
+
+    .artic {
+        margin-left: 33px;
+        width: 87%;
+
+    }
+}
