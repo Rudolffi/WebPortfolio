@@ -11,7 +11,7 @@
       </section>
       <section>
         <label>Description</label>
-        <textarea placeholder="Project Description" type="text" name="descr" v-model="descr"/>
+        <textarea maxlength="500" placeholder="Project Description" type="text" name="descr" v-model="descr"/>
       </section>
       <section>
         <label>Thumbnail</label>
@@ -36,7 +36,6 @@
       <button class="updateButton" v-if="editmode" type="button" @click="updateProject">Update Project</button>
       <button class="removeButton" v-if="editmode" type="button" @click="deleteProject">Delete Project</button>
     </article>
-    <input type="hidden" name="id" v-model="projectId"/>
   </form>
 </template>
 
@@ -69,9 +68,8 @@ export default {
     async deleteProject() {
       let form = document.getElementById("project");
       let vm = this;
-      const res = await fetch(this.postAddress, {
+      const res = await fetch(this.postAddress + this.projectId, {
         method: 'DELETE',
-        // pass in the information from our form
         body: {
           id : vm.projectId
         },

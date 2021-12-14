@@ -9,7 +9,9 @@
         </section>
         <section class="sectwo">
           <img @load="handleLoad" class="pic" v-bind:src="project.logo">
-          <p class="desc">{{project.descr}}</p>
+          <div class="descc">
+            <p class="desc">{{project.descr}}</p>
+          </div>
         </section>
         <section v-if="project.images.length > 0">
           <h4 class="title innerTitle">Images</h4>

@@ -222,6 +222,10 @@ button:hover {
     font-size: .9em;
 }
 
+.descc{
+    word-wrap: break-word;
+    width: 55%;
+}
 @media (max-width: 630px) {
     .artic {
         margin-left: 55px;
