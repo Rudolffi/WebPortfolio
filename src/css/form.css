@@ -155,3 +155,6 @@ input[type=file]{
 .updateButton:hover{
     background-color: #3e8e41;
 }
+.count{
+    text-align: right;
+}

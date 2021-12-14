@@ -4,16 +4,16 @@
       <section>
         <label>Title</label>
         <input v-bind:maxlength="titleMaxCharacters" placeholder="Project Title" type="text" name="title" v-model="title" required/>
-        <p>{{title.length}}/{{titleMaxCharacters}}</p>
+        <p class="count">{{title.length}}/{{titleMaxCharacters}}</p>
       </section>
       <section>
         <label>Link</label>
-        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo" v-model="link"/>
+        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo" v-model="link" pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"/>
       </section>
       <section>
         <label>Description</label>
         <textarea v-bind:maxlength="descrMaxCharacters" placeholder="Project Description" type="text" name="descr" v-model="descr"/>
-        <p>{{descr.length}}/{{descrMaxCharacters}}</p>
+        <p class="count">{{descr.length}}/{{descrMaxCharacters}}</p>
       </section>
       <section>
         <label>Thumbnail</label>
@@ -23,6 +23,7 @@
           <label id="dropFile" v-bind:class="[logo.display ? 'fileUpload-small' : 'fileUpload']" for="file"><p><span class="selectFile">Choose a file </span><span> or drag it here.</span></p></label>
           <input v-bind:accept="this.validFileExtensions" type="file" id="file" name="file">
         </div>
+        <p class="count">{{fD.files.length}}/1</p>
       </section>
       <section>
         <label>Images</label>
@@ -33,6 +34,7 @@
             <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img @load="handleLoad"  v-bind:src="images.src"></span></li>
           </ul>
         </div>
+        <p class="count">{{projectImages.length}}/10</p>
       </section>
       <button v-if="!editmode" type="submit">Add Project</button>
       <button class="updateButton" v-if="editmode" type="button" @click="updateProject">Update Project</button>
@@ -58,8 +60,8 @@ export default {
       descrMaxCharacters : 500,
       link : '',
       descr : '',
-      files : document.createElement('input'),
-      file : document.createElement('input'),
+      files : document.getElementById("files"),
+      file : document.getElementById("file"),
       dT : new DataTransfer(),
       fD : new DataTransfer(),
       logo : {
@@ -82,6 +84,7 @@ export default {
         vm.logo.src = '';
         vm.logo.display = false;
         form.reset();
+        window.location.href = "/new";
       }).catch(function(res){
       });
     },
@@ -134,6 +137,7 @@ export default {
     },
     removeImage : function (){
       this.file.files = new DataTransfer().files;
+      this.fD = new DataTransfer();
       this.logo.src = '';
       this.logo.display = false;
     },
@@ -246,7 +250,9 @@ export default {
       const dt = e.dataTransfer;
       for (let i = 0; i < dt.files.length; i++){
         if(vm.validateFile(dt.files[i].name)){
-          vm.dT.items.add(dt.files[i]);
+          if(vm.dT.files.length < 10){
+            vm.dT.items.add(dt.files[i]);
+          }
         }
       }
       vm.files.files = vm.dT.files;
@@ -289,7 +295,9 @@ export default {
       const dt = e.target;
       for (let i = 0; i < dt.files.length; i++){
         if(vm.validateFile(dt.files[i].name)){
-          vm.dT.items.add(dt.files[i]);
+          if(vm.dT.files.length < 10){
+            vm.dT.items.add(dt.files[i]);
+          }
         }
       }
       vm.files.files = vm.dT.files;

@@ -50,9 +50,6 @@ export default {
   },
   methods : {
     scrollHorizontal : function (direction){
-      console.log(this.screenShots.scrollLeft);
-      console.log(this.screenShots.offsetWidth);
-      //this.screenShots.scroll(this.screenShots.scrollLeft + (this.screenShots.width * direction) , 0);
       this.screenShots.scroll({
         top: 0,
         left: this.screenShots.scrollLeft + (this.screenShots.offsetWidth * direction),
