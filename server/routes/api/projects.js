@@ -89,7 +89,54 @@ router.post('/projects', multer({
   }
 });
 
-// delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
+// edit projects
+router.put('/projects/:id', multer({
+  fileFilter: imageFilter, storage: storage})
+.fields([
+  {name: "file", maxCount: 1},
+  {name: "files", maxCount: 10}]),
+    async (req, res) => {
+  try{
+  const projects = await loadProjectCollection(projectsDB.collection);
+  const pictures = await loadProjectCollection(projectsDB.collection + '.files');
+  const editable = await projects.findOne({_id: new mongodb.ObjectID(req.params.id)});
+
+  // poistetaan thumbnail
+  await pictures.deleteOne({_id: new mongodb.ObjectID(editable.thumb_id)});
+
+  //poistetaan kuvia
+    const deletablePics = editable.pics_id;
+
+    for(let p of deletablePics){
+      await pictures.deleteOne({_id: p});
+    }
+
+    // uudet thumbnail ja kuvat
+    let newThumbnailID = req.files['file'][0].id;;
+    const newPicturesID = [];
+    req.files['files'].forEach(p => {
+      newPicturesID.push(p.id);
+    });
+
+  await projects.updateOne(editable,
+      {
+        $set: {title: req.body.title,
+          descr: req.body.descr,
+          repo: req.body.repo,
+          thumb_id: newThumbnailID,
+          pics_id: newPicturesID},
+        $currentDate: {lastModified: true}
+      });
+    res.status(201).send();
+
+  } catch (e){
+    console.log('put error');
+    console.log(e.message);
+  }
+});
+
+
+// delete projects
 router.delete('/projects/:id', async (req, res) => {
 // mitä jos ei ole kuvia/kuvaa/jjnejne
   try {
@@ -214,6 +261,7 @@ router.get('/files/:id', async (req, res) => {
   }
 });
 
+
 async function sendBodyToMongo(body, thumbnailID, picturesID){
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.insertOne({
@@ -223,7 +271,6 @@ async function sendBodyToMongo(body, thumbnailID, picturesID){
     thumb_id: thumbnailID,
     pics_id: picturesID
   });
-
 }
 
 async function loadProjectCollection(coll){
