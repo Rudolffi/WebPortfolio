@@ -1,18 +1,24 @@
 <template>
 
+<div class="login-wrapper">
+  <div class="login-box">
   <form id="project" @submit.prevent="submitForm" enctype="multipart/form-data" action="#" method="post">
     <article>
       <section>
         <label>Username</label>
         <input placeholder="username" type="text" name="username" v-model="username" required/>
+        <input class="form-input" maxlength="50" type="text" name="title" v-model="title" required/>
       </section>
       <section>
         <label>Password</label>
         <input placeholder="password" type="password" name="password" v-model="password"/>
+        <input class="form-input" type="url" autocomplete="url" name="repo" v-model="link"/>
       </section>
-      <button type="submit">Login</button>
+      <button class="form-input" type="submit">Login</button>
     </article>
   </form>
+</div>
+  </div>
 </template>
 
 <script>
@@ -39,5 +45,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import './../css/login.css';
 </style>
