@@ -4,6 +4,7 @@ const particlesArray = [];
 let hue = 0;
 let light = 0;
 let theme = false; // false == dark; true == light
+let parent;
 
 const mouse = {
     x: null,
@@ -16,10 +17,11 @@ export function update(){
     canvas.width = body.getBoundingClientRect().width;
     body = document.body;
     let html = document.documentElement;
-
+    parent.removeChild(canvas);
     let height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
-    canvas.height = height;
+    canvas.height =height;
+    parent.appendChild(canvas);
 }
 export function init(){
 
@@ -31,9 +33,12 @@ export function init(){
     body = document.body;
         let html = document.documentElement;
 
+    parent = canvas.parentNode;
+    parent.removeChild(canvas);
     let height = Math.max( body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight );
     canvas.height =height;
+    parent.appendChild(canvas);
     body.addEventListener('click', function(event){
         mouse.x = event.x;
         mouse.y = event.y;
@@ -44,17 +49,19 @@ export function init(){
         spawn();
     });
     body.addEventListener('change', function(event){
+        parent.removeChild(canvas);
         let height = Math.max( body.scrollHeight, body.offsetHeight,
             html.clientHeight, html.scrollHeight, html.offsetHeight );
-        canvas.width = body.getBoundingClientRect().width;
         canvas.height =height;
+        parent.appendChild(canvas);
     });
 
     window.addEventListener('resize', function(){
+        parent.removeChild(canvas);
         let height = Math.max( body.scrollHeight, body.offsetHeight,
             html.clientHeight, html.scrollHeight, html.offsetHeight );
-        canvas.width = body.getBoundingClientRect().width;
-        canvas.height = height;
+        canvas.height =height;
+        parent.appendChild(canvas);
     });
     window.onload = function() {
         let height = Math.max( body.scrollHeight, body.offsetHeight,
