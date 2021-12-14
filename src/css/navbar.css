@@ -134,7 +134,7 @@
         position: fixed;
         top: 0;
         left: -110%;
-        height: 100vh;
+        height: 100%;
         width: 100%;
         max-width: 250px;
         background-color: #2d2d30;
@@ -205,6 +205,14 @@
     }
 
 }
+
+@media (max-width: 380px) {
+    .head {
+        font-size: 20px;
+        margin-left: 45px;
+    }
+}
+
 
 /* light-theme alkaa */
 

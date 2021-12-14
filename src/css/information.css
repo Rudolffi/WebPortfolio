@@ -264,6 +264,38 @@ span {
     }
 }
 
+@media (max-width: 630px) {
+    #skills-motherbox {
+        margin-left: 60px;
+    }
+}
+
+@media (max-width: 380px) {
+    * {
+        font-size: 15px;
+    }
+
+    #about-box {
+        width: 80%;
+        margin-left: 48px;
+    }
+    #example-box {
+        margin-left: 5%;
+        margin-top: 50px;
+        width: auto;
+    }
+    #skills-motherbox {
+        width: 85%;
+        margin: 35px 60px 60px 40px;
+
+    }
+
+    .header {
+        margin-left: 40px;
+        font-size: 20px;
+    }
+}
+
 
 
 /*light theme alkaa*/
