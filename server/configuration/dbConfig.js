@@ -2,7 +2,7 @@
 // kirjaudu mlab atlas: leevi.koskinen2@metropolia.fi pwd: Juustokumina123
 
 module.exports = {
-  url: "mongodb://37.136.1.80:27017/",
+  url: "mongodb+srv://juustokumine:juustokumina@portfolio.5rodh.mongodb.net/",
   database: "portfolio",
   collection: "projects"
 };
