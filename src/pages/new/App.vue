@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar/>
+    <FormNavbar/>
     <Tausta/>
     <projectForm/>
   </div>
@@ -9,7 +9,7 @@
 <script>
 
 import projectForm from '../../components/Form.vue'
-import Navbar from '../../components/Navbar.vue'
+import FormNavbar from '../../components/FormNavbar.vue'
 import Tausta from '../../components/Tausta.vue'
 
 export default {
@@ -17,7 +17,7 @@ export default {
   components: {
     Tausta,
     projectForm,
-    Navbar
+    FormNavbar
   },
   mounted() {
   }
