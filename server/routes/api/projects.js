@@ -46,50 +46,98 @@ router.post('/projects', multer({
   try{
     const picturesID = [];
     let thumbnailID = null;
-    /*
+
         console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length);
 
         if(Object.keys(req.files).length > 0) {
           console.log('tallennetaan kuvallinen projekti');
-          console.log('Object.keys(req.files).length = ' + Object.keyseq.files).length)
+          console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length)
 
           if(Object.keys(req.files).length === 1){
-            console.log('Object.keys(req.files[file]).length ' + Object.keys(req.files['file']).length)
-            console.log('req.files[files]' + req.files['files']) // tästä tulee undefined!!! jatka tästä
-          }
+                if(req.files['file'] === undefined){
+                  req.files['files'].forEach(p => {
+                    picturesID.push(p.id);
+                  });
+                  await sendBodyToMongo(req.body, null, picturesID);
+                  res.status(201).send();
+                }else{
+                  thumbnailID = req.files['file'][0].id;
+                  await sendBodyToMongo(req.body, thumbnailID, picturesID);
+                  res.status(201).send();
+                }
+              } else {
+                  req.files['files'].forEach(p => {
+                  picturesID.push(p.id);
+                  });
+                  thumbnailID = req.files['file'][0].id;
+                  await sendBodyToMongo(req.body, thumbnailID, picturesID);
+                  res.status(201).send();
+              }
+          } else {
+          console.log('tallennetaan kuvaton projekti');
 
-          if(req.files['file'].length > 0){
-            if (req.files['file'][0]) {   // if there is a thumbnail picture
-              thumbnailID = req.files['file'][0].id;
-            }
-          } */
-
-    thumbnailID = req.files['file'][0].id;
-
-        req.files['files'].forEach(p => {
-          picturesID.push(p.id);
-        });
-
-      await sendBodyToMongo(req.body, thumbnailID, picturesID);
-
-      res.status(201).send();
-   /* } else {
-      console.log('tallennetaan kuvaton projekti');
-
-      await sendBodyToMongo(req.body, thumbnailID, picturesID);
-      res.status(201).send();
-    } */
+          await sendBodyToMongo(req.body, thumbnailID, picturesID);
+          res.status(201).send();
+         }
 
   }catch(e){
     console.log('e');
     return res.status(500).send({
-      message: 'Virhe',
+      message: 'Virhe add projects',
       error: e.message
+
     });
   }
 });
 
-// delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
+// edit projects
+router.put('/projects/:id', multer({
+  fileFilter: imageFilter, storage: storage})
+.fields([
+  {name: "file", maxCount: 1},
+  {name: "files", maxCount: 10}]),
+    async (req, res) => {
+  try{
+  const projects = await loadProjectCollection(projectsDB.collection);
+  const pictures = await loadProjectCollection(projectsDB.collection + '.files');
+  const editable = await projects.findOne({_id: new mongodb.ObjectID(req.params.id)});
+
+  // poistetaan thumbnail
+  await pictures.deleteOne({_id: new mongodb.ObjectID(editable.thumb_id)});
+
+  //poistetaan kuvia
+    const deletablePics = editable.pics_id;
+
+    for(let p of deletablePics){
+      await pictures.deleteOne({_id: p});
+    }
+
+    // uudet thumbnail ja kuvat
+    let newThumbnailID = req.files['file'][0].id;;
+    const newPicturesID = [];
+    req.files['files'].forEach(p => {
+      newPicturesID.push(p.id);
+    });
+
+  await projects.updateOne(editable,
+      {
+        $set: {title: req.body.title,
+          descr: req.body.descr,
+          repo: req.body.repo,
+          thumb_id: newThumbnailID,
+          pics_id: newPicturesID},
+        $currentDate: {lastModified: true}
+      });
+    res.status(201).send();
+
+  } catch (e){
+    console.log('put error');
+    console.log(e.message);
+  }
+});
+
+
+// delete projects
 router.delete('/projects/:id', async (req, res) => {
 // mitä jos ei ole kuvia/kuvaa/jjnejne
   try {
@@ -214,6 +262,7 @@ router.get('/files/:id', async (req, res) => {
   }
 });
 
+
 async function sendBodyToMongo(body, thumbnailID, picturesID){
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.insertOne({
@@ -223,7 +272,6 @@ async function sendBodyToMongo(body, thumbnailID, picturesID){
     thumb_id: thumbnailID,
     pics_id: picturesID
   });
-
 }
 
 async function loadProjectCollection(coll){
