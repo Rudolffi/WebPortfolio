@@ -10,7 +10,7 @@
         <img class="icon cancel-btn" id="light" src="../assets/ruksi.png" alt="Hampparimenu">
      </li>
     <li class="navitem">
-      <a href="/" id="one" class="navlink">Home</a>
+      <a href="/?edit=true" id="one" class="navlink">Home</a>
     </li>
     <li class="navitem">
       <a href="/new" id="two" class="navlink">New</a>
