@@ -16,7 +16,7 @@
       <section>
         <label>Thumbnail</label>
         <div class="input-output">
-          <img v-if="logo.display" v-bind:src="logo.src" id="pic">
+          <img @load="handleLoad" v-if="logo.display" v-bind:src="logo.src" id="pic">
           <button v-if="logo.display" type="button" class="removeButton" @click="removeImage()">Remove</button>
           <label id="dropFile" v-bind:class="[logo.display ? 'fileUpload-small' : 'fileUpload']" for="file"><p><span class="selectFile">Choose a file </span><span> or drag it here.</span></p></label>
           <input v-bind:accept="this.validFileExtensions" type="file" id="file" name="file">
@@ -28,7 +28,7 @@
           <label id="dropFiles" class="fileUpload" for="files"><p><span class="selectFile">Choose a file(s)</span> or drag it here.</p></label>
           <input multiple v-bind:accept="this.validFileExtensions" type="file" id="files" name="files">
           <ul id="listOfImages" v-for="images in projectImages" :key="images.id">
-            <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img v-bind:src="images.src"></span></li>
+            <li class="tooltip"><button type="button" class="removeButton" @click="removeFile(images)">Remove</button>{{images.name}}<span><img @load="handleLoad"  v-bind:src="images.src"></span></li>
           </ul>
         </div>
       </section>
@@ -113,6 +113,9 @@ export default {
       }).catch(function(res){
 
       });
+    },
+    handleLoad : function () {
+      this.$root.$emit('myEvent', 'update');
     },
     addImagesList : function (files){
       this.projectImages = [];
