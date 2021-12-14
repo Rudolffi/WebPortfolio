@@ -83,6 +83,9 @@ export default {
         vm.projectImages = [];
         vm.logo.src = '';
         vm.logo.display = false;
+        vm.title = '';
+        vm.link = '';
+        vm.descr = '';
         form.reset();
         window.location.href = "/new";
       }).catch(function(res){
