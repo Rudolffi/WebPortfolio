@@ -44,8 +44,8 @@ export default {
   data: function () {
     return {
       screenShots : null,
-      getAddress : "http://localhost:5000/api/projects",
-      imgAddress : "http://localhost:5000/api/files/",
+      getAddress : "api/projects",
+      imgAddress : "api/files/",
       editmode : false,
       projects: [
       ],
