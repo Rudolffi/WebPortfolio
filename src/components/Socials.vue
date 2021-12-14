@@ -26,7 +26,7 @@
       <span>GitHub</span>
     </div>
   </div>
-    <p class="email">Hölöhölö@hölöhölö.fi</p>
+    <p class="email">Arnold@Terminator.com</p>
   </footer>
 </template>
 

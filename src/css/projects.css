@@ -1,3 +1,8 @@
+@font-face {
+    font-family: normalText;
+    src: url(../fonts/Poppins-Light.ttf);
+}
+
 #projectbox{
     background-color: rgba(0, 0, 0, 0);
 }
@@ -31,8 +36,8 @@
 }
 .projectHeader {
     color: #44c7b0;
-    margin: auto;
-    margin-left: 60px;
+    margin: auto auto auto 60px;
+    font-family: normalText;
 }
 /* unvisited link */
 .projectLink a:link {
@@ -73,6 +78,7 @@
     margin: 10px;
     display: inline-block;
     font-size: 1.2em;
+    font-family: normalText;
 }
 .screenShots{
     background-color: rgba(0, 0, 0, 0.2);

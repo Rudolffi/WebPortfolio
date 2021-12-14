@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: normalText;
+    src: url(../fonts/Poppins-Light.ttf);
+}
 
 #information{
     display: flex;
@@ -78,6 +81,7 @@ pre{
     text-align: left;
     color: #44c7b0;
     margin-left: 60px;
+    font-family: normalText;
 }
 
 .example-box {
@@ -96,6 +100,7 @@ pre{
     color: #44c7b0;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-family: normalText;
 }
 .skills-box {
     text-align: center;
