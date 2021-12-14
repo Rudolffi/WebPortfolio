@@ -20,7 +20,7 @@
           <h4 class="title innerTitle">Images</h4>
           <div class="buttonBox" >
             <button @click="scrollHorizontal(-1)"  class="fa fa-angle-left"></button>
-            <div id="images" class="screenShots">
+            <div v-bind:id="project.title" class="screenShots">
               <a v-for="(image , index) in project.images" :key="index" class="box" v-bind:href="image" v-bind:data-lightbox="project.title" data-title="">
                 <img @load="handleLoad" class="screenShot" v-bind:src="image">
               </a>
@@ -43,7 +43,6 @@ export default {
   name: "projects",
   data: function () {
     return {
-      screenShots : null,
       getAddress : "api/projects",
       imgAddress : "api/files/",
       editmode : false,
@@ -53,7 +52,8 @@ export default {
   },
   methods : {
     scrollHorizontal : function (direction){
-      this.screenShots.scroll({
+      let screenShots =
+      screenShots.scroll({
         top: 0,
         left: this.screenShots.scrollLeft + (this.screenShots.offsetWidth * direction),
         behavior: 'smooth'
@@ -72,7 +72,6 @@ export default {
     } else {
       this.editmode = false;
     }
-    this.screenShots = document.getElementById('images');
     let vm = this;
     let JSON = fetch(this.getAddress).then(function(response) {
       vm.projects = [];

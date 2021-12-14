@@ -8,6 +8,8 @@ const { GridFsStorage } = require('multer-gridfs-storage');
 const projectsDB = require('../../configuration/dbConfig'); // db-config
 const path = require('path');
 
+const MongoClient = require("mongodb").MongoClient;
+const mongoClient = new MongoClient(projectsDB.url);
 
 function imageFilter(req, file, callback) {
   if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|jpg|bmp|png|gif)$/))
@@ -31,127 +33,130 @@ const storage = new GridFsStorage({
 
 // get all projects
 router.get('/projects', async (req, res) => {
-  const projects = await loadProjectCollection(projectsDB.collection);
+  //const projects = await loadProjectCollection(projectsDB.collection);
+  await await mongoClient.connect();
+  const projects = mongoClient.db(projectsDB.database).collection(projectsDB.collection);
   res.send(await projects.find({}).toArray()); // find all
 });
 
 // add projects
 router.post('/projects', multer({
       fileFilter: imageFilter, storage: storage})
-    .fields([
-  {name: "file", maxCount: 1},
-  {name: "files", maxCount: 10}]),
+        .fields([
+          {name: "file", maxCount: 1},
+          {name: "files", maxCount: 10}]),
     async (req, res) => {
-  try{
-    const picturesID = [];
-    let thumbnailID = null;
+      try{
+        const picturesID = [];
+        let thumbnailID = null;
 
         if(Object.keys(req.files).length > 0) {
           console.log('tallennetaan kuvallinen projekti');
           console.log('Object.keys(req.files).length = ' + Object.keys(req.files).length)
 
           if(Object.keys(req.files).length === 1){
-                if(req.files['file'] === undefined){
-                  req.files['files'].forEach(p => {
-                    picturesID.push(p.id);
-                  });
-                  await sendBodyToMongo(req.body, null, picturesID);
-                  res.status(201).send();
-                }else{
-                  thumbnailID = req.files['file'][0].id;
-                  await sendBodyToMongo(req.body, thumbnailID, picturesID);
-                  res.status(201).send();
-                }
-              } else {
-                  req.files['files'].forEach(p => {
-                  picturesID.push(p.id);
-                  });
-                  thumbnailID = req.files['file'][0].id;
-                  await sendBodyToMongo(req.body, thumbnailID, picturesID);
-                  res.status(201).send();
-              }
+            if(req.files['file'] === undefined){
+              req.files['files'].forEach(p => {
+                picturesID.push(p.id);
+              });
+              await sendBodyToMongo(req.body, null, picturesID);
+              res.status(201).send();
+            }else{
+              thumbnailID = req.files['file'][0].id;
+              await sendBodyToMongo(req.body, thumbnailID, picturesID);
+              res.status(201).send();
+            }
           } else {
+            req.files['files'].forEach(p => {
+              picturesID.push(p.id);
+            });
+            thumbnailID = req.files['file'][0].id;
+            await sendBodyToMongo(req.body, thumbnailID, picturesID);
+            res.status(201).send();
+          }
+        } else {
           console.log('tallennetaan kuvaton projekti');
 
           await sendBodyToMongo(req.body, thumbnailID, picturesID);
           res.status(201).send();
-         }
+        }
 
-  }catch(e){
-    console.log('e');
-    return res.status(500).send({
-      message: 'Virhe add projects',
-      error: e.message
+      }catch(e){
+        console.log('e');
+        return res.status(500).send({
+          message: 'Virhe add projects',
+          error: e.message
+        });
+      }
     });
-  }
-});
 
 // edit projects
 router.put('/projects/:id', multer({
-  fileFilter: imageFilter, storage: storage})
-.fields([
-  {name: "file", maxCount: 1},
-  {name: "files", maxCount: 10}]),
+      fileFilter: imageFilter, storage: storage})
+        .fields([
+          {name: "file", maxCount: 1},
+          {name: "files", maxCount: 10}]),
     async (req, res) => {
-  try{
-  const projects = await loadProjectCollection(projectsDB.collection);
-  const pictures = await loadProjectCollection(projectsDB.collection + '.files');
-  const editable = await projects.findOne({_id: new mongodb.ObjectID(req.params.id)});
+      try{
+        await mongoClient.connect();
+        const projects = mongoClient.db(projectsDB.database).collection(projectsDB.collection);
+        const pictures = mongoClient.db(projectsDB.database).collection(projectsDB.collection + '.files');
+        const editable = await projects.findOne({_id: new mongodb.ObjectID(req.params.id)});
 
-  // poistetaan thumbnail
-  if(editable.thumb_id != null){
-    await pictures.deleteOne({_id: new mongodb.ObjectID(editable.thumb_id)});
-  }
-
-  //poistetaan kuvia
-    const deletablePics = editable.pics_id;
-  if(deletablePics.length > 0){
-    for(let p of deletablePics){
-      await pictures.deleteOne({_id: p});
-    }
-  }
-// tähän että onnko kuvia vai ei
-    const newPicturesID = [];
-    let newThumbID = null;
-    if(Object.keys(req.files).length > 0) {
-      if(Object.keys(req.files).length === 1){
-        if(req.files['file'] === undefined){
-          req.files['files'].forEach(p => {
-            newPicturesID.push(p.id);
-          });
-        } else {
-          newThumbID = req.files['file'][0].id;
+        // poistetaan thumbnail
+        if(editable.thumb_id != null){
+          await pictures.deleteOne({_id: new mongodb.ObjectID(editable.thumb_id)});
         }
-      } else {
-        newThumbID = req.files['file'][0].id;
-        req.files['files'].forEach(p => {
-          newPicturesID.push(p.id);
-        });
-      }
-    }
-    await projects.updateOne(editable,
-        {
-          $set: {title: req.body.title,
-            descr: req.body.descr,
-            repo: req.body.repo,
-            thumb_id: newThumbID,
-            pics_id: newPicturesID},
-          $currentDate: {lastModified: true}
-        });
-    res.status(201).send();
-  } catch (e){
-    console.log('put error');
-    console.log(e.message);
-  }
 
-});
+        //poistetaan kuvia
+        const deletablePics = editable.pics_id;
+        if(deletablePics.length > 0){
+          for(let p of deletablePics){
+            await pictures.deleteOne({_id: p});
+          }
+        }
+// tähän että onnko kuvia vai ei
+        const newPicturesID = [];
+        let newThumbID = null;
+        if(Object.keys(req.files).length > 0) {
+          if(Object.keys(req.files).length === 1){
+            if(req.files['file'] === undefined){
+              req.files['files'].forEach(p => {
+                newPicturesID.push(p.id);
+              });
+            } else {
+              newThumbID = req.files['file'][0].id;
+            }
+          } else {
+            newThumbID = req.files['file'][0].id;
+            req.files['files'].forEach(p => {
+              newPicturesID.push(p.id);
+            });
+          }
+        }
+        await projects.updateOne(editable,
+            {
+              $set: {title: req.body.title,
+                descr: req.body.descr,
+                repo: req.body.repo,
+                thumb_id: newThumbID,
+                pics_id: newPicturesID},
+              $currentDate: {lastModified: true}
+            });
+        res.status(201).send();
+      } catch (e){
+        console.log('put error');
+        console.log(e.message);
+      }
+
+    });
 
 // delete projects
 router.delete('/projects/:id', async (req, res) => {
 // mitä jos ei ole kuvia/kuvaa/jjnejne
   try {
-    const projectsCollection = await loadProjectCollection(
-        projectsDB.collection);
+    await mongoClient.connect();
+    const projectsCollection = mongoClient.db(projectsDB.database).collection(projectsDB.collection);
     const deletable = await projectsCollection.findOne(
         {_id: new mongodb.ObjectID(req.params.id)});
 
@@ -163,9 +168,9 @@ router.delete('/projects/:id', async (req, res) => {
       await picCollection.deleteOne({_id: thumbID});
 
     if(picsID.length > 0){
-        for(let p of picsID){
-          await picCollection.deleteOne({_id: p});
-        }
+      for(let p of picsID){
+        await picCollection.deleteOne({_id: p});
+      }
     }
 
     await projectsCollection.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
@@ -179,7 +184,8 @@ router.delete('/projects/:id', async (req, res) => {
 // get a project by id
 router.get('/projects/:id', async(req, res) => {
   try{
-    const projectCollection = await loadProjectCollection(projectsDB.collection);
+    await mongoClient.connect();
+    const projectCollection = mongoClient.db(projectsDB.database).collection(projectsDB.collection);
     const project = await projectCollection.findOne({_id: new mongodb.ObjectID(req.params.id)});
     return res.status(200).send(project);
   }catch(e){
@@ -193,7 +199,8 @@ router.get('/projects/:id', async(req, res) => {
 // get project pictures
 router.get('/files', async (req, res) => {
   try{
-    const pictureCollection = await loadProjectCollection(projectsDB.collection + '.files');
+    await mongoClient.connect();
+    const pictureCollection = mongoClient.db(projectsDB.database).collection(projectsDB.collection + '.files');
     const pictures = pictureCollection.find({});
 
     if((await pictures.count()) === 0)
@@ -222,7 +229,8 @@ router.get('/files', async (req, res) => {
 // get picture details by id
 router.get('/files/:id/details', async (req, res) => {
   try{
-    const picturesCollection = await loadProjectCollection(projectsDB.collection + '.files');
+    await mongoClient.connect();
+    const picturesCollection = mongoClient.db(projectsDB.database).collection(projectsDB.collection + '.files');
     const pictureWithDetails = await picturesCollection.findOne({_id: new mongodb.ObjectID(req.params.id)});
     pictureWithDetails.url = 'http://localhost:5000/api/files/' + pictureWithDetails._id; // HUOM KOVAKOODAUS
 
@@ -240,11 +248,10 @@ router.get('/files/:id/details', async (req, res) => {
 router.get('/files/:id', async (req, res) => {
   try{  // ei kutsuta loadProjectsCollectionin avulla perinteisesti, sillä halutaan spesifimmän määrityksen
 
-    const mongoClient = new mongodb.MongoClient(projectsDB.url);
     await mongoClient.connect();
     const db = mongoClient.db(projectsDB.database);
     const bucket = new mongodb.GridFSBucket(db, {
-        bucketName: projectsDB.collection
+      bucketName: projectsDB.collection
     });
 
     const picID = new mongodb.ObjectID(req.params.id);
@@ -265,10 +272,10 @@ router.get('/files/:id', async (req, res) => {
       return res.end();
     });
   }catch(e){
-      return res.status(500).send({
-        message: 'Virhe',
-        error: e.message
-      });
+    return res.status(500).send({
+      message: 'Virhe',
+      error: e.message
+    });
   }
 });
 
