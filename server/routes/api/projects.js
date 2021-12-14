@@ -7,7 +7,7 @@ const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const projectsDB = require('../../configuration/dbConfig'); // db-config
 const path = require('path');
-const {param} = require('express/lib/router');
+// const {param} = require('express/lib/router');
 
 
 function imageFilter(req, file, callback) {
@@ -91,9 +91,31 @@ router.post('/projects', multer({
 
 // delete projects ## tää täytyy modata sillai että poistetaan sit kans liitteitä
 router.delete('/projects/:id', async (req, res) => {
-  const projects = await loadProjectCollection(projectsDB.collection);
-  await projects.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
-  res.status(200).send();
+// mitä jos ei ole kuvia/kuvaa/jjnejne
+  try {
+    const projectsCollection = await loadProjectCollection(
+        projectsDB.collection);
+    const deletable = await projectsCollection.findOne(
+        {_id: new mongodb.ObjectID(req.params.id)});
+
+    const thumbID = deletable.thumb_id;
+    console.log(deletable.thumb_id);
+
+    const picsID = deletable.pics_id;
+    console.log(picsID);
+
+    const picCollection = await loadProjectCollection(projectsDB.collection + '.files');
+    await picCollection.deleteOne({_id: thumbID});
+    for(let p of picsID){
+      await picCollection.deleteOne({_id: p});
+    }
+
+    await projectsCollection.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    res.status(200).send();
+  } catch (e){
+    console.log('virhe');
+    console.log(e.message);
+  }
 });
 
 // get a project by id
