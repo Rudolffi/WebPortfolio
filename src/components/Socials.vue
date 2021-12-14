@@ -26,7 +26,9 @@
       <span>GitHub</span>
     </div>
   </div>
-    <p class="email">Arnold@Terminator.com</p>
+    <p class="email">Arnold@Terminator.com </p>
+    <a id="login" href="/login">Login</a>
+
   </footer>
 </template>
 
