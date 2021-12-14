@@ -91,8 +91,19 @@
     color: #c7c2c2;
 }
 
-@media (max-width: 1050px) {
-    .socials-box {
+@media (max-width: 380px) {
+    .wrapper .social-button {
+        width: 45px;
+        height: 45px;
+        line-height: 30px;
+    }
 
+    .wrapper .social-button .social-icon i {
+        font-size: 20px;
+        line-height: 45px;
+        margin-left: -14px;
+    }
+    .wrapper .social-button .social-icon {
+        line-height: 45px;
     }
 }

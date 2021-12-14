@@ -229,10 +229,11 @@ button:hover {
     .projectHeader {
         margin-left: 40px;
         font-size: 20px;
+        margin-top: 40px;
     }
 
     .artic {
-        margin-left: 33px;
+        margin-left: 25px;
         width: 87%;
 
     }

@@ -20,4 +20,10 @@
     font-family: logoFont;
 }
 
+@media (max-width: 380px) {
+    pre {
+        margin-left: 40px;
+    }
+}
+
 

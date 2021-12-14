@@ -271,9 +271,6 @@ span {
 }
 
 @media (max-width: 380px) {
-    * {
-        font-size: 15px;
-    }
 
     #about-box {
         width: 80%;
@@ -286,13 +283,18 @@ span {
     }
     #skills-motherbox {
         width: 85%;
-        margin: 35px 60px 60px 40px;
+        margin: 35px 60px 5px 30px;
 
     }
 
     .header {
         margin-left: 40px;
         font-size: 20px;
+    }
+
+    #about-box {
+        margin-top: 25px;
+        margin-left: 40px;
     }
 }
 
