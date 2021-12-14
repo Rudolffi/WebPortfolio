@@ -4,11 +4,11 @@
     <article>
       <section>
         <label>Username</label>
-        <input maxlength="50" placeholder="Project Title" type="text" name="title" v-model="title" required/>
+        <input placeholder="username" type="text" name="username" v-model="username" required/>
       </section>
       <section>
         <label>Password</label>
-        <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo" v-model="link"/>
+        <input placeholder="password" type="password" name="password" v-model="password"/>
       </section>
       <button type="submit">Login</button>
     </article>
@@ -17,7 +17,24 @@
 
 <script>
 export default {
-  name: "LoginForm"
+  name: "LoginForm",
+  data: function () {
+    return {
+      username : '',
+      password : ''
+    }
+  },
+  methods: {
+    async submitForm() {
+      const admin = 'Admin';
+      const password = 'Juustokumina123';
+      if(admin.normalize() === this.username.normalize() && password.normalize() === this.password.normalize()) {
+        window.location.href = "/?edit=true";
+      } else {
+        alert("Wrong username or password!!");
+      }
+    }
+  }
 }
 </script>
 
