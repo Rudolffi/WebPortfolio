@@ -37,7 +37,7 @@
 }
 .projectHeader {
     color: #44c7b0;
-    margin: auto auto auto 80px;
+    margin: auto auto 15px 80px;
     font-family: normalText;
 }
 /* unvisited link */
@@ -131,7 +131,10 @@ button:hover {
         overflow: hidden;
     }
     .projectHeader {
-        margin: 50px auto auto;
+        margin: 50px auto 15px 80px;
+    }
+    .addButton {
+        margin-left: 80px;
     }
 }
 
@@ -227,7 +230,7 @@ button:hover {
     background-color: #4caf50;
     border: none;
     border-radius: 15px;
-    margin-top: 4em;
+    margin-top: 10px;
 }
 .addButton:hover{
     background-color: #3e8e41;
