@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="projectbox">
-      <h1 id="project-head" class="projectHeader">Projects</h1>
+      <div>
+        <h1 id="project-head" class="projectHeader">Projects</h1>
+        <a class="projectHeader addButton" v-if="editmode" v-bind:href="'/new'" >Add new</a>
+      </div>
       <article class="artic" v-for="project in projects" :key="project._id">
         <section class="sec">
           <h2 class="title">{{project.title}}</h2>

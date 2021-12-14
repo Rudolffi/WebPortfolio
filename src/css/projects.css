@@ -216,6 +216,22 @@ button:hover {
 .editButton:hover{
     background-color: #3e8e41;
 }
+.addButton{
+    padding: .5em .6em;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 15px;
+    margin-top: 4em;
+}
+.addButton:hover{
+    background-color: #3e8e41;
+}
 
 .innerTitle{
     border-bottom: 2px solid rgba(153, 153, 153, 0.47);
