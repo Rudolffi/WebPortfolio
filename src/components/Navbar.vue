@@ -20,8 +20,11 @@
     </li>
     </div>
   <div>
-    <!-- <img class="light-icon" id="menu-btn" src="../assets/hamppari.png" alt="Hampparimenu"> -->
     <img class="icon" id="menu-btn" src="../assets/hamppari.png" alt="Hampparimenu">
+    <button id="myBtn" title="Go to top" style="display: block;">
+        <img src="../assets/backtotop.png" alt="Back to top nappula">
+    </button>
+
   </div>
   </ul>
   </nav>
@@ -32,22 +35,23 @@
 export default {
   name: "Navbar",
   mounted() {
-    // When the user scrolls the page, execute myFunction
-    window.onscroll = function() {myFunction()};
 
-// Get the navbar
-    var navbar = document.getElementById("nav");
+    window.onscroll = function() {stickyNavbar()};
+    window.onscroll = function () {scrollFunction()};
+
+
+    const navbar = document.getElementById("nav");
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.querySelector(".navbar");
     const cancelBtn = document.querySelector(".cancel-btn");
-    const body = document.querySelector("body");
+    const myButton = document.getElementById("myBtn");
     const navlinks = document.getElementsByClassName("navlink");
 
 // Get the offset position of the navbar
-    var sticky = navbar.offsetTop;
+    let sticky = navbar.offsetTop;
 
 // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
+    function stickyNavbar() {
       if (window.pageYOffset >= sticky) {
         navbar.classList.add("sticky")
       } else {
@@ -70,6 +74,17 @@ export default {
         menuBtn.classList.remove("hide");
         cancelBtn.classList.remove("active");
       }
+    }
+    function scrollFunction() {
+      if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+        myButton.style.display = "block";
+      } else {
+        myButton.style.display = "none";
+      }
+    }
+    myButton.onclick = ()=> {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
   }
 }

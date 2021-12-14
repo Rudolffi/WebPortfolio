@@ -26,6 +26,7 @@
 .desc{
     text-align: left;
     margin-top: 10px;
+    margin-left: 15px;
 }
 .sec{
     border-bottom: 2px solid rgb(157, 22, 224);
@@ -224,7 +225,7 @@ button:hover {
 
 .descc{
     word-wrap: break-word;
-    width: 55%;
+    width: 67%;
 }
 @media (max-width: 630px) {
     .artic {
