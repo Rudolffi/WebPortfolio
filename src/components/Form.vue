@@ -3,7 +3,8 @@
     <article>
       <section>
         <label>Title</label>
-        <input maxlength="50" placeholder="Project Title" type="text" name="title" v-model="title" required/>
+        <input v-bind:maxlength="titleMaxCharacters" placeholder="Project Title" type="text" name="title" v-model="title" required/>
+        <p>{{title.length}}/{{titleMaxCharacters}}</p>
       </section>
       <section>
         <label>Link</label>
@@ -11,7 +12,8 @@
       </section>
       <section>
         <label>Description</label>
-        <textarea maxlength="500" placeholder="Project Description" type="text" name="descr" v-model="descr"/>
+        <textarea v-bind:maxlength="descrMaxCharacters" placeholder="Project Description" type="text" name="descr" v-model="descr"/>
+        <p>{{descr.length}}/{{descrMaxCharacters}}</p>
       </section>
       <section>
         <label>Thumbnail</label>
@@ -52,6 +54,8 @@ export default {
       projectId : -1,
       editmode : false,
       title : '',
+      titleMaxCharacters : 50,
+      descrMaxCharacters : 500,
       link : '',
       descr : '',
       files : document.createElement('input'),
