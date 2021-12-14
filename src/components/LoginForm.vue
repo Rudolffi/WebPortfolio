@@ -6,13 +6,11 @@
     <article>
       <section>
         <label>Username</label>
-        <input placeholder="username" type="text" name="username" v-model="username" required/>
-        <input class="form-input" maxlength="50" type="text" name="title" v-model="title" required/>
+        <input class="form-input" placeholder="Username" type="text" name="username" v-model="username" required/>
       </section>
       <section>
         <label>Password</label>
-        <input placeholder="password" type="password" name="password" v-model="password"/>
-        <input class="form-input" type="url" autocomplete="url" name="repo" v-model="link"/>
+        <input class="form-input" placeholder="Password" type="password" name="password" v-model="password"/>
       </section>
       <button class="form-input" type="submit">Login</button>
     </article>
