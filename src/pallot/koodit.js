@@ -1,5 +1,3 @@
-import {CONFIGURABLE} from "core-js/internals/function-name";
-
 let codeBox;
 let theme = false; // false == dark; true == light
 let orangeKeyWords = ['for', 'let'];
@@ -22,80 +20,6 @@ for(let i = 0; i < particlesArray.length; i++){
                 <p> Is the Best </p>
             </div>
 `;
-function setupTypewriter(t) {
-    var HTML = koodiTeksti_1;
-    t.innerHTML = "";
-
-    var cursorPosition = 0,
-        tag = "",
-        writingTag = false,
-        tagOpen = false,
-        typeSpeed = 0,
-        tempTypeSpeed = 0;
-
-    var type = function() {
-
-        if (writingTag === true) {
-            tag += HTML[cursorPosition];
-        }
-        if(!(HTML[cursorPosition] == "&" )){
-            if (HTML[cursorPosition] === "<") {
-                tempTypeSpeed = 0;
-                if (tagOpen) {
-                    tagOpen = false;
-                    writingTag = true;
-                } else {
-                    tag = "";
-                    tagOpen = true;
-                    writingTag = true;
-                    tag += HTML[cursorPosition];
-                }
-            }
-            if (!writingTag && tagOpen) {
-                tag.innerHTML += HTML[cursorPosition];
-            }
-            if (!writingTag && !tagOpen) {
-                if (HTML[cursorPosition] === " ") {
-                    tempTypeSpeed = 0;
-                }
-                else {
-                    tempTypeSpeed = typeSpeed;
-                }
-                t.innerHTML += HTML[cursorPosition];
-            }
-            if (writingTag === true && HTML[cursorPosition] === ">") {
-                tempTypeSpeed = typeSpeed;
-                writingTag = false;
-                if (tagOpen) {
-                    var newSpan = document.createElement("span");
-                    t.appendChild(newSpan);
-                    typeSpeed = typeSpeed / 2 + typeSpeed / 4;
-                    newSpan.innerHTML = tag;
-                    tag = newSpan.firstChild;
-                }
-            }
-        } else if (!(HTML[cursorPosition] === "\\" )){
-            if (!writingTag && !tagOpen) {
-                if (HTML[cursorPosition] === " ") {
-                    tempTypeSpeed = 0;
-                }
-                else {
-                    tempTypeSpeed = typeSpeed;
-                }
-                t.innerHTML += HTML[cursorPosition];
-            }
-        }
-
-        cursorPosition += 1;
-        if (cursorPosition < HTML.length - 1) {
-            setTimeout(type, tempTypeSpeed);
-        }
-    };
-    return {
-        type: type
-    };
-}
-
 export function init(){
     codeBox = document.getElementById('example-box');
     let typewriter = document.createElement('pre');

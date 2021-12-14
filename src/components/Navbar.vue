@@ -41,6 +41,7 @@ export default {
     const menu = document.querySelector(".navbar");
     const cancelBtn = document.querySelector(".cancel-btn");
     const body = document.querySelector("body");
+    const navlinks = document.getElementsByClassName("navlink");
 
 // Get the offset position of the navbar
     var sticky = navbar.offsetTop;
@@ -58,11 +59,17 @@ export default {
       menuBtn.classList.add("hide");
       cancelBtn.classList.add("active");
     }
-
     cancelBtn.onclick = ()=> {
       menu.classList.remove("active");
       menuBtn.classList.remove("hide");
       cancelBtn.classList.remove("active");
+    }
+    for (let i = 0; i < navlinks.length; i++){
+      navlinks[i].onclick = () => {
+        menu.classList.remove("active");
+        menuBtn.classList.remove("hide");
+        cancelBtn.classList.remove("active");
+      }
     }
   }
 }
