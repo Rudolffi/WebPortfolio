@@ -10,10 +10,6 @@
         <label>Password</label>
         <input placeholder="Project Web-page" type="url" autocomplete="url" name="repo" v-model="link"/>
       </section>
-      <section>
-        <label>Description</label>
-        <textarea placeholder="Project Description" type="text" name="descr" v-model="descr"/>
-      </section>
       <button type="submit">Login</button>
     </article>
   </form>
