@@ -19,18 +19,18 @@
         <section v-if="project.images.length > 0">
           <h4 class="title innerTitle">Images</h4>
           <div class="buttonBox" >
-            <button @click="scrollHorizontal(-1)"  class="fa fa-angle-left"></button>
+            <button @click="scrollHorizontal(project.title, -1)"  class="fa fa-angle-left"></button>
             <div v-bind:id="project.title" class="screenShots">
               <a v-for="(image , index) in project.images" :key="index" class="box" v-bind:href="image" v-bind:data-lightbox="project.title" data-title="">
                 <img @load="handleLoad" class="screenShot" v-bind:src="image">
               </a>
             </div>
-            <button @click="scrollHorizontal(1)" class="fa fa-angle-right"></button>
+            <button @click="scrollHorizontal(project.title, 1)" class="fa fa-angle-right"></button>
           </div>
         </section>
         <section class="projectLink">
           <h4 class="title innerTitle">Link to Project</h4>
-          <p  class="cut-text">Link:  <a v-bind:href="project.repo" >{{project.repo}}</a></p>
+          <p  class="cut-text">Link:  <a target="_blank" v-bind:href="project.repo" >{{project.repo}}</a></p>
         </section>
       </article>
     </div>
@@ -51,11 +51,11 @@ export default {
     }
   },
   methods : {
-    scrollHorizontal : function (direction){
-      let screenShots =
+    scrollHorizontal : function (idname, direction){
+      let screenShots = document.getElementById(idname);
       screenShots.scroll({
         top: 0,
-        left: this.screenShots.scrollLeft + (this.screenShots.offsetWidth * direction),
+        left: screenShots.scrollLeft + (screenShots.offsetWidth * direction),
         behavior: 'smooth'
       });
     },
