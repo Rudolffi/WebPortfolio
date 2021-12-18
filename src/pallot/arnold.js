@@ -1,13 +1,9 @@
 let canvas;
 let ctx;
-let theme = false; // false == dark; true == light
 let terminator;
 let arnold;
 
-const mouse = {
-    x: null,
-    y: null,
-}
+// on terminator image load add event listener to canvas
 function terminator_load(){
     canvas.addEventListener('mouseenter', function(event){
         let scale = Math.min(canvas.width / terminator.width, canvas.height / terminator.height);
@@ -20,6 +16,7 @@ function terminator_load(){
         ctx.globalAlpha = 1;
     });
 }
+// on arnold image load add event listener to canvas
 function arnold_load(){
     canvas.addEventListener('mouseleave', function(event){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -29,6 +26,7 @@ function arnold_load(){
     let scale = Math.min(canvas.width / arnold.width, canvas.height / arnold.height);
     ctx.drawImage(arnold, 0, 0, arnold.width, arnold.height, canvas.width/2 - (arnold.width * scale)/2, 0, arnold.width * scale, arnold.height * scale);
 }
+// initialize canvas, images and event listener
 export function init(){
     terminator = new Image();
     arnold = new Image();
@@ -43,9 +41,7 @@ export function init(){
     terminator.src = require("../assets/terminator.png");
 
     window.addEventListener('resize', function(){
-
         let scale = Math.min(canvas.width / arnold.width, canvas.height / arnold.height);
         ctx.drawImage(arnold, 0, 0, arnold.width, arnold.height, canvas.width/2 - (arnold.width * scale)/2, 0, arnold.width * scale, arnold.height * scale);
-
     });
 }
