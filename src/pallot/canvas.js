@@ -2,7 +2,6 @@ let canvas;
 let ctx;
 const particlesArray = [];
 let hue = 0;
-let light = 0;
 let theme = false; // false == dark; true == light
 let parent;
 
@@ -10,7 +9,7 @@ const mouse = {
     x: null,
     y: null,
 }
-
+// update canvas size
 export function update(){
 
     let body = document.getElementById('app');
@@ -23,6 +22,7 @@ export function update(){
     canvas.height =height;
     parent.appendChild(canvas);
 }
+// Initialize canvas and add all event listeners
 export function init(){
 
     canvas = document.getElementById('gamecanvas');
@@ -74,6 +74,7 @@ export function init(){
     };
     animate();
 }
+// Particle data
 class Particle {
     constructor(){
         this.x = mouse.x;
@@ -113,12 +114,13 @@ class Particle {
         ctx.fill();
     }
 }
-
+// Spawn particles on mouse coordinates
 function spawn(){
     for(let i = 0; i < 5; i++){
         particlesArray.push(new Particle());
     }
 }
+// Handle particle/connection updates and draws
 function handleParticles(){
     for(let i = 0; i < particlesArray.length; i++){
         particlesArray[i].update();
@@ -155,11 +157,8 @@ function handleParticles(){
         particlesArray[i].connections = [];
     }
 }
+// animate is called every AnimationFrame
 function animate(){
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //ctx.fillStyle = 'rgba(255,255,255,0.2)';
-   // ctx.fillStyle = 'rgb(255,255,255)';
-
     if (theme){
         ctx.fillStyle = 'rgba(255,255,255,0.2)';
     } else {
@@ -167,7 +166,6 @@ function animate(){
     }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     handleParticles();
-    hue++;
     requestAnimationFrame(animate);
 }
 

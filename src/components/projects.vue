@@ -51,6 +51,7 @@ export default {
     }
   },
   methods : {
+    // Scroll for images in div
     scrollHorizontal : function (idname, direction){
       let screenShots = document.getElementById(idname);
       screenShots.scroll({
@@ -59,10 +60,12 @@ export default {
         behavior: 'smooth'
       });
     },
+    // when image loads emit event for canvas update (big problems with canvas)
     handleLoad : function () {
       this.$root.$emit('myEvent', 'update');
     }
   },
+  // Fetch projects and projects images
   mounted() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
@@ -78,18 +81,17 @@ export default {
       return response.json();
     }).then(function(json) {
       for(let i = 0; i < json.length; i++){
+        // NULL/Undefined checks
         if(json[i]._id == null || json[i]._id == undefined){
-          console.log("_id: " + json[i]._id);
           continue;
         }
         if(json[i].title == null || json[i].title == undefined){
-          console.log("title: " + json[i].title);
           continue;
         }
         if(json[i].descr == null || json[i].descr == undefined){
-          console.log("descr: " + json[i].descr);
           continue;
         }
+
         let thumbnail = '';
         if(json[i].thumb_id == null || json[i].thumb_id == undefined){
           thumbnail = require('../assets/notfound.png');
@@ -97,10 +99,12 @@ export default {
         } else {
           thumbnail = vm.imgAddress + json[i].thumb_id;
         }
+
         let imageLinks = [];
         for(let j = 0; j < json[i].pics_id.length; j++){
           imageLinks = [...imageLinks, vm.imgAddress + json[i].pics_id[j]];
         }
+        // all project details for display. Vue handles display
         vm.projects = [...vm.projects, {
           _id : json[i]._id,
           title : json[i].title,

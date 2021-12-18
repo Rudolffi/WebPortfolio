@@ -1,9 +1,10 @@
 let codeBox;
-let theme = false; // false == dark; true == light
+// Keywords for different colors
 let orangeKeyWords = ['for', 'let'];
 let purpleKeyWords = ['length', 'connections'];
 let yellowKeyWords = ['big_box', `&lt;div&gt;`,'&lt;/div&gt;',`&lt;h1&gt;`,'&lt;/h1&gt;', `&lt;p&gt;`,'&lt;/p&gt;'];
 let greenKeyWords = ['flex', 'row', 'center', '50px', '100%'];
+// custom text
 let koodiTeksti_1 = `
 for(let i = 0; i < particlesArray.length; i++){
   particlesArray[i].connections = [];
@@ -20,14 +21,15 @@ for(let i = 0; i < particlesArray.length; i++){
                 <p> Is the Best </p>
             </div>
 `;
+// Initialize typewriter
 export function init(){
     codeBox = document.getElementById('example-box');
     let typewriter = document.createElement('pre');
+    // split koodiTeksti_1 to pieces into array, so we can check for key words
     const myArray = koodiTeksti_1.split(/(?=[,().;\s])|(?<=[,().;\s])/g);
-    let text = {html : koodiTeksti_1}
-    koodiTeksti_1 = text.html;
-
+    // assign first p with class
     koodiTeksti_1 = '<p class="codes anim-typewriter">';
+    // row of code
     let row_code = '';
     for(let i = 0; i < myArray.length; i++){
         if (myArray[i].includes('<') || myArray[i].includes('>')){
@@ -48,7 +50,7 @@ export function init(){
         }
 
         row_code += myArray[i];
-
+        // if myArray has \n then it is end of row
         if(myArray[i].includes("\n")){
             let st = "--n:" + row_code.length;
             row_code = `<p class=\"codes anim-typewriter\" style=${st}>` + row_code + `</p>`;
@@ -57,13 +59,6 @@ export function init(){
         }
     }
     koodiTeksti_1 += "</p>";
-    //typewriter.style = "--n:" + koodiTeksti_1.length;
-    //typewriter.className = 'anim-typewriter';
     typewriter.innerHTML = koodiTeksti_1;
-    //let t = setupTypewriter(typewriter);
-    //t.type();
     codeBox.appendChild(typewriter);
-
-    window.addEventListener('resize', function(){
-    });
 }

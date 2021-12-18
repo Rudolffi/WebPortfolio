@@ -71,6 +71,7 @@ export default {
     }
   },
   methods: {
+    // handle project delete quarry
     async deleteProject() {
       let form = document.getElementById("project");
       let vm = this;
@@ -91,6 +92,7 @@ export default {
       }).catch(function(res){
       });
     },
+    // handle project update quarry
     async updateProject() {
       let form = document.getElementById("project");
       let vm = this;
@@ -107,6 +109,7 @@ export default {
       }).catch(function(res){
       });
     },
+    // handle form submit
     async submitForm() {
       let form = document.getElementById("project");
       let vm = this;
@@ -123,9 +126,11 @@ export default {
 
       });
     },
+    // when image loads emit event for canvas update (big problems with canvas)
     handleLoad : function () {
       this.$root.$emit('myEvent', 'update');
     },
+    // add files to image list
     addImagesList : function (files){
       this.projectImages = [];
       for (let i = 0; i < files.length; i++){
@@ -139,12 +144,14 @@ export default {
         console.log(image);
       }
     },
+    // remove image from thumbnail data
     removeImage : function (){
       this.file.files = new DataTransfer().files;
       this.fD = new DataTransfer();
       this.logo.src = '';
       this.logo.display = false;
     },
+    // remove file when remove button has been pressed
     removeFile : function (image){
       this.projectImages = [];
       this.dT = new DataTransfer();
@@ -165,6 +172,7 @@ export default {
         console.log(image);
       }
     },
+    // validate file extension
     validateFile : function (fileName){
       let blnValid = false;
       if (fileName.length > 0) {
@@ -183,6 +191,7 @@ export default {
       return true;
     }
   },
+  // when component is created lets check url parameters for project id:s and fetch project or create new
   created() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
@@ -229,9 +238,9 @@ export default {
       });
     } else {
       this.editmode = false;
-      console.log("Uusi projekti");
     }
   },
+  // sets up all listeners for drag&drops and file changes
   mounted() {
 
     let dragAndDropFile = document.getElementById("dropFile");

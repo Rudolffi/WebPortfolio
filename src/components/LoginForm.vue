@@ -29,7 +29,9 @@ export default {
     }
   },
   methods: {
+    // handle form submit. NOT A REAL LOGIN!!!! Just for demonstration purpose
     async submitForm() {
+      // NOT SECURE AT ALL!!
       const admin = 'Admin';
       const password = 'Juustokumina123';
       if(admin.normalize() === this.username.normalize() && password.normalize() === this.password.normalize()) {
