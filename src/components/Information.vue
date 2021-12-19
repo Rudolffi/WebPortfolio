@@ -71,12 +71,19 @@ export default {
   methods: {
   },
   mounted() {
+    // Käynnistetään Arnold kuvakkeen koodi
     arnold.init();
+
+    // Sivustolle scroll tapahtumakuuntelijat
+    // Skills ja koodipätkä animaatiot aloitetaan kun käyttäjä osuu niiden kohdalle
     window.addEventListener('scroll', startCodeAnimate);
     window.addEventListener('scroll', startSkillsAnimate);
+
+    // Alustetaan laskijat animoinneille
     let animateCount = 0;
     let skillsCount = 0;
 
+    // Funktio, joka tarkkailee onko tietty elementti käyttäjän näkökentässä
     function elementInViewport2(el) {
       let top = el.offsetTop;
       let left = el.offsetLeft;
@@ -97,12 +104,19 @@ export default {
       );
     }
 
+    // Funktio, joka aloittaa koodipätkä animaation, jos koodipätkä laatikko elementti on käyttäjän näkyvissä
+    // Lisää animateCounttiin yhden, jottei animaatio toistu useasti scrollatessa
     function startCodeAnimate () {
       if (elementInViewport2(document.getElementById('example-box')) && animateCount < 1) {
         koodit.init();
         animateCount++;
       }
     }
+
+    // Funktio, joka aloittaa skills animaation, jos skills laatikko elementti on käyttäjän näkyvissä
+    // Hakee kaikki tarvittavat elementit domista ja lisää niihin start classin
+    // Start class sisältää animaatiomäärittelyt
+    // Lisää skillsCounttiin yhden, jottei animaatio toistu useasti scrollatessa
     function startSkillsAnimate () {
       if (elementInViewport2(document.getElementById('skills-motherbox')) && skillsCount < 1) {
         const cssElem = document.querySelector(".skills-bar .bar .progress-line.css");
@@ -121,6 +135,7 @@ export default {
         spanJavaElem.classList.add('start');
         spanJsElem.classList.add('start');
         spanHtmlElem.classList.add('start');
+        skillsCount++;
       }
     }
   }

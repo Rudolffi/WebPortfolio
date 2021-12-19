@@ -36,10 +36,11 @@ export default {
   name: "Navbar",
   mounted() {
 
+    // Sivustolle scroll tapahtumakuuntelijat
     window.onscroll = function() {stickyNavbar()};
     window.onscroll = function () {scrollFunction()};
 
-
+    //Haetaan tarvittavat elementit domista
     const navbar = document.getElementById("nav");
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.querySelector(".navbar");
@@ -47,10 +48,12 @@ export default {
     const myButton = document.getElementById("myBtn");
     const navlinks = document.getElementsByClassName("navlink");
 
-// Get the offset position of the navbar
+
+    // Haetaan navbarin asema
     let sticky = navbar.offsetTop;
 
-// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+
+    // Funktio: Sivustoa scrollattaessa navbar tarttuu sivun yläreunaan mukaan.
     function stickyNavbar() {
       if (window.pageYOffset >= sticky) {
         navbar.classList.add("sticky")
@@ -58,16 +61,22 @@ export default {
         navbar.classList.remove("sticky");
       }
     }
+
+    // Hampparimenua klikatessa laitetaan hamppari-iconi piiloon ja avataan sivumenu
     menuBtn.onclick = ()=> {
       menu.classList.add("active");
       menuBtn.classList.add("hide");
       cancelBtn.classList.add("active");
     }
+
+    // Ruksia klikatessa laitetaan sivumenu piiloon
     cancelBtn.onclick = ()=> {
       menu.classList.remove("active");
       menuBtn.classList.remove("hide");
       cancelBtn.classList.remove("active");
     }
+
+    // Klikatessa jotain nappulaa sivumenussa, menee sivumenu piiloon
     for (let i = 0; i < navlinks.length; i++){
       navlinks[i].onclick = () => {
         menu.classList.remove("active");
@@ -75,6 +84,8 @@ export default {
         cancelBtn.classList.remove("active");
       }
     }
+
+    // Jos sivusto on scrollattuna tarpeeksi alas, lisätään back to top nappula
     function scrollFunction() {
       if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
         myButton.style.display = "block";
@@ -82,6 +93,8 @@ export default {
         myButton.style.display = "none";
       }
     }
+
+    // Back to top nappulaa klikatessa palataan takaisin sivun yläreunaan
     myButton.onclick = ()=> {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

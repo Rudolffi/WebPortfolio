@@ -36,20 +36,30 @@
 export default {
   name: "Socials",
   mounted() {
+
+    // Haetaan tarvittavat elementit
     const linkedIn = document.querySelector(".linkedin");
     const facebook = document.querySelector(".facebook");
     const instagram = document.querySelector(".instagram");
     const github = document.querySelector(".github");
 
+
+    // Avaa linkedin etusivun, kun linkedin socials nappulaa painetaan
     linkedIn.onclick = ()=> {
       window.open('https://www.linkedin.com/');
     }
+
+    // Avaa facebook etusivun, kun facebook socials nappulaa painetaan
     facebook.onclick = ()=> {
       window.open('https://fi-fi.facebook.com/');
     }
+
+    // Avaa instagram etusivun, kun instagram socials nappulaa painetaan
     instagram.onclick = ()=> {
       window.open('https://www.instagram.com/');
     }
+
+    // Avaa github etusivun, kun github socials nappulaa painetaan
     github.onclick = ()=> {
       window.open('https://github.com/');
     }
