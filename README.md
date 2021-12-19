@@ -1,24 +1,18 @@
 # webproject
 
-## Project setup
-```
-npm install
-```
+## Portfoliopohja
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Tässä projektissa kehitettiin nettisivut, joille on myös toimivat admin-sivut. 
+Nettisivun url: https://shrouded-gorge-69388.herokuapp.com/
+Adminsivun url: https://shrouded-gorge-69388.herokuapp.com/?edit=true
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### API
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| URL        | Get           | Post  | Put | Delete |
+| ------------: | -------------:| -----:| -----:| -----:|
+| https://shrouded-gorge-69388.herokuapp.com/api/projects    | Get all projects | Add a new project | / | / |
+| https://shrouded-gorge-69388.herokuapp.com/api/projects/ + project id| Get project by id| / | Edit a specific project | Delete project by id |
+| https://shrouded-gorge-69388.herokuapp.com/api/files | Get all files/photos of all projects | / | / | / |
+| https://shrouded-gorge-69388.herokuapp.com/api/files/ + file id | Watch / zoom in into picture | / | / | / |
+| https://shrouded-gorge-69388.herokuapp.com/api/files/ + file id + /details | Get a specific picture's details | / | / | / |
