@@ -3,8 +3,12 @@
 ## Portfoliopohja
 
 Tässä projektissa kehitettiin nettisivut, joille on myös toimivat admin-sivut. 
-Nettisivun url: https://shrouded-gorge-69388.herokuapp.com/
-Adminsivun url: https://shrouded-gorge-69388.herokuapp.com/?edit=true
+
+### Nettisivun url
+ https://shrouded-gorge-69388.herokuapp.com/
+
+### Adminsivun url
+ https://shrouded-gorge-69388.herokuapp.com/?edit=true
 
 
 ### API
