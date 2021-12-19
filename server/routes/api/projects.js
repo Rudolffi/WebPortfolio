@@ -11,6 +11,7 @@ const path = require('path');
 const MongoClient = require("mongodb").MongoClient;
 const mongoClient = new MongoClient(projectsDB.url);
 
+// kaikki lomakkeesta tulevat tiedostot menevät imageFiltterin läpi, joka tallentaa hyväksyy vain kuvatiedostoja
 function imageFilter(req, file, callback) {
   if (path.extname(file.originalname).toLowerCase().match(/\.(jpeg|jpg|bmp|png|gif)$/))
     callback(null, true)
@@ -115,7 +116,7 @@ router.put('/projects/:id', multer({
             await pictures.deleteOne({_id: p});
           }
         }
-// tähän että onnko kuvia vai ei
+// tähän että onko kuvia vai ei
         const newPicturesID = [];
         let newThumbID = null;
         if(Object.keys(req.files).length > 0) {
@@ -279,6 +280,7 @@ router.get('/files/:id', async (req, res) => {
   }
 });
 
+//funktio, joka lähettää rew.body:n osia mongodb:hen. tämän avulla samaa asiaa ei tarvitse kirjoittaa monta kertaa koodissa
 async function sendBodyToMongo(body, thumbnailID, picturesID){
   const projects = await loadProjectCollection(projectsDB.collection);
   await projects.insertOne({
@@ -290,6 +292,7 @@ async function sendBodyToMongo(body, thumbnailID, picturesID){
   });
 }
 
+// palauttaa meidän mongodb:n collectionin (vastaa sql:n tablea)
 async function loadProjectCollection(coll){
   const client = await mongodb.MongoClient.connect
   (projectsDB.url, {
